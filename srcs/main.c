@@ -6,7 +6,7 @@
 /*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:54:18 by malia             #+#    #+#             */
-/*   Updated: 2024/05/13 12:01:34 by malia            ###   ########.fr       */
+/*   Updated: 2024/05/13 12:05:04 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int	main()
 {
-	ft_printf("Je t'attache au sous sol Emile\n");
+	ft_printf("ET MES COUILLES SUR TON NEZ MARC\n");
 	return (0);
 }
