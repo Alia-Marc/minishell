@@ -6,7 +6,11 @@ LIBFT = ./libft
 
 INCLUDE = /include/minishell.h
 
-SRC = srcs/main.c srcs/parsing/parsing.c srcs/parsing/quotes_handler.c srcs/parsing/quotes_handler2.c
+SRC =	srcs/main.c \
+		srcs/parsing/parsing.c \
+		srcs/parsing/quotes_handler.c \
+		srcs/parsing/quotes_handler2.c \
+		srcs/error/error_msg.c \
 
 FLAGS = -Wall -Wextra -Werror
 

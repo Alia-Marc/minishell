@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:59:39 by emfourni          #+#    #+#             */
-/*   Updated: 2024/07/19 15:57:53 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/07/19 16:18:11 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ bool	ft_is_builtin(char *str)
 // t_prompt	ft_lexer(char *cmd_line)
 // {
 // 	size_t		index;
-// 	// t_prompt	prompt;
-// 	// char		**pipe_split;
+// 	t_prompt	prompt;
+// 	char		**pipe_split;
 
 // 	while (cmd_line[index])
 // 	{
@@ -52,8 +52,8 @@ bool	ft_is_builtin(char *str)
 // 			return (ft_error_empty_cmd_line, free(cmd_line), prompt);
 // 		if (!quotes_handler(cmd_line))
 // 			return (ft_quote_error, free(cmd_line), prompt);
-// 		// if (!check_syntax(cmd_line))
-// 		// 	return (ft_syntax_error, free(cmd_line), prompt);
+// 		if (!check_syntax(cmd_line))
+// 			return (ft_syntax_error, free(cmd_line), prompt);
 // 		index++;
 // 	}
 // 	return (prompt);

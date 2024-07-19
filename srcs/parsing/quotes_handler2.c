@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 15:28:10 by emfourni          #+#    #+#             */
-/*   Updated: 2024/07/19 15:58:52 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/07/19 16:23:31 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 size_t	get_last_pos_quote(char *str, char c)
 {
-	size_t	i;
+	int		i;
 	size_t	last_pos_quote;
 
 	i = ft_strlen(str) - 1;
 	last_pos_quote = 0;
-	while (str[i])
+	while (i >= 0)
 	{
 		if (str[i] == c)
 		{

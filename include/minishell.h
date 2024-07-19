@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:56:27 by malia             #+#    #+#             */
-/*   Updated: 2024/07/19 15:00:01 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/07/19 16:16:14 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include "../libft/libft.h"
 #include "parsing.h"
+#include "error.h"
 #include <stdio.h>
 #include <stdbool.h>
 #include <readline/readline.h>
