@@ -8,8 +8,10 @@ INCLUDE = /include/minishell.h
 
 SRC =	srcs/main.c \
 		srcs/parsing/parsing.c \
-		srcs/parsing/quotes_handler.c \
-		srcs/parsing/quotes_handler2.c \
+		srcs/parsing/quotes_handling/quotes_handler.c \
+		srcs/parsing/quotes_handling/within_quotes.c \
+		srcs/parsing/syntax_checker/check_syntax.c \
+		srcs/parsing/syntax_checker/pipe_checker.c \
 		srcs/error/error_msg.c \
 
 FLAGS = -Wall -Wextra -Werror

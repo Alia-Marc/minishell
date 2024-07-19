@@ -6,11 +6,11 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:13:39 by emfourni          #+#    #+#             */
-/*   Updated: 2024/07/19 15:58:14 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/07/19 16:43:36 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../../include/minishell.h"
 
 int	single_quote_closed(char *str)
 {

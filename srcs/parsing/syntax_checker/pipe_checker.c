@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   pipe_checker.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/13 11:54:18 by malia             #+#    #+#             */
-/*   Updated: 2024/07/19 18:02:47 by emfourni         ###   ########.fr       */
+/*   Created: 2024/07/19 17:17:40 by emfourni          #+#    #+#             */
+/*   Updated: 2024/07/19 18:03:16 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../../include/minishell.h"
 
-int    main(void)
+int	pipe_checker(char *cmd_line)
 {
-    char    *line;
+	size_t index;
 
-    while (1)
-    {
-        line = readline("");
-        printf("%d", pipe_checker(line));
-        free(line);
-    }
-    return (0);
+	index = 0;
+	while (cmd_line[index])
+	{
+		if (cmd_line[index] == '|' && ft_iswhitespace(cmd_line, index))
+			return (0);
+		else if (cmd_line[index] == '|' && ft_rev_iswhitespace(cmd_line, index))
+			return (0);
+		index++;
+	}
+	return (1);
 }
+
+
