@@ -3,17 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:54:18 by malia             #+#    #+#             */
-/*   Updated: 2024/05/13 12:05:04 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/07/19 14:45:33 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	main()
+int    main(void)
 {
-	ft_printf("ET MES COUILLES SUR TON NEZ MARC\n");
-	return (0);
+    char    *line;
+
+    while (1)
+    {
+        line = readline("");
+        printf("%d", quotes_handler(line));
+        free(line);
+    }
+    return (0);
 }

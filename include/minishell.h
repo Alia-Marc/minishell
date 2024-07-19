@@ -3,17 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:56:27 by malia             #+#    #+#             */
-/*   Updated: 2024/07/17 13:52:03 by malia            ###   ########.fr       */
+/*   Updated: 2024/07/19 14:20:03 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../libft/libft.h"
+#include "../libft/libft.h"
+#include "parsing.h"
+#include <stdio.h>
+#include <stdbool.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 extern int			g_signal;
 
@@ -48,5 +53,6 @@ typedef struct s_exec
 	int				exit;
 	pid_t			*pid;
 }					t_exec;
+
 
 #endif

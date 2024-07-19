@@ -4,15 +4,15 @@ NAME_BONUS = minishell_bonus
 
 LIBFT = ./libft
 
-INCLUDE = /include/minishell.h
+INCLUDE = /include/minishell.h /include/parsing.h
 
-SRC = srcs/main.c \
+SRC = srcs/main.c srcs/parsing/parsing.c srcs/parsing/quotes_handler.c
 
 FLAGS = -Wall -Wextra -Werror
 
 $(NAME):    $(SRC)
 			make --silent -C $(LIBFT)
-			cc  $(FLAGS) $(SRC) -I $(INCLUDE) $(LIBFT)/libft.a -o $(NAME)
+			cc  $(FLAGS) $(SRC) -I $(INCLUDE) -lreadline $(LIBFT)/libft.a -o $(NAME) -g3
 
 $(NAME_BONUS):    $(SRC_BONUS)
 			      make --silent -C $(LIBFT)
