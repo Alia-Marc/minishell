@@ -6,7 +6,7 @@
 /*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:08:15 by malia             #+#    #+#             */
-/*   Updated: 2024/07/15 16:42:56 by malia            ###   ########.fr       */
+/*   Updated: 2024/07/19 17:35:05 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,45 +14,44 @@
 
 void fake_init(char **env, t_prompt *prompt)
 {
-	prompt->file = "oui";
-	prompt->cmd[0] = "cat";
+	//prompt->file->file = (char * )malloc(sizeof(char) * 4);
+	prompt->file->file = "oui";
+	prompt->file->mode = 0;
+	prompt->cmd = (char **)malloc(sizeof(char *) * 3);
+	prompt->cmd[0] = "ls";
+	prompt->cmd[1] = "-la";
+	prompt->cmd[2] = "\0";
 	prompt->env = env;
-}
-
-char	*get_path(char *cmd, char **env)
-{
-	int		i;
-	char	**all_path;
-	char	*pre_path;
-	char	*path;
-
-	i = 0;
-	all_path = ft_split(get_line_value("PATH", env), ':');
-	if (!all_path)
-		exit_handler(-2);
-	while (all_path[i])
-	{
-		pre_path = ft_strjoin(all_path[i], "/");
-		path = ft_strjoin(pre_path, cmd);
-		free(pre_path);
-		if (access(path, F_OK | X_OK) == 0)
-			return (path);
-		free(path);
-		i++;
-	}
-	ft_free_tab(all_path);
-	return (cmd);
+	prompt->path = get_path(prompt->cmd[0], env);
+	//free(env);
 }
 
 void	exec(t_prompt *prompt)
 {
+	//execve(prompt->cmd[0], prompt->cmd, prompt->env);
+	ft_printf("%s, %d, %s %s, %s\n", prompt->file->file, prompt->file->mode, prompt->cmd[0], prompt->cmd[1], prompt->path);
 
 }
 
-int	main(char **env)
+int	main(int ac, char **av, char **env)
 {
-	t_prompt *prompt;
+	t_prompt	*prompt;
+	t_file		*file;
 
-	fake_init(env, &prompt);
-	exec(&prompt);
+	file = malloc(sizeof(t_file));
+	prompt = malloc(sizeof(t_prompt));
+	prompt->file = file;
+	fake_init(env, prompt);
+
+	exec(prompt);
+	free(prompt->cmd);
+	free(prompt->path);
+	free(prompt->file);
+	free(prompt);
+
+
+
+	
+	if (av[0][0] == 'p')
+		return (ac);
 }
