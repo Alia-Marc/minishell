@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:59:39 by emfourni          #+#    #+#             */
-/*   Updated: 2024/07/19 14:35:40 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/07/19 15:57:53 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 bool	ft_is_metachar(char c)
 {
-	if (c == '|' || c == '&' || c == ' ' || c == '\t' || c == '\n' ||
-		c == '(' || c == ')')
-			return (true);
+	if (c == '|' || c == '&' || c == ' ' || c == '\t' || c == '\n'
+		|| c == '(' || c == ')')
+		return (true);
 	return (false);
 }
 
@@ -40,20 +40,21 @@ bool	ft_is_builtin(char *str)
 		return (false);
 }
 
-t_prompt	ft_lexer(char *cmd_line)
-{
-	size_t		index;
-	t_prompt	prompt;
-	char		**pipe_split;
+// t_prompt	ft_lexer(char *cmd_line)
+// {
+// 	size_t		index;
+// 	// t_prompt	prompt;
+// 	// char		**pipe_split;
 
-	while (cmd_line[index])
-	{
-		if (!cmd_line[index])
-			return (ft_printf("rentre un truc zebi (ou alors tia le readline casse)\n"), free(cmd_line), prompt);
-		if (!quotes_handler(cmd_line))
-			return (ft_printf("frerot tia pas ferme le(s) quote(s)\n"), free(cmd_line), prompt);
-		if (!check_syntax(cmd_line))
-			return (ft_printf("achete un beschrelle tia la syntax eclatee\n"), free(cmd_line), prompt);
-
-	}
-}
+// 	while (cmd_line[index])
+// 	{
+// 		if (!cmd_line[index])
+// 			return (ft_error_empty_cmd_line, free(cmd_line), prompt);
+// 		if (!quotes_handler(cmd_line))
+// 			return (ft_quote_error, free(cmd_line), prompt);
+// 		// if (!check_syntax(cmd_line))
+// 		// 	return (ft_syntax_error, free(cmd_line), prompt);
+// 		index++;
+// 	}
+// 	return (prompt);
+// }

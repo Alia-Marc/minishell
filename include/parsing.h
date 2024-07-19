@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:16:09 by emfourni          #+#    #+#             */
-/*   Updated: 2024/07/19 14:48:03 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/07/19 15:32:23 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,19 @@
 
 //quotes_handler.c
 
+int	quotes_handler(char *cmd_line);
 int	double_quote_closed(char *str);
 int	single_quote_closed(char *str);
-bool within_double_quote(char *str, size_t index);
+
+//quotes_handler2.c
+
+int within_double_quote(char *str, size_t index);
 int within_single_quote(char *str, size_t index);
+size_t	get_first_pos_quote(char *str, char c);
+size_t	get_last_pos_quote(char *str, char c);
 
 //parsing.c
 
-t_prompt	ft_lexer(char *cmd_line);
+// t_prompt	ft_lexer(char *cmd_line);
 
 #endif

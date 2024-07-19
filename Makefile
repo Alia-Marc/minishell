@@ -4,9 +4,9 @@ NAME_BONUS = minishell_bonus
 
 LIBFT = ./libft
 
-INCLUDE = /include/minishell.h /include/parsing.h
+INCLUDE = /include/minishell.h
 
-SRC = srcs/main.c srcs/parsing/parsing.c srcs/parsing/quotes_handler.c
+SRC = srcs/main.c srcs/parsing/parsing.c srcs/parsing/quotes_handler.c srcs/parsing/quotes_handler2.c
 
 FLAGS = -Wall -Wextra -Werror
 

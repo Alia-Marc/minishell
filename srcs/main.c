@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:54:18 by malia             #+#    #+#             */
-/*   Updated: 2024/07/19 14:53:27 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/07/19 14:56:04 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int    main(void)
     {
         line = readline("");
         printf("%d", quotes_handler(line));
-        // free(line);
+        free(line);
     }
     return (0);
 }
