@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emilefournier <emilefournier@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:59:39 by emfourni          #+#    #+#             */
-/*   Updated: 2024/07/19 18:06:28 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/07/25 11:25:01 by emilefourni      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ bool	ft_iswhitespace(char *str, int index)
 	i = 0;
 	while (str[i] && i < index)
 	{
-		if (str[i] != 32 || !(str[i] >= 9 && str[i] <= 13))
+		if (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
 			return (false);
 		i++;
 	}
@@ -61,7 +61,7 @@ bool	ft_rev_iswhitespace(char *str, int index)
 	i = ft_strlen(str) - 1;
 	while (i >= 0 && i >= index)
 	{
-		if (str[i] != 32 || !(str[i] >= 9 && str[i] <= 13))
+		if (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
 			return (false);
 		i--;
 	}

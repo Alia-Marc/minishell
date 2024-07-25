@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_msg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emilefournier <emilefournier@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 16:09:38 by emfourni          #+#    #+#             */
-/*   Updated: 2024/07/19 16:13:39 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/07/21 12:42:50 by emilefourni      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ void	ft_quote_error(void)
 
 void	ft_syntax_error(void)
 {
-	printf("Achete-toi un Beschrelle le sang ta syntaxe elle est naze\n");
+	printf("Achete-toi un Beschrelle le S ta syntaxe est claquee\n");
 }
