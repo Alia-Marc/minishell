@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:56:27 by malia             #+#    #+#             */
-/*   Updated: 2024/07/19 18:19:13 by malia            ###   ########.fr       */
+/*   Updated: 2024/07/25 15:58:59 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define MINISHELL_H
 
 # include "../libft/libft.h"
-//# include "parsing.h"
-# include "exec.h"
 # include <stdio.h>
 # include <stdbool.h>
 # include <readline/readline.h>
@@ -27,7 +25,7 @@ typedef struct s_file
 {
 	char			*file;
 	int				mode;
-	//struct s_file	*next;
+	struct s_file	*next;
 }					t_file;
 
 typedef struct s_prompt
@@ -41,7 +39,7 @@ typedef struct s_prompt
 	char			*path;
 	char			**env;
 	int				error;
-	//struct s_prompt	*next;
+	struct s_prompt	*next;
 }					t_prompt;
 
 typedef struct s_exec
@@ -54,6 +52,7 @@ typedef struct s_exec
 	int				exit;
 	pid_t			*pid;
 }					t_exec;
+
 
 
 #endif

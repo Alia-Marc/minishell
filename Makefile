@@ -6,7 +6,7 @@ LIBFT = ./libft
 
 INCLUDE = /include/minishell.h
 
-SRC = srcs/exec/exec.c srcs/exec/path.c
+SRC = srcs/exec/exec.c srcs/exec/path.c srcs/exec/fake_inits.c \
 
 FLAGS = -Wall -Wextra -Werror
 

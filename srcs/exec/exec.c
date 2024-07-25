@@ -3,28 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:08:15 by malia             #+#    #+#             */
-/*   Updated: 2024/07/19 17:35:05 by malia            ###   ########.fr       */
+/*   Updated: 2024/07/24 23:10:53 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-void fake_init(char **env, t_prompt *prompt)
-{
-	//prompt->file->file = (char * )malloc(sizeof(char) * 4);
-	prompt->file->file = "oui";
-	prompt->file->mode = 0;
-	prompt->cmd = (char **)malloc(sizeof(char *) * 3);
-	prompt->cmd[0] = "ls";
-	prompt->cmd[1] = "-la";
-	prompt->cmd[2] = "\0";
-	prompt->env = env;
-	prompt->path = get_path(prompt->cmd[0], env);
-	//free(env);
-}
+#include "../../include/exec.h"
 
 void	exec(t_prompt *prompt)
 {
@@ -33,21 +20,50 @@ void	exec(t_prompt *prompt)
 
 }
 
+void	printtest(t_prompt *prompt)
+{
+	t_file		*tmp;
+	t_prompt	*t;
+
+	t = prompt;
+
+	while (t)
+	{
+		tmp = t->file;
+		ft_printf("%s, %d\n", tmp->file, tmp->mode);
+		tmp = tmp->next;
+		ft_printf("%s, %d\n", tmp->file, tmp->mode);
+		ft_printf("%s %s, %s\n", t->cmd[0], t->cmd[1], t->path);
+		t = t->next;
+	}
+
+}
+
 int	main(int ac, char **av, char **env)
 {
 	t_prompt	*prompt;
-	t_file		*file;
 
-	file = malloc(sizeof(t_file));
-	prompt = malloc(sizeof(t_prompt));
-	prompt->file = file;
+//	file = (t_file *)malloc(sizeof(t_file));
+	prompt = (t_prompt *)malloc(sizeof(t_prompt));
+//	prompt->file = file;
+
+	prompt->file = new_file("oui", 0);
 	fake_init(env, prompt);
+	fileadd_back(&prompt->file, new_file("non", 1));
+	fileadd_back(&prompt->file, new_file("bah", 2));
+	fileadd_back(&prompt->file, new_file("gay", 0));
+	
+	//prompt->next = new_prompt("cat", "-e", "p", "d", env);
+	promptadd_back(&prompt, new_prompt("cat", "-e", "p", "d", env));
+	printtest(prompt);
 
-	exec(prompt);
-	free(prompt->cmd);
-	free(prompt->path);
-	free(prompt->file);
-	free(prompt);
+	//exec(prompt);
+	free_prompt(&prompt);
+	//free(prompt->cmd);
+	//free(prompt->path);
+	//free_file(&prompt->file);
+	//free(prompt->file);
+	//free(prompt);
 
 
 
