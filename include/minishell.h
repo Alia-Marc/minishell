@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emilefournier <emilefournier@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:56:27 by malia             #+#    #+#             */
-/*   Updated: 2024/07/19 16:16:14 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/07/26 12:15:21 by emilefourni      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ extern int			g_signal;
 typedef struct s_file
 {
 	char			*file;
-	int				mode;
+	int				mode; // (0) = int file   (1) > = redirection outfile en trunc      (2) >> = redirection append
 	struct s_file	*next;
 }					t_file;
 

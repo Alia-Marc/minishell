@@ -6,7 +6,7 @@
 /*   By: emilefournier <emilefournier@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:17:40 by emfourni          #+#    #+#             */
-/*   Updated: 2024/07/25 14:24:23 by emilefourni      ###   ########.fr       */
+/*   Updated: 2024/07/26 12:14:01 by emilefourni      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ bool	ft_rev_indexwhitespace(char *str, int index)
 {
 	int	i;
 
-	i = ft_strlenex(str) - 1;
+	i = ft_strlen(str) - 1;
 	while (i >= 0 && i >= index)
 	{
 		if (!ft_isspace(str[i]))

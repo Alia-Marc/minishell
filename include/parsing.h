@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emilefournier <emilefournier@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:16:09 by emfourni          #+#    #+#             */
-/*   Updated: 2024/07/19 18:03:39 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/07/26 12:13:52 by emilefourni      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ size_t	get_last_pos_quote(char *str, char c);
 //pipe_checker.c
 
 int	pipe_checker(char *cmd_line);
+bool	ft_rev_indexwhitespace(char *str, int index);
+bool	ft_indexwhitespace(char *str, int index);
+int	ft_isspace(char c);
 
 //redirection_checker.c
 
