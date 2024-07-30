@@ -6,7 +6,7 @@
 /*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:56:27 by malia             #+#    #+#             */
-/*   Updated: 2024/07/25 15:58:59 by alia             ###   ########.fr       */
+/*   Updated: 2024/07/28 22:44:53 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ extern int			g_signal;
 typedef struct s_file
 {
 	char			*file;
-	int				mode;
+	int				mode; //0 infile redir, 1 outfile red, 2 outfile redir append
 	struct s_file	*next;
 }					t_file;
 
