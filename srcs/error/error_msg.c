@@ -6,7 +6,7 @@
 /*   By: emilefournier <emilefournier@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 16:09:38 by emfourni          #+#    #+#             */
-/*   Updated: 2024/07/21 12:42:50 by emilefourni      ###   ########.fr       */
+/*   Updated: 2024/07/27 15:22:14 by emilefourni      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,9 @@ void	ft_quote_error(void)
 void	ft_syntax_error(void)
 {
 	printf("Achete-toi un Beschrelle le S ta syntaxe est claquee\n");
+}
+
+void	ft_metachar_near_token(void)
+{
+	printf("frerot tia le metachar dans le token, la redirection elle est niquee\n");
 }

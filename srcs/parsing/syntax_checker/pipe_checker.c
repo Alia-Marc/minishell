@@ -6,13 +6,13 @@
 /*   By: emilefournier <emilefournier@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:17:40 by emfourni          #+#    #+#             */
-/*   Updated: 2024/07/26 12:14:01 by emilefourni      ###   ########.fr       */
+/*   Updated: 2024/07/27 14:53:57 by emilefourni      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-int	ft_isspace(char c)
+int	ft_isspaceorpipe(char c)
 {
 	if (c == 32 || (c >= 9 && c <= 13) || c == '|' )
 		return (1);
@@ -26,7 +26,7 @@ bool	ft_indexwhitespace(char *str, int index)
 	i = 0;
 	while (str[i] && i < index)
 	{
-		if (!ft_isspace(str[i]))
+		if (!ft_isspaceorpipe(str[i]))
 			return (false);
 		i++;
 	}
@@ -40,7 +40,7 @@ bool	ft_rev_indexwhitespace(char *str, int index)
 	i = ft_strlen(str) - 1;
 	while (i >= 0 && i >= index)
 	{
-		if (!ft_isspace(str[i]))
+		if (!ft_isspaceorpipe(str[i]))
 			return (false);
 		i--;
 	}

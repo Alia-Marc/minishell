@@ -6,7 +6,7 @@
 /*   By: emilefournier <emilefournier@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:59:39 by emfourni          #+#    #+#             */
-/*   Updated: 2024/07/25 11:25:01 by emilefourni      ###   ########.fr       */
+/*   Updated: 2024/07/27 15:29:11 by emilefourni      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 bool	ft_is_metachar(char c)
 {
 	if (c == '|' || c == '&' || c == ' ' || c == '\t' || c == '\n'
-		|| c == '(' || c == ')')
+		|| c == '(' || c == ')' || c == '<' || c == '>')
 		return (true);
 	return (false);
 }
@@ -40,34 +40,6 @@ bool	ft_is_builtin(char *str)
 		return (false);
 }
 
-bool	ft_iswhitespace(char *str, int index)
-{
-	int i;
-
-	i = 0;
-	while (str[i] && i < index)
-	{
-		if (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
-			return (false);
-		i++;
-	}
-	return (true);
-}
-
-bool	ft_rev_iswhitespace(char *str, int index)
-{
-	int i;
-
-	i = ft_strlen(str) - 1;
-	while (i >= 0 && i >= index)
-	{
-		if (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
-			return (false);
-		i--;
-	}
-	return (true);
-}
-
 // t_prompt	ft_lexer(char *cmd_line)
 // {
 // 	size_t		index;
@@ -78,11 +50,11 @@ bool	ft_rev_iswhitespace(char *str, int index)
 // 	pipe_split = NULL;
 // 	while (cmd_line[index])
 // 	{
-// 		if (!cmd_line[index] || ft_iswhitespace(cmd_line, ft_strlen(cmd_line)))
+// 		if (ft_isempty(cmd_line) || ft_iswhitespace(cmd_line, ft_strlen(cmd_line)))
 // 			return (ft_error_empty_cmd_line, free(cmd_line), prompt);
 // 		if (!quotes_handler(cmd_line))
 // 			return (ft_quote_error, free(cmd_line), prompt);
-// 		if (!check_syntax(cmd_line))
+// 		if (!check_syntax(cmd_line, prompt))
 // 			return (ft_syntax_error, free(cmd_line), prompt);
 // 		index++;
 // 	}
