@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_msg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emilefournier <emilefournier@student.42    +#+  +:+       +#+        */
+/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 16:09:38 by emfourni          #+#    #+#             */
-/*   Updated: 2024/07/27 15:22:14 by emilefourni      ###   ########.fr       */
+/*   Updated: 2024/07/30 17:47:09 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ void	ft_quote_error(void)
 
 void	ft_syntax_error(void)
 {
-	printf("Achete-toi un Beschrelle le S ta syntaxe est claquee\n");
+	printf("Achete-toi un Beschrelle le S tia la syntaxe claquee\n");
 }
 
 void	ft_metachar_near_token(void)
 {
-	printf("frerot tia le metachar dans le token, la redirection elle est niquee\n");
+	printf("frerot tia un plem avec le nom d'un file le S\n");
 }

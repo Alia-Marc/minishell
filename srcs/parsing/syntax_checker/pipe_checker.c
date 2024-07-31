@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_checker.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emilefournier <emilefournier@student.42    +#+  +:+       +#+        */
+/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:17:40 by emfourni          #+#    #+#             */
-/*   Updated: 2024/07/27 14:53:57 by emilefourni      ###   ########.fr       */
+/*   Updated: 2024/07/31 16:14:04 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

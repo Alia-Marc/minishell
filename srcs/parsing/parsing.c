@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emilefournier <emilefournier@student.42    +#+  +:+       +#+        */
+/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:59:39 by emfourni          #+#    #+#             */
-/*   Updated: 2024/07/27 15:29:11 by emilefourni      ###   ########.fr       */
+/*   Updated: 2024/07/31 17:38:02 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,27 @@
 
 bool	ft_is_metachar(char c)
 {
-	if (c == '|' || c == '&' || c == ' ' || c == '\t' || c == '\n'
-		|| c == '(' || c == ')' || c == '<' || c == '>')
+	if (c == '|' || c == '&' || c == '(' || c == ')' || c == '<' || c == '>')
 		return (true);
 	return (false);
 }
 
-bool	ft_is_builtin(char *str)
+int	ft_dollarsign_redirect(char *file, int index)
 {
-	if (ft_strcmp(str, "echo") == 0)
-		return (true);
-	if (ft_strcmp(str, "cd") == 0)
-		return (true);
-	if (ft_strcmp(str, "pwd") == 0)
-		return (true);
-	if (ft_strcmp(str, "export") == 0)
-		return (true);
-	if (ft_strcmp(str, "unset") == 0)
-		return (true);
-	if (ft_strcmp(str, "env") == 0)
-		return (true);
-	if (ft_strcmp(str, "exit") == 0)
-		return (true);
-	else
-		return (false);
+	int	temp;
+
+	temp = index;
+	while (file[index])
+	{
+		if (file[temp + 1] == '$')
+			return (printf("ambiguous_redirect"), 0);
+		else if (file[index] == '$')
+			return (index);
+		else if (file[index] == ft_strlen(file) - 1)
+			return (-1); // flag value to notify '$' is at the end and should be in file name
+		index++;
+	}
+	return (0);
 }
 
 // t_prompt	ft_lexer(char *cmd_line)
@@ -50,7 +47,7 @@ bool	ft_is_builtin(char *str)
 // 	pipe_split = NULL;
 // 	while (cmd_line[index])
 // 	{
-// 		if (ft_isempty(cmd_line) || ft_iswhitespace(cmd_line, ft_strlen(cmd_line)))
+// 		if (!cmd_line[index] || ft_iswhitespace(cmd_line, ft_strlen(cmd_line)))
 // 			return (ft_error_empty_cmd_line, free(cmd_line), prompt);
 // 		if (!quotes_handler(cmd_line))
 // 			return (ft_quote_error, free(cmd_line), prompt);

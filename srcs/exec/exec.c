@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:08:15 by malia             #+#    #+#             */
-/*   Updated: 2024/07/15 16:42:56 by malia            ###   ########.fr       */
+/*   Updated: 2024/07/31 16:11:09 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void fake_init(char **env, t_prompt *prompt)
+void	fake_init(char **env, t_prompt *prompt)
 {
 	prompt->file = "oui";
 	prompt->cmd[0] = "cat";
@@ -42,17 +42,4 @@ char	*get_path(char *cmd, char **env)
 	}
 	ft_free_tab(all_path);
 	return (cmd);
-}
-
-void	exec(t_prompt *prompt)
-{
-
-}
-
-int	main(char **env)
-{
-	t_prompt *prompt;
-
-	fake_init(env, &prompt);
-	exec(&prompt);
 }
