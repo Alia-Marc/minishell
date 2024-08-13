@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 17:22:01 by alia              #+#    #+#             */
-/*   Updated: 2024/07/26 00:55:42 by alia             ###   ########.fr       */
+/*   Updated: 2024/07/30 18:17:40 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include "../../include/exec.h"
 
-void	open_redir_files(t_prompt *prompt)
+void	open_redir_files(t_prompt *prompt, t_exec *exec)
 {
 	t_prompt	*tmp_prompt;
 	t_file		*tmp_file;
@@ -30,13 +30,24 @@ void	open_redir_files(t_prompt *prompt)
 			tmp_fd = open_file(tmp_file->file, tmp_file->mode);
 			//ft_printf("%s\n", tmp_file->file);
 			if (tmp_fd < 0)
-				error_handler(tmp_file->file, ": ", 0);
-			if (tmp_fd > 0)
-				close(tmp_fd);
+				error_handler(tmp_file->file, ": ", 0); //shoud be exiting and return a new prompt instead of continuing like now
+			handle_fd(tmp_fd, exec, tmp_file);
 			tmp_file = tmp_file->next;
 		}
 		tmp_prompt = tmp_prompt->next;
 	}
+}
+
+void	handle_fd(int fd, t_exec *exec, t_file *file)
+{
+	if (exec->fd_in != 0 && file->mode == 0)
+		close(exec->fd_in);
+	else if (exec->fd_out != 1 && (file->mode == 1 || file->mode == 2))
+		close(exec->fd_out);
+	if (file->mode == 0)
+		exec->fd_in = fd;
+	else if (file->mode == 1 || file->mode == 2)
+		exec->fd_out = fd;
 }
 
 int	open_file(char *file, int mode)
@@ -44,11 +55,11 @@ int	open_file(char *file, int mode)
 	int	fd;
 	
 	fd = 0;
-	if (mode == 1)
+	if (mode == 0)
 		fd = open(file, O_RDONLY, 0644);
-	if (mode == 2)
+	if (mode == 1)
 		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (mode == 3)
+	if (mode == 2)
 		fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	return (fd);
 }

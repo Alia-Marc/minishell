@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fake_inits.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 16:07:08 by alia              #+#    #+#             */
-/*   Updated: 2024/07/24 22:59:20 by alia             ###   ########.fr       */
+/*   Updated: 2024/08/13 06:48:17 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,25 @@
 void fake_init(char **env, t_prompt *prompt)
 {
 	//prompt->file->file = (char * )malloc(sizeof(char) * 4);
-	prompt->cmd = (char **)malloc(sizeof(char *) * 3);
-	prompt->cmd[0] = "ls";
-	prompt->cmd[1] = "-la";
-	prompt->cmd[2] = "\0";
+	prompt->cmd = ft_split("cat -e y", ' ');
 	prompt->env = env;
 	prompt->path = get_path(prompt->cmd[0], env);
 	prompt->next = NULL;
 	//free(env);
+}
+
+t_exec	*init_exec(char **env)
+{
+	t_exec	*exec;
+	
+	exec = (t_exec *)malloc(sizeof(t_exec));
+	if (!exec)
+		return (NULL);
+	exec->env = env;
+	exec->fd_in = 0;
+	exec->fd_out = 1;
+
+	return (exec);
 }
 
 t_file	*new_file(char *file, int mode)
