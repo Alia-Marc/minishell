@@ -6,12 +6,26 @@
 /*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:08:15 by malia             #+#    #+#             */
-/*   Updated: 2024/08/13 06:49:32 by malia            ###   ########.fr       */
+/*   Updated: 2024/08/13 07:30:45 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include "../../include/exec.h"
+
+int	wait_children(int pid)
+{
+	int	wait_status;
+	int	error_status;
+
+	while (errno != ECHILD)
+		if (wait(&wait_status) == pid && WIFEXITED(wait_status))
+			error_status = WEXITSTATUS(wait_status);
+	if (pid == -1)
+		return (127);
+	exit(error_status);
+	return (error_status);
+}
 
 void	exec_prompt(t_prompt *prompt, t_exec *exec)
 {
@@ -19,19 +33,19 @@ void	exec_prompt(t_prompt *prompt, t_exec *exec)
 	
 	tmp_prompt = prompt;
 	//dup2(exec->fd_out, STDOUT_FILENO);
-	exec_cmd(tmp_prompt, exec);
-	// while (tmp_prompt)
-	// {
-	// 	handle_pipe(tmp_prompt, exec);
+	//exec_cmd(tmp_prompt, exec);
+	while (tmp_prompt)
+	{
+		exec->fd_in = handle_pipe(tmp_prompt, exec);
 
-	// 	tmp_prompt = tmp_prompt->next;
-	// }
+		tmp_prompt = tmp_prompt->next;
+		ft_printf("a");
+	}
+	wait_children(exec->pid);
 }
 
 void	exec_cmd(t_prompt *prompt, t_exec *exec)
 {
-	//char *path = get_path(prompt->cmd[0], prompt->env);
-
 	if (execve(prompt->path, prompt->cmd, exec->env) == -1)
 	{
 		ft_printf("ERROR CMD");
@@ -68,13 +82,13 @@ int	main(int ac, char **av, char **env)
 	prompt->file = new_file("i", 0);
 	fake_init(env, prompt);
 	fileadd_back(&prompt->file, new_file("a", 0));
-	fileadd_back(&prompt->file, new_file("k", 1));
-	fileadd_back(&prompt->file, new_file("emile", 2));
+	//fileadd_back(&prompt->file, new_file("k", 1));
+	//fileadd_back(&prompt->file, new_file("emile", 2));
 	//fileadd_back(&prompt->file, new_file("gay", 0));
 	
-	promptadd_back(&prompt, new_prompt("grep", "u", "o", "b", env));
+	promptadd_back(&prompt, new_prompt("ls", "o", "b", env));
 	printtest(prompt);
-	open_redir_files(prompt, exec);
+	//open_redir_files(prompt, exec);
 
 	ft_printf("fd_in = %d, fd_out = %d\n", exec->fd_in, exec->fd_out);
 

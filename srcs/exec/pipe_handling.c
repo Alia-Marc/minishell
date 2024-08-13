@@ -6,7 +6,7 @@
 /*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 15:52:36 by malia             #+#    #+#             */
-/*   Updated: 2024/07/30 19:21:42 by malia            ###   ########.fr       */
+/*   Updated: 2024/08/13 07:30:52 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 
 int	handle_pipe(t_prompt *prompt, t_exec *exec)
 {
-	pid_t	pid;
+	// pid_t	pid;
 	int		pipe_fd[2];
 
 	if (pipe(pipe_fd) == -1)
 		exit(0);
-	pid = fork();
-	if (pid == -1)
+	exec->pid = fork();
+	if (exec->pid == -1)
 		exit(0);
-	if (pid == 0)
+	if (exec->pid == 0)
 	{
 		do_child(exec->fd_in, pipe_fd);
 		exec_cmd(prompt, exec);

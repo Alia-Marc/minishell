@@ -6,7 +6,7 @@
 /*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 16:07:08 by alia              #+#    #+#             */
-/*   Updated: 2024/08/13 06:48:17 by malia            ###   ########.fr       */
+/*   Updated: 2024/08/13 07:26:45 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void fake_init(char **env, t_prompt *prompt)
 {
 	//prompt->file->file = (char * )malloc(sizeof(char) * 4);
-	prompt->cmd = ft_split("cat -e y", ' ');
+	prompt->cmd = ft_split("cat -e", ' ');
 	prompt->env = env;
 	prompt->path = get_path(prompt->cmd[0], env);
 	prompt->next = NULL;
@@ -91,15 +91,12 @@ void	free_file(t_file **file)
 	}
 }
 
-t_prompt	*new_prompt(char *cmd0, char *cmd1, char *file0, char *file1, char **env)
+t_prompt	*new_prompt(char *cmd, char *file0, char *file1, char **env)
 {
 	t_prompt	*new_prompt;
 
 	new_prompt = (t_prompt *)malloc(sizeof(t_prompt));
-	new_prompt->cmd = (char **)malloc(sizeof(char *) * 3);
-	new_prompt->cmd[0] = cmd0;
-	new_prompt->cmd[1] = cmd1;
-	new_prompt->cmd[2] = "\0";
+	new_prompt->cmd = ft_split(cmd, ' ');
 	new_prompt->env = env;
 	new_prompt->path = get_path(new_prompt->cmd[0], env);
 	new_prompt->next = NULL;

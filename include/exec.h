@@ -6,7 +6,7 @@
 /*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:18:34 by malia             #+#    #+#             */
-/*   Updated: 2024/07/30 19:20:22 by malia            ###   ########.fr       */
+/*   Updated: 2024/08/13 07:31:01 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void		fake_init(char **env, t_prompt *prompt);
 t_file		*new_file(char *file, int mode);
 t_file		*filelast(t_file *file);
 void		fileadd_back(t_file **file, t_file *new);
-t_prompt	*new_prompt(char *cmd0, char *cmd1, char *file0, char *file1, char **env);
+t_prompt	*new_prompt(char *cmd, char *file0, char *file1, char **env);
 t_prompt	*promptlast(t_prompt *prompt);
 void		promptadd_back(t_prompt **prompt, t_prompt *new);
 t_exec		*init_exec(char **env);

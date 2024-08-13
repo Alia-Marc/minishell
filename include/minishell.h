@@ -6,7 +6,7 @@
 /*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:56:27 by malia             #+#    #+#             */
-/*   Updated: 2024/07/30 15:49:09 by malia            ###   ########.fr       */
+/*   Updated: 2024/08/13 07:31:07 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include "../libft/libft.h"
 # include <stdio.h>
 # include <stdbool.h>
+# include <errno.h>
+# include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -50,7 +52,7 @@ typedef struct s_exec
 	int				**pipefd;
 	int				here_docfd[2];
 	int				exit;
-	pid_t			*pid;
+	pid_t			pid;
 }					t_exec;
 
 #endif
