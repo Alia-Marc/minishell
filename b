@@ -1,0 +1,13 @@
+Makefile
+a
+b
+emile
+i
+include
+j
+k
+libft
+minishell
+o
+srcs
+y

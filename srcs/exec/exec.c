@@ -3,44 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:08:15 by malia             #+#    #+#             */
-/*   Updated: 2024/08/13 07:30:45 by malia            ###   ########.fr       */
+/*   Updated: 2024/08/14 06:35:32 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include "../../include/exec.h"
 
-int	wait_children(int pid)
-{
-	int	wait_status;
-	int	error_status;
-
-	while (errno != ECHILD)
-		if (wait(&wait_status) == pid && WIFEXITED(wait_status))
-			error_status = WEXITSTATUS(wait_status);
-	if (pid == -1)
-		return (127);
-	exit(error_status);
-	return (error_status);
-}
-
 void	exec_prompt(t_prompt *prompt, t_exec *exec)
 {
 	t_prompt	*tmp_prompt;
+	int			i;
 	
 	tmp_prompt = prompt;
-	//dup2(exec->fd_out, STDOUT_FILENO);
-	//exec_cmd(tmp_prompt, exec);
-	while (tmp_prompt)
+	i = 1;
+	while (i < exec->n_cmd)
 	{
 		exec->fd_in = handle_pipe(tmp_prompt, exec);
-
 		tmp_prompt = tmp_prompt->next;
-		ft_printf("a");
+		i++;
 	}
+	exec->pid = last_pipe(tmp_prompt, exec, exec->fd_in);
 	wait_children(exec->pid);
 }
 
@@ -86,15 +72,23 @@ int	main(int ac, char **av, char **env)
 	//fileadd_back(&prompt->file, new_file("emile", 2));
 	//fileadd_back(&prompt->file, new_file("gay", 0));
 	
-	promptadd_back(&prompt, new_prompt("ls", "o", "b", env));
+	promptadd_back(&prompt, new_prompt("cat", "o", "b", env));
 	printtest(prompt);
-	//open_redir_files(prompt, exec);
+	len_prompt(prompt, exec);
+	
+	//open_redir_files(prompt, exec); // use redirections files
 
-	ft_printf("fd_in = %d, fd_out = %d\n", exec->fd_in, exec->fd_out);
+	ft_printf("fd_in = %d, fd_out = %d\nlen prompt = %d\n", exec->fd_in, exec->fd_out, exec->n_cmd);
 
 	exec_prompt(prompt, exec);
+	
+	if (exec->fd_out > 2)
+		close(exec->fd_out);
+
 	free_prompt(&prompt);
 	free(exec);
+
+
 	//free(prompt->cmd);
 	//free(prompt->path);
 	//free_file(&prompt->file);

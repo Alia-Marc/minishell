@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_handling.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 15:52:36 by malia             #+#    #+#             */
-/*   Updated: 2024/08/13 07:30:52 by malia            ###   ########.fr       */
+/*   Updated: 2024/08/14 06:30:01 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	handle_pipe(t_prompt *prompt, t_exec *exec)
 	if (exec->pid == 0)
 	{
 		do_child(exec->fd_in, pipe_fd);
+		if (exec->fd_out > 2)
+			close(exec->fd_out);
 		exec_cmd(prompt, exec);
 		exit(0);
 	}
@@ -36,6 +38,34 @@ int	handle_pipe(t_prompt *prompt, t_exec *exec)
 			exec->fd_in = dup2(pipe_fd[READ], exec->fd_in);
 		close(pipe_fd[READ]);
 		return (exec->fd_in);
+	}
+}
+
+int	last_pipe(t_prompt *prompt, t_exec *exec, int fd_infile)
+{
+	pid_t	pid;
+
+	pid = fork();
+	if (pid == -1)
+		exit(0);
+	if (pid == 0)
+	{
+		if (fd_infile > 2)
+		{
+			dup2(fd_infile, STDIN_FILENO);
+			close(fd_infile);
+		}
+		dup2(exec->fd_out, STDOUT_FILENO);
+		if (exec->fd_out > 2)
+			close(exec->fd_out);
+		exec_cmd(prompt, exec);
+		exit(0);
+	}
+	else
+	{
+		if (fd_infile > 2)
+			close(fd_infile);
+		return (pid);
 	}
 }
 

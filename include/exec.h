@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:18:34 by malia             #+#    #+#             */
-/*   Updated: 2024/08/13 07:31:01 by malia            ###   ########.fr       */
+/*   Updated: 2024/08/14 06:30:12 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,15 @@ void		handle_fd(int fd, t_exec *exec, t_file *file);
 
 // Pipe handling
 int			handle_pipe(t_prompt *prompt, t_exec *exec);
+int			last_pipe(t_prompt *prompt, t_exec *exec, int fd_infile);
 void		do_child(int fd_infile, int *pipe_fd);
 void		exec_cmd(t_prompt *prompt, t_exec *exec);
 
 // Error funtcions
 void		error_handler(char *file, char *word, int code);
+
+// Utils
+int			wait_children(int pid);
+void		len_prompt(t_prompt *prompt, t_exec *exec);
 
 #endif
