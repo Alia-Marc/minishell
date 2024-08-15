@@ -6,24 +6,26 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 06:06:24 by marc              #+#    #+#             */
-/*   Updated: 2024/08/14 06:23:55 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/14 07:50:48 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include "../../include/exec.h"
 
-void	len_prompt(t_prompt *prompt, t_exec *exec)
+int	len_prompt(t_prompt *prompt)
 {
 	t_prompt	*tmp_prompt;
+	int			len;
 
 	tmp_prompt = prompt;
-	exec->n_cmd = 0;
+	len = 0;
 	while (tmp_prompt)
 	{
-		exec->n_cmd++;
+		len++;
 		tmp_prompt = tmp_prompt->next;
 	}
+	return (len);
 }
 
 int	wait_children(int pid)

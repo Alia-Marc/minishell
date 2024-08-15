@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 17:22:01 by alia              #+#    #+#             */
-/*   Updated: 2024/07/30 18:17:40 by malia            ###   ########.fr       */
+/*   Updated: 2024/08/15 04:55:56 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include "../../include/exec.h"
 
-void	open_redir_files(t_prompt *prompt, t_exec *exec)
+void	open_redir_files(t_prompt *prompt)
 {
 	t_prompt	*tmp_prompt;
 	t_file		*tmp_file;
@@ -31,7 +31,7 @@ void	open_redir_files(t_prompt *prompt, t_exec *exec)
 			//ft_printf("%s\n", tmp_file->file);
 			if (tmp_fd < 0)
 				error_handler(tmp_file->file, ": ", 0); //shoud be exiting and return a new prompt instead of continuing like now
-			handle_fd(tmp_fd, exec, tmp_file);
+			close(tmp_fd);
 			tmp_file = tmp_file->next;
 		}
 		tmp_prompt = tmp_prompt->next;
@@ -62,4 +62,18 @@ int	open_file(char *file, int mode)
 	if (mode == 2)
 		fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	return (fd);
+}
+
+void	assign_fds(t_prompt *prompt, t_exec *exec)
+{
+	t_file	*tmp_file;
+	int		tmp_fd;
+
+	tmp_file = prompt->file;
+	while (tmp_file)
+	{
+		tmp_fd = open_file(tmp_file->file, tmp_file->mode);
+		handle_fd(tmp_fd, exec, tmp_file);
+		tmp_file = tmp_file->next;
+	}
 }

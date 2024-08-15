@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 16:07:08 by alia              #+#    #+#             */
-/*   Updated: 2024/08/14 06:32:52 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/15 05:22:49 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,15 @@
 void fake_init(char **env, t_prompt *prompt)
 {
 	//prompt->file->file = (char * )malloc(sizeof(char) * 4);
-	prompt->cmd = ft_split("ls", ' ');
+	prompt->cmd = ft_split("cat -e y", ' ');
 	prompt->env = env;
 	prompt->path = get_path(prompt->cmd[0], env);
 	prompt->next = NULL;
+	prompt->file = NULL;
 	//free(env);
 }
 
-t_exec	*init_exec(char **env)
+t_exec	*init_exec(char **env, t_prompt *prompt)
 {
 	t_exec	*exec;
 	
@@ -33,7 +34,7 @@ t_exec	*init_exec(char **env)
 	exec->env = env;
 	exec->fd_in = 0;
 	exec->fd_out = 1;
-
+	exec->n_cmd = len_prompt(prompt);
 	return (exec);
 }
 
@@ -91,7 +92,7 @@ void	free_file(t_file **file)
 	}
 }
 
-t_prompt	*new_prompt(char *cmd, char *file0, char *file1, char **env)
+t_prompt	*new_prompt(char *cmd, char *file0, char *file1, char **env, int file)
 {
 	t_prompt	*new_prompt;
 
@@ -101,8 +102,13 @@ t_prompt	*new_prompt(char *cmd, char *file0, char *file1, char **env)
 	new_prompt->path = get_path(new_prompt->cmd[0], env);
 	new_prompt->next = NULL;
 
-	new_prompt->file = new_file(file0, 0);
-	fileadd_back(&new_prompt->file, new_file(file1, 1));
+	if (file)
+	{
+		new_prompt->file = new_file(file0, 0);
+		fileadd_back(&new_prompt->file, new_file(file1, 1));
+	}
+	else
+		new_prompt->file = NULL;
 	return (new_prompt);
 }
 

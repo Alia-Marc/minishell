@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:08:15 by malia             #+#    #+#             */
-/*   Updated: 2024/08/14 06:35:32 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/15 05:22:28 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,26 @@ void	exec_prompt(t_prompt *prompt, t_exec *exec)
 {
 	t_prompt	*tmp_prompt;
 	int			i;
+	int			result_prev_pipe;
 	
 	tmp_prompt = prompt;
 	i = 1;
+	result_prev_pipe = -2;
 	while (i < exec->n_cmd)
 	{
-		exec->fd_in = handle_pipe(tmp_prompt, exec);
+		assign_fds(tmp_prompt, exec);
+		if (exec->fd_in > 0 || result_prev_pipe == -2)
+			result_prev_pipe = handle_pipe(tmp_prompt, exec, exec->fd_in);
+		else
+			result_prev_pipe = handle_pipe(tmp_prompt, exec, result_prev_pipe);
 		tmp_prompt = tmp_prompt->next;
 		i++;
 	}
-	exec->pid = last_pipe(tmp_prompt, exec, exec->fd_in);
+	assign_fds(tmp_prompt, exec);
+	if (exec->fd_in > 0)
+		exec->pid = last_pipe(tmp_prompt, exec, exec->fd_in);
+	else
+		exec->pid = last_pipe(tmp_prompt, exec, result_prev_pipe);
 	wait_children(exec->pid);
 }
 
@@ -63,28 +73,31 @@ int	main(int ac, char **av, char **env)
 	t_exec		*exec;
 
 	prompt = (t_prompt *)malloc(sizeof(t_prompt));
-	exec = init_exec(env);
 
-	prompt->file = new_file("i", 0);
 	fake_init(env, prompt);
+	prompt->file = new_file("i", 0);
 	fileadd_back(&prompt->file, new_file("a", 0));
 	//fileadd_back(&prompt->file, new_file("k", 1));
-	//fileadd_back(&prompt->file, new_file("emile", 2));
+	fileadd_back(&prompt->file, new_file("emile", 1));
 	//fileadd_back(&prompt->file, new_file("gay", 0));
 	
-	promptadd_back(&prompt, new_prompt("cat", "o", "b", env));
-	printtest(prompt);
-	len_prompt(prompt, exec);
+	promptadd_back(&prompt, new_prompt("grep e", "o", "outfile", env, 1));
+	//promptadd_back(&prompt, new_prompt("cat", "o", "outfile", env, 1));
+	//promptadd_back(&prompt, new_prompt("ls", "o", "outfile", env, 0));
+	//printtest(prompt);
+	exec = init_exec(env, prompt);
 	
-	//open_redir_files(prompt, exec); // use redirections files
+	open_redir_files(prompt); // un-comment to use redirections files
 
-	ft_printf("fd_in = %d, fd_out = %d\nlen prompt = %d\n", exec->fd_in, exec->fd_out, exec->n_cmd);
+	//ft_printf("fd_in = %d, fd_out = %d\nlen prompt = %d\n\n\n", exec->fd_in, exec->fd_out, exec->n_cmd);
 
 	exec_prompt(prompt, exec);
 	
+	
 	if (exec->fd_out > 2)
 		close(exec->fd_out);
-
+	if (exec->fd_in > 2)
+		close(exec->fd_in);
 	free_prompt(&prompt);
 	free(exec);
 
