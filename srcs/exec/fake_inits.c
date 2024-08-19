@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 16:07:08 by alia              #+#    #+#             */
-/*   Updated: 2024/08/15 05:22:49 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/20 00:17:37 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@
 void fake_init(char **env, t_prompt *prompt)
 {
 	//prompt->file->file = (char * )malloc(sizeof(char) * 4);
-	prompt->cmd = ft_split("cat -e y", ' ');
+	prompt->cmd = ft_split("cat y", ' ');
+	//prompt->cmd = NULL;
 	prompt->env = env;
 	prompt->path = get_path(prompt->cmd[0], env);
+	//prompt->path = NULL;
 	prompt->next = NULL;
 	prompt->file = NULL;
 	//free(env);
@@ -78,20 +80,6 @@ void	fileadd_back(t_file **file, t_file *new)
 	}
 }
 
-void	free_file(t_file **file)
-{
-	t_file	*tmp;
-
-	if (!file)
-		return ;
-	while (*file)
-	{
-		tmp = (*file)->next;
-		free(*file);
-		*file = tmp;
-	}
-}
-
 t_prompt	*new_prompt(char *cmd, char *file0, char *file1, char **env, int file)
 {
 	t_prompt	*new_prompt;
@@ -136,22 +124,5 @@ void	promptadd_back(t_prompt **prompt, t_prompt *new)
 		}
 		else
 			*prompt = new;
-	}
-}
-
-void	free_prompt(t_prompt **prompt)
-{
-	t_prompt	*tmp;
-
-	if (!prompt)
-		return ;
-	while (*prompt)
-	{
-		tmp = (*prompt)->next;
-		free_file(&(*prompt)->file);
-		ft_free_tab((*prompt)->cmd);
-		free((*prompt)->path);
-		free(*prompt);
-		*prompt = tmp;
 	}
 }

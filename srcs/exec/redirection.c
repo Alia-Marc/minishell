@@ -6,14 +6,14 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 17:22:01 by alia              #+#    #+#             */
-/*   Updated: 2024/08/15 04:55:56 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/20 00:12:36 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include "../../include/exec.h"
 
-void	open_redir_files(t_prompt *prompt)
+void	open_close_redir(t_prompt *prompt)
 {
 	t_prompt	*tmp_prompt;
 	t_file		*tmp_file;

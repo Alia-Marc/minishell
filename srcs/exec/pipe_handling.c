@@ -6,16 +6,16 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 15:52:36 by malia             #+#    #+#             */
-/*   Updated: 2024/08/15 05:07:24 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/19 23:07:18 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include "../../include/exec.h"
 
-int	handle_pipe(t_prompt *prompt, t_exec *exec, int fd_infile)
+int	handle_pipe(t_prompt *prompt, t_exec *exec, int fd_infile, int i)
 {
-	// pid_t	pid;
+	//pid_t	pid;
 	int		pipe_fd[2];
 
 	if (pipe(pipe_fd) == -1)
@@ -25,7 +25,7 @@ int	handle_pipe(t_prompt *prompt, t_exec *exec, int fd_infile)
 		exit(0);
 	if (exec->pid == 0)
 	{
-		do_child(fd_infile, exec->fd_out, pipe_fd);
+		do_child(fd_infile, exec->fd_out, pipe_fd, i == exec->n_cmd);
 		// if (exec->fd_out > 2)
 		// 	close(exec->fd_out);
 		exec_cmd(prompt, exec);
@@ -38,7 +38,7 @@ int	handle_pipe(t_prompt *prompt, t_exec *exec, int fd_infile)
 		// {
 		// 	exec->fd_out = dup2(pipe_fd[READ], exec->fd_out);
 		// 	close(pipe_fd[READ]);
-		// 	return (-2);
+		// 	return (-2); 
 		// }
 		if (fd_infile >= 0)
 			fd_infile = dup2(pipe_fd[READ], fd_infile);
@@ -49,7 +49,7 @@ int	handle_pipe(t_prompt *prompt, t_exec *exec, int fd_infile)
 
 
 
-void	do_child(int fd_infile, int fd_outfile, int *pipe_fd)
+void	do_child(int fd_infile, int fd_outfile, int *pipe_fd, int last)
 {
 	// if (fd_infile < 0 && mid == 0)
 	// {
@@ -58,6 +58,7 @@ void	do_child(int fd_infile, int fd_outfile, int *pipe_fd)
 	// 	exit_handler(0);
 	// }
 	close(pipe_fd[READ]);
+		ft_printf("%d", last);
 	if (fd_infile > 2)
 	{
 		dup2(fd_infile, STDIN_FILENO);
@@ -68,7 +69,7 @@ void	do_child(int fd_infile, int fd_outfile, int *pipe_fd)
 		dup2(fd_outfile, STDOUT_FILENO);
 		close(fd_outfile);
 	}
-	else
+	else if (!last)
 		dup2(pipe_fd[WRITE], STDOUT_FILENO);
 	close(pipe_fd[WRITE]);
 }

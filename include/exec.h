@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:18:34 by malia             #+#    #+#             */
-/*   Updated: 2024/08/15 05:18:21 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/20 00:12:54 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,15 @@ void		promptadd_back(t_prompt **prompt, t_prompt *new);
 t_exec		*init_exec(char **env, t_prompt *prompt);
 
 // Open files functions
-void		open_redir_files(t_prompt *prompt);
+void		open_close_redir(t_prompt *prompt);
 int			open_file(char *file, int mode);
 void		handle_fd(int fd, t_exec *exec, t_file *file);
 void		assign_fds(t_prompt *prompt, t_exec *exec);
 
 // Pipe handling
-int			handle_pipe(t_prompt *prompt, t_exec *exec, int fd_infile);
+int			handle_pipe(t_prompt *prompt, t_exec *exec, int fd_infile, int i);
 int			last_pipe(t_prompt *prompt, t_exec *exec, int fd_infile);
-void		do_child(int fd_infile, int fd_outfile, int *pipe_fd);
+void		do_child(int fd_infile, int fd_outfile, int *pipe_fd, int last);
 void		exec_cmd(t_prompt *prompt, t_exec *exec);
 
 // Error funtcions

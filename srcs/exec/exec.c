@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:08:15 by malia             #+#    #+#             */
-/*   Updated: 2024/08/15 05:22:28 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/20 00:18:15 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,29 @@ void	exec_prompt(t_prompt *prompt, t_exec *exec)
 	tmp_prompt = prompt;
 	i = 1;
 	result_prev_pipe = -2;
-	while (i < exec->n_cmd)
+	while (i <= exec->n_cmd)
 	{
 		assign_fds(tmp_prompt, exec);
-		if (exec->fd_in > 0 || result_prev_pipe == -2)
-			result_prev_pipe = handle_pipe(tmp_prompt, exec, exec->fd_in);
-		else
-			result_prev_pipe = handle_pipe(tmp_prompt, exec, result_prev_pipe);
+		if (tmp_prompt->cmd)
+		{
+			if (exec->fd_in > 0 || result_prev_pipe == -2)
+				result_prev_pipe = handle_pipe(tmp_prompt, exec, exec->fd_in, i);
+			else
+				result_prev_pipe = handle_pipe(tmp_prompt, exec, result_prev_pipe, i);
+		}
 		tmp_prompt = tmp_prompt->next;
 		i++;
 	}
-	assign_fds(tmp_prompt, exec);
-	if (exec->fd_in > 0)
-		exec->pid = last_pipe(tmp_prompt, exec, exec->fd_in);
-	else
-		exec->pid = last_pipe(tmp_prompt, exec, result_prev_pipe);
+	// assign_fds(tmp_prompt, exec);
+
+	// if (exec->fd_in > 0)
+	// 	wait_children(last_pipe(tmp_prompt, exec, exec->fd_in));
+	// else
+	// 	wait_children(last_pipe(tmp_prompt, exec, result_prev_pipe));
+	// if (exec->fd_in > 0)
+	// 	exec->pid = last_pipe(tmp_prompt, exec, exec->fd_in);
+	// else
+	// 	exec->pid = last_pipe(tmp_prompt, exec, result_prev_pipe);
 	wait_children(exec->pid);
 }
 
@@ -64,7 +72,6 @@ void	printtest(t_prompt *prompt)
 		ft_printf("%s %s, %s\n", t->cmd[0], t->cmd[1], t->path);
 		t = t->next;
 	}
-
 }
 
 int	main(int ac, char **av, char **env)
@@ -75,19 +82,19 @@ int	main(int ac, char **av, char **env)
 	prompt = (t_prompt *)malloc(sizeof(t_prompt));
 
 	fake_init(env, prompt);
-	prompt->file = new_file("i", 0);
-	fileadd_back(&prompt->file, new_file("a", 0));
+	prompt->file = new_file("emile", 1);
+	//fileadd_back(&prompt->file, new_file("i", 0));
 	//fileadd_back(&prompt->file, new_file("k", 1));
-	fileadd_back(&prompt->file, new_file("emile", 1));
+	//fileadd_back(&prompt->file, new_file("i", 1));
 	//fileadd_back(&prompt->file, new_file("gay", 0));
 	
 	promptadd_back(&prompt, new_prompt("grep e", "o", "outfile", env, 1));
-	//promptadd_back(&prompt, new_prompt("cat", "o", "outfile", env, 1));
+	promptadd_back(&prompt, new_prompt("cat", "j", "outfile", env, 1));
 	//promptadd_back(&prompt, new_prompt("ls", "o", "outfile", env, 0));
 	//printtest(prompt);
 	exec = init_exec(env, prompt);
 	
-	open_redir_files(prompt); // un-comment to use redirections files
+	open_close_redir(prompt); // un-comment to use redirections files
 
 	//ft_printf("fd_in = %d, fd_out = %d\nlen prompt = %d\n\n\n", exec->fd_in, exec->fd_out, exec->n_cmd);
 
@@ -101,12 +108,6 @@ int	main(int ac, char **av, char **env)
 	free_prompt(&prompt);
 	free(exec);
 
-
-	//free(prompt->cmd);
-	//free(prompt->path);
-	//free_file(&prompt->file);
-	//free(prompt->file);
-	//free(prompt);
 /*
 	char	**tcmd;
 	char	*path;
