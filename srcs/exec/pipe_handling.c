@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 15:52:36 by malia             #+#    #+#             */
-/*   Updated: 2024/08/19 23:07:18 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/20 17:48:58 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ int	handle_pipe(t_prompt *prompt, t_exec *exec, int fd_infile, int i)
 	}
 }
 
-
-
 void	do_child(int fd_infile, int fd_outfile, int *pipe_fd, int last)
 {
 	// if (fd_infile < 0 && mid == 0)
@@ -58,13 +56,13 @@ void	do_child(int fd_infile, int fd_outfile, int *pipe_fd, int last)
 	// 	exit_handler(0);
 	// }
 	close(pipe_fd[READ]);
-		ft_printf("%d", last);
-	if (fd_infile > 2)
+	//ft_printf("%d", last);
+	if (!isatty(fd_infile))
 	{
 		dup2(fd_infile, STDIN_FILENO);
 		close(fd_infile);
 	}
-	if (fd_outfile > 2)
+	if (!isatty(fd_outfile))
 	{
 		dup2(fd_outfile, STDOUT_FILENO);
 		close(fd_outfile);

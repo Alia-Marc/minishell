@@ -8,6 +8,7 @@ INCLUDE = /include/minishell.h
 
 SRC = srcs/exec/exec.c srcs/exec/path.c srcs/exec/fake_inits.c srcs/exec/redirection.c \
 		srcs/exec/error_handle.c srcs/exec/pipe_handling.c srcs/exec/utils.c srcs/exec/free_structs.c \
+		srcs/exec/here_doc.c \
 
 FLAGS = -Wall -Wextra -Werror
 

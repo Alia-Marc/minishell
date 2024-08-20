@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:18:34 by malia             #+#    #+#             */
-/*   Updated: 2024/08/20 00:12:54 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/20 17:02:48 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_exec		*init_exec(char **env, t_prompt *prompt);
 
 // Open files functions
 void		open_close_redir(t_prompt *prompt);
-int			open_file(char *file, int mode);
+int			open_file(t_prompt *prompt, char *file, int mode);
 void		handle_fd(int fd, t_exec *exec, t_file *file);
 void		assign_fds(t_prompt *prompt, t_exec *exec);
 
@@ -47,6 +47,10 @@ int			handle_pipe(t_prompt *prompt, t_exec *exec, int fd_infile, int i);
 int			last_pipe(t_prompt *prompt, t_exec *exec, int fd_infile);
 void		do_child(int fd_infile, int fd_outfile, int *pipe_fd, int last);
 void		exec_cmd(t_prompt *prompt, t_exec *exec);
+
+// here_doc
+void		write_heredoc(char *delimiter, int *fd);
+void		use_here_doc(t_prompt *prompt);
 
 // Error funtcions
 void		error_handler(char *file, char *word, int code);

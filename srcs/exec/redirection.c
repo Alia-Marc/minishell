@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 17:22:01 by alia              #+#    #+#             */
-/*   Updated: 2024/08/20 00:12:36 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/20 17:09:32 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,16 @@ void	open_close_redir(t_prompt *prompt)
 		tmp_file = tmp_prompt->file;
 		while (tmp_file)
 		{
-			tmp_fd = open_file(tmp_file->file, tmp_file->mode);
+			tmp_fd = open_file(tmp_prompt, tmp_file->file, tmp_file->mode);
 			//ft_printf("%s\n", tmp_file->file);
 			if (tmp_fd < 0)
 				error_handler(tmp_file->file, ": ", 0); //shoud be exiting and return a new prompt instead of continuing like now
-			close(tmp_fd);
+			if (tmp_file->mode != 3)
+				close(tmp_fd);
 			tmp_file = tmp_file->next;
 		}
+		use_here_doc(tmp_prompt);
+		//ft_printf("%d\n", tmp_prompt->use_here_doc);
 		tmp_prompt = tmp_prompt->next;
 	}
 }
@@ -50,9 +53,10 @@ void	handle_fd(int fd, t_exec *exec, t_file *file)
 		exec->fd_out = fd;
 }
 
-int	open_file(char *file, int mode)
+int	open_file(t_prompt *prompt, char *file, int mode)
 {
 	int	fd;
+	int	pipe_fd[2];
 	
 	fd = 0;
 	if (mode == 0)
@@ -61,6 +65,17 @@ int	open_file(char *file, int mode)
 		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (mode == 2)
 		fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (mode == 3)
+	{
+		if (prompt->here_doc_fd > 2)
+			close(prompt->here_doc_fd);
+		if (pipe(pipe_fd) == -1)
+			exit(0);
+		write_heredoc(file, pipe_fd);
+		close(pipe_fd[WRITE]);
+		prompt->here_doc_fd = pipe_fd[READ];
+		return (pipe_fd[READ]);
+	}
 	return (fd);
 }
 
@@ -72,8 +87,19 @@ void	assign_fds(t_prompt *prompt, t_exec *exec)
 	tmp_file = prompt->file;
 	while (tmp_file)
 	{
-		tmp_fd = open_file(tmp_file->file, tmp_file->mode);
-		handle_fd(tmp_fd, exec, tmp_file);
+		if (tmp_file->mode != 3)
+		{
+			tmp_fd = open_file(prompt, tmp_file->file, tmp_file->mode);
+			handle_fd(tmp_fd, exec, tmp_file);
+		}
 		tmp_file = tmp_file->next;
 	}
+	if (prompt->use_here_doc)
+	{
+		if (exec->fd_in > 2)
+			close(exec->fd_in);
+		exec->fd_in = prompt->here_doc_fd;
+	}
+	else if (prompt->here_doc_fd > 2)
+		close(prompt->here_doc_fd);
 }
