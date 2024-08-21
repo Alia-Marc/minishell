@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handle.c                                     :+:      :+:    :+:   */
+/*   builtins_handling.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/26 00:39:25 by alia              #+#    #+#             */
-/*   Updated: 2024/07/30 19:23:49 by malia            ###   ########.fr       */
+/*   Created: 2024/08/21 13:14:59 by marc              #+#    #+#             */
+/*   Updated: 2024/08/21 13:34:09 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include "../../include/exec.h"
 
-void	error_handler(char *file, char *word, int code)
+int	is_builtin(t_prompt *prompt)
 {
-	ft_printf("%s%s", file, word);
-	if (code == 0)
-		perror("");
-	//exit(code);
+	if (!ft_strncmp(prompt->cmd[0], "pwd", 3))
+		return (1);
+	return (0);
+}
+
+int	exec_builtin(t_prompt *prompt)
+{
+	if (!ft_strncmp(prompt->cmd[0], "pwd", 3))
+		return (pwd_builtin());
+	return (1);
 }

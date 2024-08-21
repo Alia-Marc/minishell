@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 16:07:08 by alia              #+#    #+#             */
-/*   Updated: 2024/08/20 17:20:32 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/21 14:23:06 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@
 void fake_init(char **env, t_prompt *prompt)
 {
 	//prompt->file->file = (char * )malloc(sizeof(char) * 4);
-	prompt->cmd = ft_split("cat", ' ');
+	prompt->cmd = ft_split("pwd", ' ');
+	//ft_printf("%s\n%s\n", prompt->cmd[0], prompt->cmd[1]);
 	//prompt->cmd = NULL;
 	prompt->env = env;
 	prompt->path = get_path(prompt->cmd[0], env);
+	//ft_printf("%s\n", prompt->path);
 	//prompt->path = NULL;
 	prompt->next = NULL;
 	prompt->file = NULL;

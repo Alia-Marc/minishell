@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 15:14:48 by malia             #+#    #+#             */
-/*   Updated: 2024/07/24 22:20:18 by alia             ###   ########.fr       */
+/*   Updated: 2024/08/21 12:22:13 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*get_path(char *cmd, char **env)
 		i++;
 	}
 	ft_free_tab(all_path);
-	return (cmd);
+	return (NULL);
 }
 
 char	*get_line_value(char *name, char **env)

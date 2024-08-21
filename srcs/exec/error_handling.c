@@ -1,48 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_structs.c                                     :+:      :+:    :+:   */
+/*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/19 23:49:11 by marc              #+#    #+#             */
-/*   Updated: 2024/08/21 11:51:53 by marc             ###   ########.fr       */
+/*   Created: 2024/07/26 00:39:25 by alia              #+#    #+#             */
+/*   Updated: 2024/08/21 15:08:11 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include "../../include/exec.h"
 
-
-void	free_prompt(t_prompt **prompt)
+void	error_handler(char *file, char *word, int code)
 {
-	t_prompt	*tmp;
-
-	if (!prompt)
-		return ;
-	while (*prompt)
-	{
-		tmp = (*prompt)->next;
-		free_file(&(*prompt)->file);
-		ft_free_tab((*prompt)->cmd);
-		if ((*prompt)->path)
-			free((*prompt)->path);
-		free(*prompt);
-		*prompt = tmp;
-	}
-}
-
-
-void	free_file(t_file **file)
-{
-	t_file	*tmp;
-
-	if (!file)
-		return ;
-	while (*file)
-	{
-		tmp = (*file)->next;
-		free(*file);
-		*file = tmp;
-	}
+	ft_printf("%s%s", file, word);
+	if (code == 0)
+		perror("");
+	//exit(code);
 }

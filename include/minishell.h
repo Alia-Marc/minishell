@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:56:27 by malia             #+#    #+#             */
-/*   Updated: 2024/08/20 17:10:16 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/21 11:01:24 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ typedef struct s_prompt
 	t_file			*file;
 	int				here_doc_fd;
 	int				use_here_doc;
-	//char			**here_doc;
-	//int				len_here_doc;
+//	char			**here_doc;
+//	int				len_here_doc;
 	char			**cmd;
-	int				len_cmd;
+//	int				len_cmd;
 	char			*path;
 	char			**env;
 	int				error;
@@ -50,7 +50,7 @@ typedef struct s_exec
 	char			**env;
 	int				fd_in;
 	int				fd_out;
-	int				**pipefd;
+//	int				**pipefd;
 //	int				here_docfd[2];
 	int				exit;
 	pid_t			pid;

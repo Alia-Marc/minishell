@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:08:15 by malia             #+#    #+#             */
-/*   Updated: 2024/08/20 17:50:16 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/21 17:37:38 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,10 @@ void	exec_prompt(t_prompt *prompt, t_exec *exec)
 
 void	exec_cmd(t_prompt *prompt, t_exec *exec)
 {
+	execve(prompt->cmd[0], prompt->cmd, exec->env);
 	if (execve(prompt->path, prompt->cmd, exec->env) == -1)
 	{
-		ft_printf("ERROR CMD");
+		ft_putstr_fd("ERROR CMD\n", 2);
 	}
 }
 
@@ -83,14 +84,16 @@ int	main(int ac, char **av, char **env)
 
 	fake_init(env, prompt);
 	prompt->file = new_file("a", 0);
-	fileadd_back(&prompt->file, new_file("oe", 3));
+	//fileadd_back(&prompt->file, new_file("oe", 3));
 	//fileadd_back(&prompt->file, new_file("i", 0));
 	//fileadd_back(&prompt->file, new_file("k", 1));
-	//fileadd_back(&prompt->file, new_file("i", 1));
-	fileadd_back(&prompt->file, new_file("gay", 2));
+	fileadd_back(&prompt->file, new_file("oui", 1));
+	//fileadd_back(&prompt->file, new_file("gay", 2));
 	
-	promptadd_back(&prompt, new_prompt("grep e", "o", "outfile", env, 1));
+	//promptadd_back(&prompt, new_prompt("grep e", "o", "outfile", env, 1));
 	//promptadd_back(&prompt, new_prompt("cat", "j", "outfile", env, 1));
+	promptadd_back(&prompt, new_prompt("ls", "o", "outfile", env, 1));
+	
 	//promptadd_back(&prompt, new_prompt("ls", "o", "outfile", env, 0));
 
 	//printtest(prompt);

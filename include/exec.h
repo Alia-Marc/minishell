@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:18:34 by malia             #+#    #+#             */
-/*   Updated: 2024/08/20 17:02:48 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/21 13:38:00 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,9 @@ void		error_handler(char *file, char *word, int code);
 // Utils
 int			wait_children(int pid);
 int			len_prompt(t_prompt *prompt);
+
+int			pwd_builtin(void);
+int			is_builtin(t_prompt *prompt);
+int			exec_builtin(t_prompt *prompt);
 
 #endif

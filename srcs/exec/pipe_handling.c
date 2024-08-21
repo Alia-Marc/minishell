@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 15:52:36 by malia             #+#    #+#             */
-/*   Updated: 2024/08/20 17:48:58 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/21 22:12:14 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 int	handle_pipe(t_prompt *prompt, t_exec *exec, int fd_infile, int i)
 {
-	//pid_t	pid;
 	int		pipe_fd[2];
 
 	if (pipe(pipe_fd) == -1)
@@ -26,20 +25,20 @@ int	handle_pipe(t_prompt *prompt, t_exec *exec, int fd_infile, int i)
 	if (exec->pid == 0)
 	{
 		do_child(fd_infile, exec->fd_out, pipe_fd, i == exec->n_cmd);
-		// if (exec->fd_out > 2)
-		// 	close(exec->fd_out);
-		exec_cmd(prompt, exec);
-		exit(0);
+		if (is_builtin(prompt))
+			exec_builtin(prompt);
+		else
+		{
+			ft_putstr_fd("true cmd\n", 2);
+			exec_cmd(prompt, exec);
+		}
+		free_prompt(&prompt);
+		free(exec);
+		exit(errno);
 	}
 	else
 	{
 		close(pipe_fd[WRITE]);
-		// if (exec->fd_out > 2)
-		// {
-		// 	exec->fd_out = dup2(pipe_fd[READ], exec->fd_out);
-		// 	close(pipe_fd[READ]);
-		// 	return (-2); 
-		// }
 		if (fd_infile >= 0)
 			fd_infile = dup2(pipe_fd[READ], fd_infile);
 		close(pipe_fd[READ]);
@@ -100,6 +99,40 @@ int	last_pipe(t_prompt *prompt, t_exec *exec, int fd_infile)
 	}
 }
 
+
+// int	handle_pipe(t_prompt *prompt, t_exec *exec, int fd_infile, int i)
+// {
+// 	//pid_t	pid;
+// 	int		pipe_fd[2];
+
+// 	if (pipe(pipe_fd) == -1)
+// 		exit(0);
+// 	exec->pid = fork();
+// 	if (exec->pid == -1)
+// 		exit(0);
+// 	if (exec->pid == 0)
+// 	{
+// 		do_child(fd_infile, exec->fd_out, pipe_fd, i == exec->n_cmd);
+// 		// if (exec->fd_out > 2)
+// 		// 	close(exec->fd_out);
+// 		exec_cmd(prompt, exec);
+// 		exit(0);
+// 	}
+// 	else
+// 	{
+// 		close(pipe_fd[WRITE]);
+// 		// if (exec->fd_out > 2)
+// 		// {
+// 		// 	exec->fd_out = dup2(pipe_fd[READ], exec->fd_out);
+// 		// 	close(pipe_fd[READ]);
+// 		// 	return (-2); 
+// 		// }
+// 		if (fd_infile >= 0)
+// 			fd_infile = dup2(pipe_fd[READ], fd_infile);
+// 		close(pipe_fd[READ]);
+// 		return (fd_infile);
+// 	}
+// }
 // int	mid_pipe(char *cmd, char **env, int fd_infile)
 // {
 // 	pid_t	pid;
