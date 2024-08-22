@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 15:52:36 by malia             #+#    #+#             */
-/*   Updated: 2024/08/21 22:12:14 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/22 12:18:38 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,17 @@ int	handle_pipe(t_prompt *prompt, t_exec *exec, int fd_infile, int i)
 	if (exec->pid == 0)
 	{
 		do_child(fd_infile, exec->fd_out, pipe_fd, i == exec->n_cmd);
-		if (is_builtin(prompt))
-			exec_builtin(prompt);
-		else
+		if (prompt->cmd[0])
 		{
-			ft_putstr_fd("true cmd\n", 2);
-			exec_cmd(prompt, exec);
+			if (is_builtin(prompt))
+				exec_builtin(prompt);
+			else
+			{
+				//ft_putstr_fd("true cmd\n", 2);
+				exec_cmd(prompt, exec);
+			}
 		}
-		free_prompt(&prompt);
-		free(exec);
-		exit(errno);
+		return (exec->pid);
 	}
 	else
 	{

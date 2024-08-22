@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:08:15 by malia             #+#    #+#             */
-/*   Updated: 2024/08/21 17:37:38 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/22 12:15:28 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,19 @@ void	exec_prompt(t_prompt *prompt, t_exec *exec)
 	while (i <= exec->n_cmd)
 	{
 		assign_fds(tmp_prompt, exec);
-		if (tmp_prompt->cmd)
+		if (exec->fd_in > 0 || result_prev_pipe == -2)
+			result_prev_pipe = handle_pipe(tmp_prompt, exec, exec->fd_in, i);
+		else
+			result_prev_pipe = handle_pipe(tmp_prompt, exec, result_prev_pipe, i);
+		if (exec->pid == 0)
 		{
-			if (exec->fd_in > 0 || result_prev_pipe == -2)
-				result_prev_pipe = handle_pipe(tmp_prompt, exec, exec->fd_in, i);
-			else
-				result_prev_pipe = handle_pipe(tmp_prompt, exec, result_prev_pipe, i);
+			free_prompt(&prompt);
+			free(exec);
+			exit(errno);
 		}
 		tmp_prompt = tmp_prompt->next;
 		i++;
 	}
-	// assign_fds(tmp_prompt, exec);
-
-	// if (exec->fd_in > 0)
-	// 	wait_children(last_pipe(tmp_prompt, exec, exec->fd_in));
-	// else
-	// 	wait_children(last_pipe(tmp_prompt, exec, result_prev_pipe));
-	// if (exec->fd_in > 0)
-	// 	exec->pid = last_pipe(tmp_prompt, exec, exec->fd_in);
-	// else
-	// 	exec->pid = last_pipe(tmp_prompt, exec, result_prev_pipe);
 	wait_children(exec->pid);
 }
 
@@ -87,12 +80,12 @@ int	main(int ac, char **av, char **env)
 	//fileadd_back(&prompt->file, new_file("oe", 3));
 	//fileadd_back(&prompt->file, new_file("i", 0));
 	//fileadd_back(&prompt->file, new_file("k", 1));
-	fileadd_back(&prompt->file, new_file("oui", 1));
+	//fileadd_back(&prompt->file, new_file("oui", 1));
 	//fileadd_back(&prompt->file, new_file("gay", 2));
 	
 	//promptadd_back(&prompt, new_prompt("grep e", "o", "outfile", env, 1));
 	//promptadd_back(&prompt, new_prompt("cat", "j", "outfile", env, 1));
-	promptadd_back(&prompt, new_prompt("ls", "o", "outfile", env, 1));
+	promptadd_back(&prompt, new_prompt("", "o", "outfile", env, 1));
 	
 	//promptadd_back(&prompt, new_prompt("ls", "o", "outfile", env, 0));
 

@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 17:22:01 by alia              #+#    #+#             */
-/*   Updated: 2024/08/20 17:09:32 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/22 12:00:55 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,3 +103,17 @@ void	assign_fds(t_prompt *prompt, t_exec *exec)
 	else if (prompt->here_doc_fd > 2)
 		close(prompt->here_doc_fd);
 }
+
+// void	close_fds(t_exec *exec)
+// {
+// 	if (!isatty(exec->fd_in))
+// 	{
+// 		close(exec->fd_in);
+// 		exec->fd_in = STDIN_FILENO;
+// 	}
+// 	if (!isatty(exec->fd_out))
+// 	{
+// 		close(exec->fd_out);
+// 		exec->fd_out = STDOUT_FILENO;
+// 	}
+// }

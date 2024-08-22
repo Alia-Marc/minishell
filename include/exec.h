@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:18:34 by malia             #+#    #+#             */
-/*   Updated: 2024/08/21 13:38:00 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/22 12:00:59 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_prompt	*promptlast(t_prompt *prompt);
 void		promptadd_back(t_prompt **prompt, t_prompt *new);
 t_exec		*init_exec(char **env, t_prompt *prompt);
 
-// Open files functions
+// Handle files functions
 void		open_close_redir(t_prompt *prompt);
 int			open_file(t_prompt *prompt, char *file, int mode);
 void		handle_fd(int fd, t_exec *exec, t_file *file);

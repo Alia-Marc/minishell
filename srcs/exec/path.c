@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 15:14:48 by malia             #+#    #+#             */
-/*   Updated: 2024/08/21 12:22:13 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/22 11:48:06 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ char	*get_path(char *cmd, char **env)
 	char	*path;
 
 	i = 0;
+	if (!cmd)
+		return (NULL);
 	all_path = ft_split(get_line_value("PATH", env), ':');
 	//if (!all_path)
 	//	exit_handler(-2);
