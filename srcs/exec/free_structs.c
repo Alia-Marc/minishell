@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 23:49:11 by marc              #+#    #+#             */
-/*   Updated: 2024/08/21 11:51:53 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/22 16:43:08 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,11 @@ void	free_file(t_file **file)
 		free(*file);
 		*file = tmp;
 	}
+}
+
+void	exit_free_all(t_prompt *prompt, t_exec *exec)
+{
+	free_prompt(&prompt);
+	free(exec);
+	exit(errno);
 }

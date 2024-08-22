@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 15:52:36 by malia             #+#    #+#             */
-/*   Updated: 2024/08/22 12:18:38 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/22 17:11:16 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,12 @@ int	handle_pipe(t_prompt *prompt, t_exec *exec, int fd_infile, int i)
 	else
 	{
 		close(pipe_fd[WRITE]);
-		if (fd_infile >= 0)
-			fd_infile = dup2(pipe_fd[READ], fd_infile);
-		close(pipe_fd[READ]);
-		return (fd_infile);
+		if (!isatty(fd_infile) && fd_infile > 2)
+			close(fd_infile);
+		// if (fd_infile >= 0)
+		// 	fd_infile = dup2(pipe_fd[READ], fd_infile);
+		// close(pipe_fd[READ]);
+		return (pipe_fd[READ]);
 	}
 }
 
@@ -57,12 +59,12 @@ void	do_child(int fd_infile, int fd_outfile, int *pipe_fd, int last)
 	// }
 	close(pipe_fd[READ]);
 	//ft_printf("%d", last);
-	if (!isatty(fd_infile))
+	if (!isatty(fd_infile) && fd_infile > 2)
 	{
 		dup2(fd_infile, STDIN_FILENO);
 		close(fd_infile);
 	}
-	if (!isatty(fd_outfile))
+	if (!isatty(fd_outfile) && fd_outfile > 2)
 	{
 		dup2(fd_outfile, STDOUT_FILENO);
 		close(fd_outfile);

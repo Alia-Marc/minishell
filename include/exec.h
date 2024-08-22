@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:18:34 by malia             #+#    #+#             */
-/*   Updated: 2024/08/22 12:00:59 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/22 16:44:17 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ char		*get_line_value(char *name, char **env);
 // Free Functions
 void		free_file(t_file **file);
 void		free_prompt(t_prompt **prompt);
+void		exit_free_all(t_prompt *prompt, t_exec *exec);
 
 // Fake inits of t_files and t_prompts + small init of exec
 void		fake_init(char **env, t_prompt *prompt);
@@ -41,6 +42,7 @@ void		open_close_redir(t_prompt *prompt);
 int			open_file(t_prompt *prompt, char *file, int mode);
 void		handle_fd(int fd, t_exec *exec, t_file *file);
 void		assign_fds(t_prompt *prompt, t_exec *exec);
+void		close_fds(t_exec *exec);
 
 // Pipe handling
 int			handle_pipe(t_prompt *prompt, t_exec *exec, int fd_infile, int i);

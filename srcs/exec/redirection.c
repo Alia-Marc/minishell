@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 17:22:01 by alia              #+#    #+#             */
-/*   Updated: 2024/08/22 12:00:55 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/22 16:27:47 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	assign_fds(t_prompt *prompt, t_exec *exec)
 	int		tmp_fd;
 
 	tmp_file = prompt->file;
+	close_fds(exec);
 	while (tmp_file)
 	{
 		if (tmp_file->mode != 3)
@@ -104,16 +105,16 @@ void	assign_fds(t_prompt *prompt, t_exec *exec)
 		close(prompt->here_doc_fd);
 }
 
-// void	close_fds(t_exec *exec)
-// {
-// 	if (!isatty(exec->fd_in))
-// 	{
-// 		close(exec->fd_in);
-// 		exec->fd_in = STDIN_FILENO;
-// 	}
-// 	if (!isatty(exec->fd_out))
-// 	{
-// 		close(exec->fd_out);
-// 		exec->fd_out = STDOUT_FILENO;
-// 	}
-// }
+void	close_fds(t_exec *exec)
+{
+	if (!isatty(exec->fd_in))
+	{
+		close(exec->fd_in);
+		exec->fd_in = STDIN_FILENO;
+	}
+	if (!isatty(exec->fd_out))
+	{
+		close(exec->fd_out);
+		exec->fd_out = STDOUT_FILENO;
+	}
+}

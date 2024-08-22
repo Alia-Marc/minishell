@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:08:15 by malia             #+#    #+#             */
-/*   Updated: 2024/08/22 12:15:28 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/22 17:33:21 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,20 @@ void	exec_prompt(t_prompt *prompt, t_exec *exec)
 	{
 		assign_fds(tmp_prompt, exec);
 		if (exec->fd_in > 0 || result_prev_pipe == -2)
+		{
+			if (!isatty(result_prev_pipe) && result_prev_pipe > 2)
+				close(result_prev_pipe);
 			result_prev_pipe = handle_pipe(tmp_prompt, exec, exec->fd_in, i);
+		}
 		else
 			result_prev_pipe = handle_pipe(tmp_prompt, exec, result_prev_pipe, i);
 		if (exec->pid == 0)
-		{
-			free_prompt(&prompt);
-			free(exec);
-			exit(errno);
-		}
+			exit_free_all(prompt, exec);
 		tmp_prompt = tmp_prompt->next;
 		i++;
 	}
+	if (!isatty(result_prev_pipe) && result_prev_pipe > 2)
+		close(result_prev_pipe);
 	wait_children(exec->pid);
 }
 
@@ -77,17 +79,18 @@ int	main(int ac, char **av, char **env)
 
 	fake_init(env, prompt);
 	prompt->file = new_file("a", 0);
-	//fileadd_back(&prompt->file, new_file("oe", 3));
+	fileadd_back(&prompt->file, new_file("oe", 3));
 	//fileadd_back(&prompt->file, new_file("i", 0));
 	//fileadd_back(&prompt->file, new_file("k", 1));
 	//fileadd_back(&prompt->file, new_file("oui", 1));
 	//fileadd_back(&prompt->file, new_file("gay", 2));
 	
-	//promptadd_back(&prompt, new_prompt("grep e", "o", "outfile", env, 1));
+	//promptadd_back(&prompt, new_prompt("grep e", "k", "outfile", env, 0));
 	//promptadd_back(&prompt, new_prompt("cat", "j", "outfile", env, 1));
-	promptadd_back(&prompt, new_prompt("", "o", "outfile", env, 1));
+	//promptadd_back(&prompt, new_prompt("", "o", "outfile", env, 1));
 	
 	//promptadd_back(&prompt, new_prompt("ls", "o", "outfile", env, 0));
+	//promptadd_back(&prompt, new_prompt("cat", "o", "outfile", env, 0));
 
 	//printtest(prompt);
 	exec = init_exec(env, prompt);
