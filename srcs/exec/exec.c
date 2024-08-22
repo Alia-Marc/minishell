@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:08:15 by malia             #+#    #+#             */
-/*   Updated: 2024/08/22 17:33:21 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/22 21:10:49 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,15 @@ void	exec_prompt(t_prompt *prompt, t_exec *exec)
 void	exec_cmd(t_prompt *prompt, t_exec *exec)
 {
 	execve(prompt->cmd[0], prompt->cmd, exec->env);
+	if (!prompt->path)
+	{
+		ft_fdprintf(2, "kimonOS: %s: command not found\n", prompt->cmd[0]);
+		return ;
+	}
 	if (execve(prompt->path, prompt->cmd, exec->env) == -1)
 	{
-		ft_putstr_fd("ERROR CMD\n", 2);
+		ft_putstr_fd("ERROR CMD POURQUOI?\n", 2);
+		return ;
 	}
 }
 
@@ -78,14 +84,14 @@ int	main(int ac, char **av, char **env)
 	prompt = (t_prompt *)malloc(sizeof(t_prompt));
 
 	fake_init(env, prompt);
-	prompt->file = new_file("a", 0);
-	fileadd_back(&prompt->file, new_file("oe", 3));
+	//prompt->file = new_file("emile", 0);
+	//fileadd_back(&prompt->file, new_file("oe", 3));
 	//fileadd_back(&prompt->file, new_file("i", 0));
 	//fileadd_back(&prompt->file, new_file("k", 1));
 	//fileadd_back(&prompt->file, new_file("oui", 1));
 	//fileadd_back(&prompt->file, new_file("gay", 2));
 	
-	//promptadd_back(&prompt, new_prompt("grep e", "k", "outfile", env, 0));
+	promptadd_back(&prompt, new_prompt("grep e", "o", "outfile", env, 0));
 	//promptadd_back(&prompt, new_prompt("cat", "j", "outfile", env, 1));
 	//promptadd_back(&prompt, new_prompt("", "o", "outfile", env, 1));
 	
@@ -98,8 +104,6 @@ int	main(int ac, char **av, char **env)
 	//ft_printf("fd_in = %d, fd_out = %d\nlen prompt = %d\n\n\n", exec->fd_in, exec->fd_out, exec->n_cmd);
 
 	exec_prompt(prompt, exec);
-	
-	
 	if (exec->fd_out > 2)
 		close(exec->fd_out);
 	if (exec->fd_in > 2)
