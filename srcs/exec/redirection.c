@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 17:22:01 by alia              #+#    #+#             */
-/*   Updated: 2024/08/22 16:27:47 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/23 15:06:39 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
 #include "../../include/exec.h"
 
 void	open_close_redir(t_prompt *prompt)
@@ -30,7 +29,7 @@ void	open_close_redir(t_prompt *prompt)
 			tmp_fd = open_file(tmp_prompt, tmp_file->file, tmp_file->mode);
 			//ft_printf("%s\n", tmp_file->file);
 			if (tmp_fd < 0)
-				error_handler(tmp_file->file, ": ", 0); //shoud be exiting and return a new prompt instead of continuing like now
+				error_handler(tmp_file->file, ": ", 0); //shoud be exiting and asking for a new prompt instead of continuing like now
 			if (tmp_file->mode != 3)
 				close(tmp_fd);
 			tmp_file = tmp_file->next;
@@ -67,7 +66,7 @@ int	open_file(t_prompt *prompt, char *file, int mode)
 		fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (mode == 3)
 	{
-		if (prompt->here_doc_fd > 2)
+		if (!isatty(prompt->here_doc_fd) && prompt->here_doc_fd > 2)
 			close(prompt->here_doc_fd);
 		if (pipe(pipe_fd) == -1)
 			exit(0);
@@ -107,12 +106,12 @@ void	assign_fds(t_prompt *prompt, t_exec *exec)
 
 void	close_fds(t_exec *exec)
 {
-	if (!isatty(exec->fd_in))
+	if (!isatty(exec->fd_in) && exec->fd_in > 2)
 	{
 		close(exec->fd_in);
 		exec->fd_in = STDIN_FILENO;
 	}
-	if (!isatty(exec->fd_out))
+	if (!isatty(exec->fd_out) && exec->fd_out > 2)
 	{
 		close(exec->fd_out);
 		exec->fd_out = STDOUT_FILENO;

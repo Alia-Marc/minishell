@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_handling.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 15:52:36 by malia             #+#    #+#             */
-/*   Updated: 2024/08/22 17:11:16 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/23 15:14:21 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
 #include "../../include/exec.h"
 
 int	handle_pipe(t_prompt *prompt, t_exec *exec, int fd_infile, int i)
@@ -27,13 +26,13 @@ int	handle_pipe(t_prompt *prompt, t_exec *exec, int fd_infile, int i)
 		do_child(fd_infile, exec->fd_out, pipe_fd, i == exec->n_cmd);
 		if (prompt->cmd[0])
 		{
-			if (is_builtin(prompt))
-				exec_builtin(prompt);
-			else
-			{
+			//if (is_builtin(prompt))
+			//	exec_builtin(prompt);
+			//else
+			//{
 				//ft_putstr_fd("true cmd\n", 2);
 				exec_cmd(prompt, exec);
-			}
+			//}
 		}
 		return (exec->pid);
 	}

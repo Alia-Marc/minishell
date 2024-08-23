@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 17:37:04 by marc              #+#    #+#             */
-/*   Updated: 2024/08/21 22:01:41 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/23 14:29:09 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"
 #include "../../../include/exec.h"
 
 int	use_n(t_prompt *prompt)

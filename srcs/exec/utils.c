@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 06:06:24 by marc              #+#    #+#             */
-/*   Updated: 2024/08/14 07:50:48 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/23 14:29:55 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
 #include "../../include/exec.h"
 
 int	len_prompt(t_prompt *prompt)

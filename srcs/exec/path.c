@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 15:14:48 by malia             #+#    #+#             */
-/*   Updated: 2024/08/22 11:48:06 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/23 14:29:44 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
 #include "../../include/exec.h"
 
 char	*get_path(char *cmd, char **env)

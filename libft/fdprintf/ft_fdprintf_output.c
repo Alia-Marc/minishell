@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fdprintf_output.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 20:36:42 by marc              #+#    #+#             */
-/*   Updated: 2024/08/22 20:51:15 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/23 13:07:52 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ void	fd_pf_putnbr(int fd, int n)
 
 void	fd_pf_putunsigned(int fd, unsigned long long n, unsigned long long len, char *base)
 {
-	if ((n > 0 || n == 0) && n < len)
+	if (n == 0)
+		write(fd, &base[n], 1);
+	else if (n > 0 && n < len)
 		write(fd, &base[n], 1);
 	else
 	{

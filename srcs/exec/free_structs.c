@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   free_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 23:49:11 by marc              #+#    #+#             */
-/*   Updated: 2024/08/22 16:43:08 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/23 14:29:37 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
 #include "../../include/exec.h"
-
 
 void	free_prompt(t_prompt **prompt)
 {
@@ -31,7 +29,6 @@ void	free_prompt(t_prompt **prompt)
 		*prompt = tmp;
 	}
 }
-
 
 void	free_file(t_file **file)
 {

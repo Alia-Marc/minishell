@@ -3,26 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   fake_inits.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 16:07:08 by alia              #+#    #+#             */
-/*   Updated: 2024/08/22 21:07:09 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/23 16:46:38 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
 #include "../../include/exec.h"
 
 void fake_init(char **env, t_prompt *prompt)
 {
 	//prompt->file->file = (char * )malloc(sizeof(char) * 4);
-	prompt->cmd = ft_split("cat y", ' ');
+	prompt->cmd = ft_split("ls sda", ' ');
 	//ft_printf("%s\n%s\n", prompt->cmd[0], prompt->cmd[1]);
 	//prompt->cmd = NULL;
 	prompt->env = env;
-	prompt->path = get_path(prompt->cmd[0], env);
-	//ft_printf("%s\n", prompt->path);
-	//prompt->path = NULL;
+	if (env[0])
+		prompt->path = get_path(prompt->cmd[0], env);
+	else
+		prompt->path = NULL;
 	prompt->next = NULL;
 	prompt->file = NULL;
 	prompt->here_doc_fd = -2;
@@ -90,7 +90,10 @@ t_prompt	*new_prompt(char *cmd, char *file0, char *file1, char **env, int file)
 	new_prompt = (t_prompt *)malloc(sizeof(t_prompt));
 	new_prompt->cmd = ft_split(cmd, ' ');
 	new_prompt->env = env;
-	new_prompt->path = get_path(new_prompt->cmd[0], env);
+	if (env[0])
+		new_prompt->path = get_path(new_prompt->cmd[0], env);
+	else
+		new_prompt->path = NULL;
 	new_prompt->here_doc_fd = -2;
 	new_prompt->next = NULL;
 

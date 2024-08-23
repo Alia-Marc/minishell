@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 15:45:21 by marc              #+#    #+#             */
-/*   Updated: 2024/08/20 17:14:18 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/23 14:29:41 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
 #include "../../include/exec.h"
 
 void	write_heredoc(char *delimiter, int *fd)
@@ -38,7 +37,7 @@ void	write_heredoc(char *delimiter, int *fd)
 
 void	use_here_doc(t_prompt *prompt)
 {
-	t_file *tmp_file;
+	t_file	*tmp_file;
 	int		mode;
 
 	tmp_file = prompt->file;
