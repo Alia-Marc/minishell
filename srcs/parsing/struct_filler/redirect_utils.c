@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/30 17:54:33 by emfourni          #+#    #+#             */
-/*   Updated: 2024/07/31 17:13:36 by emfourni         ###   ########.fr       */
+/*   Created: 2024/08/23 17:23:59 by emfourni          #+#    #+#             */
+/*   Updated: 2024/08/24 17:38:15 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"
+#include "../../../include/parsing.h"
 
 t_file	*create_new_file(char *file, int mode)
 {
@@ -61,6 +61,7 @@ void	free_file(t_file **file)
 	while (*file)
 	{
 		tmp = (*file)->next;
+		free((*file)->file);
 		free(*file);
 		*file = tmp;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 14:39:26 by malia             #+#    #+#             */
-/*   Updated: 2024/04/08 16:44:09 by malia            ###   ########.fr       */
+/*   Updated: 2024/08/23 14:39:46 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int			ft_check_charset(char *charset, char c);
 char		*ft_strjoin_freed(char *s1, char *s2);
 int			ft_rand(void);
 int			ft_range_rand(int max);
+int			ft_isspace(char c);
 
 // Mandatory functions
 int			ft_isalpha(int c);
@@ -109,4 +110,4 @@ void		pf_putunsigned(unsigned long long n,
 				unsigned long long len, char *base);
 void		pf_putnbr_base(long long n, char *base);
 
-#endif 
+#endif

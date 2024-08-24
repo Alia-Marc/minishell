@@ -6,10 +6,11 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:59:39 by emfourni          #+#    #+#             */
-/*   Updated: 2024/07/31 17:38:02 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/08/24 17:29:40 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../include/parsing.h"
 #include "../../include/minishell.h"
 
 bool	ft_is_metachar(char c)
@@ -17,24 +18,6 @@ bool	ft_is_metachar(char c)
 	if (c == '|' || c == '&' || c == '(' || c == ')' || c == '<' || c == '>')
 		return (true);
 	return (false);
-}
-
-int	ft_dollarsign_redirect(char *file, int index)
-{
-	int	temp;
-
-	temp = index;
-	while (file[index])
-	{
-		if (file[temp + 1] == '$')
-			return (printf("ambiguous_redirect"), 0);
-		else if (file[index] == '$')
-			return (index);
-		else if (file[index] == ft_strlen(file) - 1)
-			return (-1); // flag value to notify '$' is at the end and should be in file name
-		index++;
-	}
-	return (0);
 }
 
 // t_prompt	ft_lexer(char *cmd_line)
@@ -50,10 +33,40 @@ int	ft_dollarsign_redirect(char *file, int index)
 // 		if (!cmd_line[index] || ft_iswhitespace(cmd_line, ft_strlen(cmd_line)))
 // 			return (ft_error_empty_cmd_line, free(cmd_line), prompt);
 // 		if (!quotes_handler(cmd_line))
-// 			return (ft_quote_error, free(cmd_line), prompt);
-// 		if (!check_syntax(cmd_line, prompt))
-// 			return (ft_syntax_error, free(cmd_line), prompt);
+// 			return (free(cmd_line), prompt);
+// 		if (!check_syntax(cmd_line))
+// 			return (free(cmd_line), prompt);
 // 		index++;
 // 	}
 // 	return (prompt);
 // }
+
+int	ft_onlywhitespace(char *str, int len)
+{
+	while (len > 0)
+	{
+		if (!ft_isspace(str[len]))
+			return (0);
+		len--;
+	}
+	return (1);
+}
+//NE PAS OUBLIER DE GERER LES LIGNES DE COMMANDES VIDES COMME ERREUR
+// if (!cmd_line[index])
+// 	return (ft_error_empty_cmd_line(), free(cmd_line), 0);
+
+int	ft_lexer(char *cmd_line)
+{
+	size_t		index;
+
+	index = 0;
+	while (cmd_line[index])
+	{
+		if (!quotes_handler(cmd_line))
+			return (free(cmd_line), 0);
+		if (!check_syntax(cmd_line))
+			return (free(cmd_line), 0);
+		index++;
+	}
+	return (1);
+}

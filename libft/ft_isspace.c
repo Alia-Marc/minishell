@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_syntax.c                                     :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/19 17:30:06 by emfourni          #+#    #+#             */
-/*   Updated: 2024/08/24 17:33:36 by emfourni         ###   ########.fr       */
+/*   Created: 2024/08/23 14:38:23 by emfourni          #+#    #+#             */
+/*   Updated: 2024/08/24 17:24:46 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/parsing.h"
+#include "libft.h"
 
-int	check_syntax(char *cmd_line)
+int	ft_isspace(char c)
 {
-	if (!pipe_checker(cmd_line) || !redirect_checker(cmd_line))
+	if ((c >= 9 && c <= 13) || c == 32)
+		return (1);
+	else
 		return (0);
-	return (1);
 }

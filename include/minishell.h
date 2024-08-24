@@ -3,40 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emilefournier <emilefournier@student.42    +#+  +:+       +#+        */
+/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:56:27 by malia             #+#    #+#             */
-/*   Updated: 2024/07/27 15:06:43 by emilefourni      ###   ########.fr       */
+/*   Updated: 2024/08/24 17:24:09 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include "../libft/libft.h"
-#include "parsing.h"
-#include "error.h"
-#include <stdio.h>
-#include <stdbool.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+# include "../libft/libft.h"
+# include "error.h"
+# include <stdio.h>
+# include <stdbool.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 extern int			g_signal;
+
+//mode file :
+//(0)< = infile (1) > = outfile-trunc (2) >> = outfile-append (3) << = delimiter
 
 typedef struct s_file
 {
 	char			*file;
-	int				mode; // (0) < = infile   (1) > = redirection outfile en trunc      (2) >> = redirection append
+	int				mode;
 	struct s_file	*next;
 }					t_file;
 
 typedef struct s_prompt
 {
 	t_file			*file;
-	char			**here_doc;
-	int				len_here_doc;
 	char			**cmd;
-	int				len_cmd;
 	int				use_heredoc;
 	char			*path;
 	char			**env;
@@ -52,8 +51,8 @@ typedef struct s_exec
 	int				**pipefd;
 	int				here_docfd[2];
 	int				exit;
+	int				n_cmd;
 	pid_t			*pid;
 }					t_exec;
-
 
 #endif

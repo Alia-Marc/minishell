@@ -1,0 +1,3 @@
+redirections 
+
+si erreur dans premiere commande, fichiers crees mais commande pas execute, toutes les autres commandes (apres les pipes) sont executes normalement

@@ -6,11 +6,11 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 15:28:10 by emfourni          #+#    #+#             */
-/*   Updated: 2024/07/19 16:43:31 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/08/23 14:31:39 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"
+#include "../../../include/parsing.h"
 
 size_t	get_last_pos_quote(char *str, char c)
 {

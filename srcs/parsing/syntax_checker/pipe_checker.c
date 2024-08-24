@@ -6,11 +6,11 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:17:40 by emfourni          #+#    #+#             */
-/*   Updated: 2024/07/31 16:14:04 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/08/24 17:34:51 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"
+#include "../../../include/parsing.h"
 
 int	ft_isspaceorpipe(char c)
 {
@@ -47,6 +47,20 @@ bool	ft_rev_indexwhitespace(char *str, int index)
 	return (true);
 }
 
+int	too_many_pipes(char *str, int index)
+{
+	index++;
+	while (str[index])
+	{
+		if (str[index] == '|')
+			return (1);
+		if (!ft_isspace(str[index]))
+			return (0);
+		index++;
+	}
+	return (1);
+}
+
 int	pipe_checker(char *cmd_line)
 {
 	size_t	index;
@@ -56,7 +70,8 @@ int	pipe_checker(char *cmd_line)
 	is_valid = 1;
 	while (cmd_line[index])
 	{
-		if (cmd_line[index] == '|' && ft_indexwhitespace(cmd_line, index))
+		if ((cmd_line[index] == '|') && (ft_indexwhitespace(cmd_line, index)
+				|| too_many_pipes(cmd_line, index)))
 			is_valid = 0;
 		index++;
 	}
@@ -67,5 +82,7 @@ int	pipe_checker(char *cmd_line)
 			is_valid = 0;
 		index++;
 	}
+	if (is_valid == 0)
+		ft_bad_pipe_msg();
 	return (is_valid);
 }

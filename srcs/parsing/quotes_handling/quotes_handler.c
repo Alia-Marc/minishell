@@ -6,11 +6,11 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:13:39 by emfourni          #+#    #+#             */
-/*   Updated: 2024/07/19 16:43:36 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/08/24 16:27:59 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"
+#include "../../../include/parsing.h"
 
 int	single_quote_closed(char *str)
 {
@@ -84,6 +84,6 @@ int	quotes_handler(char *cmd_line)
 {
 	if (!double_quote_closed(cmd_line) || !single_quote_closed(cmd_line)
 		|| !even_nb_outside_quote(cmd_line))
-		return (0);
+		return (ft_quote_error(), 0);
 	return (1);
 }
