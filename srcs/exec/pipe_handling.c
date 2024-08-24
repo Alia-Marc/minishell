@@ -6,7 +6,7 @@
 /*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 15:52:36 by malia             #+#    #+#             */
-/*   Updated: 2024/08/23 15:14:21 by malia            ###   ########.fr       */
+/*   Updated: 2024/08/24 15:16:58 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ int	handle_pipe(t_prompt *prompt, t_exec *exec, int fd_infile, int i)
 		do_child(fd_infile, exec->fd_out, pipe_fd, i == exec->n_cmd);
 		if (prompt->cmd[0])
 		{
-			//if (is_builtin(prompt))
-			//	exec_builtin(prompt);
-			//else
-			//{
-				//ft_putstr_fd("true cmd\n", 2);
+			if (is_builtin(prompt))
+				exec_builtin(prompt, exec);
+			else
+			{
+				ft_putstr_fd("true cmd\n", 2);
 				exec_cmd(prompt, exec);
-			//}
+			}
 		}
 		return (exec->pid);
 	}

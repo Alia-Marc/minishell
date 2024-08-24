@@ -6,7 +6,7 @@
 /*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:18:34 by malia             #+#    #+#             */
-/*   Updated: 2024/08/23 15:24:43 by malia            ###   ########.fr       */
+/*   Updated: 2024/08/24 15:17:28 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,12 @@ void		error_handler(char *file, char *word, int code);
 int			wait_children(int pid);
 int			len_prompt(t_prompt *prompt);
 
-int			pwd_builtin(void);
+// Builtins functions
 int			is_builtin(t_prompt *prompt);
-int			exec_builtin(t_prompt *prompt);
+int			exec_builtin(t_prompt *prompt, t_exec *exec);
+
+int			pwd_builtin(void);
+int			echo_builtin(t_prompt *prompt);
+int			env_builtin(t_exec *exec);
 
 #endif

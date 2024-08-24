@@ -6,7 +6,7 @@
 /*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 16:07:08 by alia              #+#    #+#             */
-/*   Updated: 2024/08/23 16:46:38 by malia            ###   ########.fr       */
+/*   Updated: 2024/08/24 16:06:21 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void fake_init(char **env, t_prompt *prompt)
 {
 	//prompt->file->file = (char * )malloc(sizeof(char) * 4);
-	prompt->cmd = ft_split("ls sda", ' ');
+	prompt->cmd = ft_split("/usr/bin/cat", ' ');
 	//ft_printf("%s\n%s\n", prompt->cmd[0], prompt->cmd[1]);
 	//prompt->cmd = NULL;
 	prompt->env = env;
