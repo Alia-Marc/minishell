@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_handling.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 15:52:36 by malia             #+#    #+#             */
-/*   Updated: 2024/08/24 15:16:58 by malia            ###   ########.fr       */
+/*   Updated: 2024/08/26 03:28:56 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	handle_pipe(t_prompt *prompt, t_exec *exec, int fd_infile, int i)
 		close(pipe_fd[WRITE]);
 		if (!isatty(fd_infile) && fd_infile > 2)
 			close(fd_infile);
+		is_non_print_builtin(prompt, exec);
 		// if (fd_infile >= 0)
 		// 	fd_infile = dup2(pipe_fd[READ], fd_infile);
 		// close(pipe_fd[READ]);

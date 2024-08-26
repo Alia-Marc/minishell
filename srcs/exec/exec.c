@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:08:15 by malia             #+#    #+#             */
-/*   Updated: 2024/08/24 16:57:13 by malia            ###   ########.fr       */
+/*   Updated: 2024/08/26 17:23:53 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	main(int ac, char **av, char **env)
 	fake_init(env, prompt);
 	//prompt->file = new_file("/dev/full", 1);
 	//prompt->file = new_file("a", 0);
-	//fileadd_back(&prompt->file, new_file("y", 2));
+	//fileadd_back(&prompt->file, new_file("oui", 2));
 	//fileadd_back(&prompt->file, new_file("i", 0));
 	//fileadd_back(&prompt->file, new_file("k", 1));
 	//fileadd_back(&prompt->file, new_file("oui", 1));
@@ -78,7 +78,8 @@ int	main(int ac, char **av, char **env)
 	//promptadd_back(&prompt, new_prompt("", "o", "outfile", env, 1));
 	
 	//promptadd_back(&prompt, new_prompt("ls", "o", "outfile", env, 0));
-	//promptadd_back(&prompt, new_prompt("cat", "o", "outfile", env, 0));
+	//promptadd_back(&prompt, new_prompt("cd", "o", "outfile", env, 0));
+	//promptadd_back(&prompt, new_prompt("", "o", "outfile", env, 0));
 
 	exec = init_exec(env, prompt);
 	open_close_redir(prompt); // un-comment to use redirections files
@@ -90,6 +91,33 @@ int	main(int ac, char **av, char **env)
 	if (!isatty(exec->fd_out) && exec->fd_out > 2)
 		close(exec->fd_out);
 	free_prompt(&prompt);
+
+	// int i = 0;
+	// while (exec->env[i])
+	// {
+	// 	ft_printf("%s\n", exec->env[i]);
+	// 	i++;
+	// }
+
+	while (1)
+	{
+		char	*cmd = readline("");
+		prompt = new_prompt(cmd, "o", "outfile", exec->env, 0);
+		free(cmd);
+		exec->fd_in = 0;
+		exec->fd_out = 1;
+		exec->n_cmd = len_prompt(prompt);
+		open_close_redir(prompt);
+		exec_prompt(prompt, exec);
+		if (!isatty(exec->fd_in) && exec->fd_in > 2)
+			close(exec->fd_in);
+		if (!isatty(exec->fd_out) && exec->fd_out > 2)
+			close(exec->fd_out);
+		free_prompt(&prompt);
+		//free(cmd);
+	}
+
+	ft_free_tab(exec->env);
 	free(exec);
 
 /*

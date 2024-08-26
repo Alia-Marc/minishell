@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 17:37:04 by marc              #+#    #+#             */
-/*   Updated: 2024/08/24 14:48:47 by malia            ###   ########.fr       */
+/*   Updated: 2024/08/26 13:56:50 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int	echo_builtin(t_prompt *prompt)
 	}
 	if (print_nl)
 		write(STDOUT_FILENO, "\n", 1);
-	perror("");
 	return (errno);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fake_inits.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 16:07:08 by alia              #+#    #+#             */
-/*   Updated: 2024/08/24 16:06:21 by malia            ###   ########.fr       */
+/*   Updated: 2024/08/26 17:23:45 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 void fake_init(char **env, t_prompt *prompt)
 {
 	//prompt->file->file = (char * )malloc(sizeof(char) * 4);
-	prompt->cmd = ft_split("/usr/bin/cat", ' ');
+	prompt->cmd = ft_split("", ' ');
 	//ft_printf("%s\n%s\n", prompt->cmd[0], prompt->cmd[1]);
 	//prompt->cmd = NULL;
-	prompt->env = env;
+	prompt->env = NULL;
 	if (env[0])
 		prompt->path = get_path(prompt->cmd[0], env);
 	else
@@ -36,7 +36,7 @@ t_exec	*init_exec(char **env, t_prompt *prompt)
 	exec = (t_exec *)malloc(sizeof(t_exec));
 	if (!exec)
 		return (NULL);
-	exec->env = env;
+	exec->env = make_env(env);
 	exec->fd_in = 0;
 	exec->fd_out = 1;
 	exec->n_cmd = len_prompt(prompt);
@@ -89,7 +89,7 @@ t_prompt	*new_prompt(char *cmd, char *file0, char *file1, char **env, int file)
 
 	new_prompt = (t_prompt *)malloc(sizeof(t_prompt));
 	new_prompt->cmd = ft_split(cmd, ' ');
-	new_prompt->env = env;
+	new_prompt->env = NULL;
 	if (env[0])
 		new_prompt->path = get_path(new_prompt->cmd[0], env);
 	else

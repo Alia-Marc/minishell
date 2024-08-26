@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 15:14:48 by malia             #+#    #+#             */
-/*   Updated: 2024/08/23 14:29:44 by malia            ###   ########.fr       */
+/*   Updated: 2024/08/26 02:51:54 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ char	*get_path(char *cmd, char **env)
 	if (!cmd)
 		return (NULL);
 	all_path = ft_split(get_line_value("PATH", env), ':');
-	//if (!all_path)
-	//	exit_handler(-2);
+	if (!all_path)
+		return (NULL);
 	while (all_path[i])
 	{
 		pre_path = ft_strjoin(all_path[i], "/");

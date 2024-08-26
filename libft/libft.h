@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 14:39:26 by malia             #+#    #+#             */
-/*   Updated: 2024/08/22 20:51:00 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/25 22:45:30 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int			ft_check_charset(char *charset, char c);
 char		*ft_strjoin_freed(char *s1, char *s2);
 int			ft_rand(void);
 int			ft_range_rand(int max);
+int			ft_isspace(char c);
+char		**ft_dup_tab(char **tab);
 
 // Mandatory functions
 int			ft_isalpha(int c);
