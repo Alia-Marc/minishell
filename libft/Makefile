@@ -13,7 +13,7 @@ SRC = ft_atoi.c ft_bzero.c ft_isascii.c ft_isalnum.c ft_calloc.c \
 	ft_strcat.c ft_free_tab.c ft_strcmp.c ft_strlen2.c ft_atol.c \
 	ft_lenint.c ft_natol.c ft_check_charset.c ft_strjoin_freed.c \
 	ft_random.c fdprintf/ft_fdprintf_output.c fdprintf/ft_fdprintf.c \
-	ft_isspace.c ft_dup_tab.c \
+	ft_isspace.c ft_dup_tab.c ft_strlen_until_char.c \
 
 OBJ = $(SRC:.c=.o)
 

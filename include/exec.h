@@ -6,7 +6,7 @@
 /*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:18:34 by malia             #+#    #+#             */
-/*   Updated: 2024/08/29 03:28:37 by alia             ###   ########.fr       */
+/*   Updated: 2024/08/30 00:18:14 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 # define EXEC_H
 
 # include "minishell.h"
+# include "builtins.h"
 
 # define WRITE 1
 # define READ 0
-
-char		**make_env(char **env);
-char		**sort_env(char **env);
+# define ERR_MALLOC "kimonOS: malloc failed\n"
 
 // get_path of a command
 char		*get_path(char *cmd, char **env);
@@ -63,16 +62,5 @@ void		error_handler(char *file, char *word, int code);
 // Utils
 int			wait_children(int pid);
 int			len_prompt(t_prompt *prompt);
-
-// Builtins functions
-int			is_builtin(t_prompt *prompt);
-int			is_non_print_builtin(t_prompt *prompt, t_exec *exec);
-int			exec_builtin(t_prompt *prompt, t_exec *exec);
-
-int			pwd_builtin(void);
-int			echo_builtin(t_prompt *prompt);
-int			env_builtin(t_exec *exec);
-int			cd_builtin(t_prompt *prompt, t_exec *exec);
-int			export_builtin(t_prompt *prompt, t_exec *exec);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 14:39:26 by malia             #+#    #+#             */
-/*   Updated: 2024/08/25 22:45:30 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/29 15:55:03 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int			ft_rand(void);
 int			ft_range_rand(int max);
 int			ft_isspace(char c);
 char		**ft_dup_tab(char **tab);
+int			ft_strlen_until_char(char *str, char c);
 
 // Mandatory functions
 int			ft_isalpha(int c);

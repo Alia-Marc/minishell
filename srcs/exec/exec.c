@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:08:15 by malia             #+#    #+#             */
-/*   Updated: 2024/08/26 17:23:53 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/30 01:18:41 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,12 @@ int	main(int ac, char **av, char **env)
 	// 	i++;
 	// }
 
+	char	*cmd;
 	while (1)
 	{
-		char	*cmd = readline("");
+		cmd = readline("");
+		if (ft_strncmp(cmd, "caca", 4) == 0)
+			break;
 		prompt = new_prompt(cmd, "o", "outfile", exec->env, 0);
 		free(cmd);
 		exec->fd_in = 0;
@@ -114,9 +117,13 @@ int	main(int ac, char **av, char **env)
 		if (!isatty(exec->fd_out) && exec->fd_out > 2)
 			close(exec->fd_out);
 		free_prompt(&prompt);
-		//free(cmd);
 	}
-
+	free(cmd);
+	if (!isatty(exec->fd_in) && exec->fd_in > 2)
+		close(exec->fd_in);
+	if (!isatty(exec->fd_out) && exec->fd_out > 2)
+		close(exec->fd_out);
+	free_prompt(&prompt);
 	ft_free_tab(exec->env);
 	free(exec);
 

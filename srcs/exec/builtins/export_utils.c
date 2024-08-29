@@ -1,46 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/24 15:13:22 by malia             #+#    #+#             */
-/*   Updated: 2024/08/29 16:46:43 by alia             ###   ########.fr       */
+/*   Created: 2024/08/29 18:31:06 by alia              #+#    #+#             */
+/*   Updated: 2024/08/29 18:31:23 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/exec.h"
 
-static int	check_char(char *str, char c)
+int	check_var_exist(char **env, char *arg)
 {
+	int	len_var;
 	int	i;
 
+	len_var = ft_strlen_until_char(arg, '=');
 	i = 0;
-	while (str && str[i])
+	while (env && env[i])
 	{
-		if (str[i] == c)
+		if (ft_strncmp(env[i], arg, len_var) == 0)
 			return (1);
 		i++;
 	}
 	return (0);
-}
-
-int	env_builtin(t_exec *exec)
-{
-	int	i;
-
-	i = 0;
-	while (exec->env && exec->env[i])
-	{
-		if (!check_char(exec->env[i], '='))
-		{
-			i++;
-			continue ;
-		}
-		write(STDOUT_FILENO, exec->env[i], ft_strlen(exec->env[i]));
-		write(STDOUT_FILENO, "\n", 1);
-		i++;
-	}
-	return (errno);
 }
