@@ -6,7 +6,7 @@
 /*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:08:15 by malia             #+#    #+#             */
-/*   Updated: 2024/08/30 01:18:41 by alia             ###   ########.fr       */
+/*   Updated: 2024/08/30 14:48:24 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	main(int ac, char **av, char **env)
 	//fileadd_back(&prompt->file, new_file("oui", 1));
 	//fileadd_back(&prompt->file, new_file("gay", 2));
 	
-	//promptadd_back(&prompt, new_prompt("grep e", "o", "outfile", env, 1));
+	promptadd_back(&prompt, new_prompt("grep PWD", "o", "outfile", env, 0));
 	//promptadd_back(&prompt, new_prompt("cat", "j", "outfile", env, 0));
 	//promptadd_back(&prompt, new_prompt("", "o", "outfile", env, 1));
 	

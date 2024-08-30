@@ -6,7 +6,7 @@
 /*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 18:33:46 by alia              #+#    #+#             */
-/*   Updated: 2024/08/30 01:34:20 by alia             ###   ########.fr       */
+/*   Updated: 2024/08/30 18:52:58 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ int			export_builtin(t_prompt *prompt, t_exec *exec);
 int			check_var_exist(char **env, char *arg);
 char		**add_to_env(char **env, char *arg);
 char		**replace_from_env(char **env, char *arg);
+
+/*			UNSET			*/
+int			unset_builtin(t_prompt *prompt, t_exec *exec);
 
 
 #endif
