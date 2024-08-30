@@ -6,7 +6,7 @@
 /*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:08:15 by malia             #+#    #+#             */
-/*   Updated: 2024/08/30 14:48:24 by alia             ###   ########.fr       */
+/*   Updated: 2024/08/30 21:41:39 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,24 @@
 void	exec_prompt(t_prompt *prompt, t_exec *exec)
 {
 	t_prompt	*tmp_prompt;
-	int			i;
 	int			result_prev_pipe;
 	
 	tmp_prompt = prompt;
-	i = 1;
 	result_prev_pipe = -2;
-	while (i <= exec->n_cmd)
+	while (tmp_prompt)
 	{
 		assign_fds(tmp_prompt, exec);
 		if (exec->fd_in > 0 || result_prev_pipe == -2)
 		{
 			if (!isatty(result_prev_pipe) && result_prev_pipe > 2)
 				close(result_prev_pipe);
-			result_prev_pipe = handle_pipe(tmp_prompt, exec, exec->fd_in, i);
+			result_prev_pipe = handle_pipe(tmp_prompt, exec, exec->fd_in);
 		}
 		else
-			result_prev_pipe = handle_pipe(tmp_prompt, exec, result_prev_pipe, i);
+			result_prev_pipe = handle_pipe(tmp_prompt, exec, result_prev_pipe);
 		if (exec->pid == 0)
 			exit_free_all(prompt, exec);
 		tmp_prompt = tmp_prompt->next;
-		i++;
 	}
 	if (!isatty(result_prev_pipe) && result_prev_pipe > 2)
 		close(result_prev_pipe);
@@ -73,8 +70,8 @@ int	main(int ac, char **av, char **env)
 	//fileadd_back(&prompt->file, new_file("oui", 1));
 	//fileadd_back(&prompt->file, new_file("gay", 2));
 	
-	promptadd_back(&prompt, new_prompt("grep PWD", "o", "outfile", env, 0));
-	//promptadd_back(&prompt, new_prompt("cat", "j", "outfile", env, 0));
+	//promptadd_back(&prompt, new_prompt("export 7oui=da non=da", "o", "outfile", env, 0));
+	//promptadd_back(&prompt, new_prompt("grep a", "j", "outfile", env, 1));
 	//promptadd_back(&prompt, new_prompt("", "o", "outfile", env, 1));
 	
 	//promptadd_back(&prompt, new_prompt("ls", "o", "outfile", env, 0));

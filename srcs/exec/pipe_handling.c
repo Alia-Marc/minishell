@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_handling.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 15:52:36 by malia             #+#    #+#             */
-/*   Updated: 2024/08/26 03:28:56 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/30 21:32:18 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/exec.h"
 
-int	handle_pipe(t_prompt *prompt, t_exec *exec, int fd_infile, int i)
+int	handle_pipe(t_prompt *prompt, t_exec *exec, int fd_infile)
 {
 	int		pipe_fd[2];
 
@@ -23,7 +23,7 @@ int	handle_pipe(t_prompt *prompt, t_exec *exec, int fd_infile, int i)
 		exit(0);
 	if (exec->pid == 0)
 	{
-		do_child(fd_infile, exec->fd_out, pipe_fd, i == exec->n_cmd);
+		do_child(fd_infile, exec->fd_out, pipe_fd, prompt);
 		if (prompt->cmd[0])
 		{
 			if (is_builtin(prompt))
@@ -49,27 +49,26 @@ int	handle_pipe(t_prompt *prompt, t_exec *exec, int fd_infile, int i)
 	}
 }
 
-void	do_child(int fd_infile, int fd_outfile, int *pipe_fd, int last)
+void	do_child(int fd_in, int fd_out, int *pipe_fd, t_prompt *prompt)
 {
-	// if (fd_infile < 0 && mid == 0)
+	// if (fd_in < 0 && mid == 0)
 	// {
 	// 	close(pipe_fd[READ]);
 	// 	close(pipe_fd[WRITE]);
 	// 	exit_handler(0);
 	// }
 	close(pipe_fd[READ]);
-	//ft_printf("%d", last);
-	if (!isatty(fd_infile) && fd_infile > 2)
+	if (!isatty(fd_in) && fd_in > 2)
 	{
-		dup2(fd_infile, STDIN_FILENO);
-		close(fd_infile);
+		dup2(fd_in, STDIN_FILENO);
+		close(fd_in);
 	}
-	if (!isatty(fd_outfile) && fd_outfile > 2)
+	if (!isatty(fd_out) && fd_out > 2)
 	{
-		dup2(fd_outfile, STDOUT_FILENO);
-		close(fd_outfile);
+		dup2(fd_out, STDOUT_FILENO);
+		close(fd_out);
 	}
-	else if (!last)
+	else if (prompt->next)
 		dup2(pipe_fd[WRITE], STDOUT_FILENO);
 	close(pipe_fd[WRITE]);
 }
