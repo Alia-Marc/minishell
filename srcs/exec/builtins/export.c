@@ -6,7 +6,7 @@
 /*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 22:12:54 by alia              #+#    #+#             */
-/*   Updated: 2024/08/30 00:19:30 by alia             ###   ########.fr       */
+/*   Updated: 2024/08/31 02:56:00 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,22 @@ static int	no_args(t_exec *exec)
 	i = 0;
 	while (exec->env && exec->env[i])
 	{
-		write(STDOUT_FILENO, "declare -x ", 11);
+		write(exec->fd_out, "declare -x ", 11);
 		j = 0;
 		first = 0;
 		while (exec->env[i][j])
 		{
-			write(STDOUT_FILENO, &exec->env[i][j], 1);
+			write(exec->fd_out, &exec->env[i][j], 1);
 			if ((exec->env[i][j] == '=' && !first)
 				|| (exec->env[i][j + 1] == '\0' && first))
 			{
-				write(STDOUT_FILENO, "\"", 1);
+				write(exec->fd_out, "\"", 1);
 				first = 1;
 			}
 			j++;
 		}
 		i++;
-		write(STDOUT_FILENO, "\n", 1);
+		write(exec->fd_out, "\n", 1);
 	}
 	return (0);
 }

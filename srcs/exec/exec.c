@@ -6,7 +6,7 @@
 /*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:08:15 by malia             #+#    #+#             */
-/*   Updated: 2024/08/30 21:41:39 by alia             ###   ########.fr       */
+/*   Updated: 2024/08/31 04:28:39 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,42 +15,64 @@
 void	exec_prompt(t_prompt *prompt, t_exec *exec)
 {
 	t_prompt	*tmp_prompt;
-	int			result_prev_pipe;
+	int			prev_pipe;
 	
 	tmp_prompt = prompt;
-	result_prev_pipe = -2;
+	prev_pipe = -2;
 	while (tmp_prompt)
 	{
 		assign_fds(tmp_prompt, exec);
-		if (exec->fd_in > 0 || result_prev_pipe == -2)
-		{
-			if (!isatty(result_prev_pipe) && result_prev_pipe > 2)
-				close(result_prev_pipe);
-			result_prev_pipe = handle_pipe(tmp_prompt, exec, exec->fd_in);
-		}
+		if (is_builtin(tmp_prompt) && exec->n_cmd == 1) //|| !tmp_prompt->next
+			exec->exit = exec_solo_builtin(tmp_prompt, exec);
 		else
-			result_prev_pipe = handle_pipe(tmp_prompt, exec, result_prev_pipe);
+		{
+			if (exec->fd_in <= 2 && prev_pipe > 2)
+				exec->fd_in = prev_pipe;
+			else if (!isatty(prev_pipe) && prev_pipe > 2)
+				close(prev_pipe);
+			prev_pipe = handle_pipe(tmp_prompt, exec, exec->fd_in);
+		}
+		// else
+		// {
+		// 	if (exec->fd_in > 0 || prev_pipe == -2)
+		// 	{
+		// 		if (!isatty(prev_pipe) && prev_pipe > 2)
+		// 			close(prev_pipe);
+		// 		prev_pipe = handle_pipe(tmp_prompt, exec, exec->fd_in);
+		// 	}
+		// 	else
+		// 		prev_pipe = handle_pipe(tmp_prompt, exec, prev_pipe);
+		// }
 		if (exec->pid == 0)
-			exit_free_all(prompt, exec);
+		{
+			if (!isatty(prev_pipe) && prev_pipe > 2)
+				close(prev_pipe);
+			exit_free_all(prompt, exec, exec->exit);
+		}
 		tmp_prompt = tmp_prompt->next;
 	}
-	if (!isatty(result_prev_pipe) && result_prev_pipe > 2)
-		close(result_prev_pipe);
+	if (!isatty(prev_pipe) && prev_pipe > 2)
+		close(prev_pipe);
 	wait_children(exec->pid);
 }
 
 void	exec_cmd(t_prompt *prompt, t_exec *exec)
 {
 	execve(prompt->cmd[0], prompt->cmd, exec->env);
-	if (!prompt->path)
+	if (check_char(prompt->cmd[0], '/'))
 	{
-		ft_fdprintf(2, "kimonOS: %s: command not found\n", prompt->cmd[0]);
-		return ;
+		ft_fdprintf(2, NO_SUCH_FILE_OR_DIR, prompt->cmd[0]);
+		exit_free_all(prompt, exec, 127);
+	}
+	else if (!prompt->path)
+	{
+		ft_fdprintf(2, COMMAND_NOT_FOUND, prompt->cmd[0]);
+		exit_free_all(prompt, exec, 127);
 	}
 	if (execve(prompt->path, prompt->cmd, exec->env) == -1)
 	{
 		ft_putstr_fd("ERROR CMD POURQUOI?\n", 2);
-		return ;
+		exit_free_all(prompt, exec, 127);
 	}
 }
 
@@ -71,10 +93,10 @@ int	main(int ac, char **av, char **env)
 	//fileadd_back(&prompt->file, new_file("gay", 2));
 	
 	//promptadd_back(&prompt, new_prompt("export 7oui=da non=da", "o", "outfile", env, 0));
-	//promptadd_back(&prompt, new_prompt("grep a", "j", "outfile", env, 1));
-	//promptadd_back(&prompt, new_prompt("", "o", "outfile", env, 1));
+	//promptadd_back(&prompt, new_prompt("export", "o", "outfile", env, 1));
+	//promptadd_back(&prompt, new_prompt("grep a", "j", "outfile", env, 0));
 	
-	//promptadd_back(&prompt, new_prompt("ls", "o", "outfile", env, 0));
+	promptadd_back(&prompt, new_prompt("ls", "o", "outfile", env, 0));
 	//promptadd_back(&prompt, new_prompt("cd", "o", "outfile", env, 0));
 	//promptadd_back(&prompt, new_prompt("", "o", "outfile", env, 0));
 
@@ -83,6 +105,7 @@ int	main(int ac, char **av, char **env)
 	//ft_printf("fd_in = %d, fd_out = %d\nlen prompt = %d\n\n\n", exec->fd_in, exec->fd_out, exec->n_cmd);
 
 	exec_prompt(prompt, exec);
+	ft_fdprintf(2, "%d\n", exec->exit);
 	if (!isatty(exec->fd_in) && exec->fd_in > 2)
 		close(exec->fd_in);
 	if (!isatty(exec->fd_out) && exec->fd_out > 2)
@@ -106,9 +129,12 @@ int	main(int ac, char **av, char **env)
 		free(cmd);
 		exec->fd_in = 0;
 		exec->fd_out = 1;
+		exec->exit = 0;
+		exec->pid = -2;
 		exec->n_cmd = len_prompt(prompt);
 		open_close_redir(prompt);
 		exec_prompt(prompt, exec);
+		ft_fdprintf(2, "%d\n", exec->exit);
 		if (!isatty(exec->fd_in) && exec->fd_in > 2)
 			close(exec->fd_in);
 		if (!isatty(exec->fd_out) && exec->fd_out > 2)

@@ -6,7 +6,7 @@
 /*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 16:07:08 by alia              #+#    #+#             */
-/*   Updated: 2024/08/30 21:41:34 by alia             ###   ########.fr       */
+/*   Updated: 2024/08/31 04:28:31 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void fake_init(char **env, t_prompt *prompt)
 {
 	//prompt->file->file = (char * )malloc(sizeof(char) * 4);
-	prompt->cmd = ft_split("unset PWD", ' ');
+	prompt->cmd = ft_split("cat", ' ');
 	//ft_printf("%s\n%s\n", prompt->cmd[0], prompt->cmd[1]);
 	//prompt->cmd = NULL;
 	prompt->env = NULL;
@@ -39,6 +39,8 @@ t_exec	*init_exec(char **env, t_prompt *prompt)
 	exec->env = make_env(env);
 	exec->fd_in = 0;
 	exec->fd_out = 1;
+	exec->exit = 0;
+	exec->pid = -2;
 	exec->n_cmd = len_prompt(prompt);
 	return (exec);
 }
@@ -99,7 +101,7 @@ t_prompt	*new_prompt(char *cmd, char *file0, char *file1, char **env, int file)
 
 	if (file)
 	{
-		new_prompt->file = new_file(file0, 0);
+		new_prompt->file = new_file(file0, 1);
 		fileadd_back(&new_prompt->file, new_file(file1, 1));
 	}
 	else

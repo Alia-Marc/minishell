@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 23:49:11 by marc              #+#    #+#             */
-/*   Updated: 2024/08/25 23:18:58 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/31 04:21:28 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,11 @@ void	free_file(t_file **file)
 	}
 }
 
-void	exit_free_all(t_prompt *prompt, t_exec *exec)
+void	exit_free_all(t_prompt *prompt, t_exec *exec, int code)
 {
+	close_fds(exec);
 	free_prompt(&prompt);
 	ft_free_tab(exec->env);
 	free(exec);
-	exit(errno);
+	exit(code);
 }

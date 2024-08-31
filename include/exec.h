@@ -6,7 +6,7 @@
 /*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:18:34 by malia             #+#    #+#             */
-/*   Updated: 2024/08/30 21:13:54 by alia             ###   ########.fr       */
+/*   Updated: 2024/08/31 02:05:01 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # define WRITE 1
 # define READ 0
 # define ERR_MALLOC "kimonOS: malloc failed\n"
+# define NO_SUCH_FILE_OR_DIR "kimonOS: %s: No such file or directory\n"
+# define COMMAND_NOT_FOUND "kimonOS: %s: command not found\n"
 
 // get_path of a command
 char		*get_path(char *cmd, char **env);
@@ -27,7 +29,7 @@ char		*get_line_value(char *name, char **env);
 // Free Functions
 void		free_file(t_file **file);
 void		free_prompt(t_prompt **prompt);
-void		exit_free_all(t_prompt *prompt, t_exec *exec);
+void		exit_free_all(t_prompt *prompt, t_exec *exec, int code);
 
 // Fake inits of t_files and t_prompts + small init of exec
 void		fake_init(char **env, t_prompt *prompt);

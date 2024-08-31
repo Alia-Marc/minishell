@@ -6,13 +6,13 @@
 /*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 15:13:22 by malia             #+#    #+#             */
-/*   Updated: 2024/08/29 16:46:43 by alia             ###   ########.fr       */
+/*   Updated: 2024/08/31 02:55:36 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/exec.h"
 
-static int	check_char(char *str, char c)
+int	check_char(char *str, char c)
 {
 	int	i;
 
@@ -38,9 +38,9 @@ int	env_builtin(t_exec *exec)
 			i++;
 			continue ;
 		}
-		write(STDOUT_FILENO, exec->env[i], ft_strlen(exec->env[i]));
-		write(STDOUT_FILENO, "\n", 1);
+		write(exec->fd_out, exec->env[i], ft_strlen(exec->env[i]));
+		write(exec->fd_out, "\n", 1);
 		i++;
 	}
-	return (errno);
+	return (0);
 }

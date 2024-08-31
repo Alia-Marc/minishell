@@ -1,3 +1,1 @@
-kkkkkekekekekekek
-ehheu
-ty
+/home/alia/42/minishell

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 17:37:04 by marc              #+#    #+#             */
-/*   Updated: 2024/08/26 13:56:50 by marc             ###   ########.fr       */
+/*   Updated: 2024/08/31 02:55:20 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static char	**skip_n(t_prompt *prompt, int *print_nl)
 	return (&cmd[i]);
 }
 
-int	echo_builtin(t_prompt *prompt)
+int	echo_builtin(t_prompt *prompt, t_exec *exec)
 {
 	char	**cmd;
 	int		print_nl;
@@ -52,13 +52,13 @@ int	echo_builtin(t_prompt *prompt)
 	while (cmd[i])
 	{
 		if (i > 0)
-			write(STDOUT_FILENO, " ", 1);
-		write(STDOUT_FILENO, cmd[i], ft_strlen(cmd[i]));
+			write(exec->fd_out, " ", 1);
+		write(exec->fd_out, cmd[i], ft_strlen(cmd[i]));
 		i++;
 	}
 	if (print_nl)
-		write(STDOUT_FILENO, "\n", 1);
-	return (errno);
+		write(exec->fd_out, "\n", 1);
+	return (0);
 }
 
 
