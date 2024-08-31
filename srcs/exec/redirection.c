@@ -6,13 +6,13 @@
 /*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 17:22:01 by alia              #+#    #+#             */
-/*   Updated: 2024/08/31 02:04:56 by alia             ###   ########.fr       */
+/*   Updated: 2024/08/31 17:38:09 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/exec.h"
 
-void	open_close_redir(t_prompt *prompt)
+int	open_close_redir(t_prompt *prompt)
 {
 	t_prompt	*tmp_prompt;
 	t_file		*tmp_file;
@@ -20,24 +20,23 @@ void	open_close_redir(t_prompt *prompt)
 
 	tmp_prompt = prompt;
 	if (!tmp_prompt)
-		return ;
+		return (0);
 	while (tmp_prompt)
 	{
 		tmp_file = tmp_prompt->file;
 		while (tmp_file)
 		{
 			tmp_fd = open_file(tmp_prompt, tmp_file->file, tmp_file->mode);
-			//ft_printf("%s\n", tmp_file->file);
 			if (tmp_fd < 0)
-				error_handler(tmp_file->file, ": ", 0); //shoud be exiting and asking for a new prompt instead of continuing like now
+				return (ft_fdprintf(2, NO_SUCH_FILE_OR_DIR, tmp_file->file), 0);//shoud be exiting and asking for a new prompt instead of continuing like now
 			if (tmp_file->mode != 3)
 				close(tmp_fd);
 			tmp_file = tmp_file->next;
 		}
 		use_here_doc(tmp_prompt);
-		//ft_printf("%d\n", tmp_prompt->use_here_doc);
 		tmp_prompt = tmp_prompt->next;
 	}
+	return (1);
 }
 
 void	handle_fd(int fd, t_exec *exec, t_file *file)

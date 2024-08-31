@@ -6,7 +6,7 @@
 /*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:08:15 by malia             #+#    #+#             */
-/*   Updated: 2024/08/31 17:24:38 by alia             ###   ########.fr       */
+/*   Updated: 2024/08/31 18:09:08 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	exec_prompt(t_prompt *prompt, t_exec *exec)
 	}
 	if (!isatty(prev_pipe) && prev_pipe > 2)
 		close(prev_pipe);
-	wait_children(exec->pid);
+	exec->exit = wait_children(exec->pid);
 }
 
 void	exec_cmd(t_prompt *prompt, t_exec *exec)
@@ -68,17 +68,17 @@ void	exec_cmd(t_prompt *prompt, t_exec *exec)
 	if (check_char(prompt->cmd[0], '/'))
 	{
 		ft_fdprintf(2, NO_SUCH_FILE_OR_DIR, prompt->cmd[0]);
-		exit_free_all(prompt, exec, 127);
+		exec->exit = 127;
 	}
 	else if (!prompt->path)
 	{
 		ft_fdprintf(2, COMMAND_NOT_FOUND, prompt->cmd[0]);
-		exit_free_all(prompt, exec, 127);
+		exec->exit = 127;
 	}
-	if (execve(prompt->path, prompt->cmd, exec->env) == -1)
+	else if (execve(prompt->path, prompt->cmd, exec->env) == -1)
 	{
-		ft_putstr_fd("ERROR CMD POURQUOI?\n", 2);
-		exit_free_all(prompt, exec, 127);
+		ft_fdprintf(2, "ERROR COMMAND POURQUOI\n");
+		exec->exit = 1;
 	}
 }
 
@@ -91,9 +91,9 @@ int	main(int ac, char **av, char **env)
 
 	fake_init(env, prompt);
 	//prompt->file = new_file("/dev/full", 1);
-	//prompt->file = new_file("a", 0);
+	prompt->file = new_file("a", 0);
 	//fileadd_back(&prompt->file, new_file("oui", 2));
-	//fileadd_back(&prompt->file, new_file("i", 0));
+	//fileadd_back(&prompt->file, new_file("eheh", 0));
 	//fileadd_back(&prompt->file, new_file("k", 1));
 	//fileadd_back(&prompt->file, new_file("oui", 1));
 	//fileadd_back(&prompt->file, new_file("gay", 2));
@@ -102,15 +102,15 @@ int	main(int ac, char **av, char **env)
 	//promptadd_back(&prompt, new_prompt("grep o", "o", "outfile", env, 1));
 	//promptadd_back(&prompt, new_prompt("exit 32d", "j", "outfile", env, 1));
 	
-	promptadd_back(&prompt, new_prompt("ls", "o", "outfile", env, 0));
+	//promptadd_back(&prompt, new_prompt("cat", "dawd", "outfile", env, 1));
 	//promptadd_back(&prompt, new_prompt("cd", "o", "outfile", env, 0));
 	//promptadd_back(&prompt, new_prompt("", "o", "outfile", env, 0));
 
 	exec = init_exec(env, prompt);
-	open_close_redir(prompt); // un-comment to use redirections files
-	//ft_printf("fd_in = %d, fd_out = %d\nlen prompt = %d\n\n\n", exec->fd_in, exec->fd_out, exec->n_cmd);
-
-	exec_prompt(prompt, exec);
+	if (open_close_redir(prompt)) // un-comment to use redirections files
+		exec_prompt(prompt, exec);
+	else
+		exec->exit = 1;
 	ft_fdprintf(2, "%d\n", exec->exit);
 	if (!isatty(exec->fd_in) && exec->fd_in > 2)
 		close(exec->fd_in);
@@ -135,11 +135,12 @@ int	main(int ac, char **av, char **env)
 		free(cmd);
 		exec->fd_in = 0;
 		exec->fd_out = 1;
-		exec->exit = 0;
 		exec->pid = -2;
 		exec->n_cmd = len_prompt(prompt);
-		open_close_redir(prompt);
-		exec_prompt(prompt, exec);
+		if (open_close_redir(prompt))
+			exec_prompt(prompt, exec);
+		else
+			exec->exit = 1;
 		ft_fdprintf(2, "%d\n", exec->exit);
 		if (!isatty(exec->fd_in) && exec->fd_in > 2)
 			close(exec->fd_in);
