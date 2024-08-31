@@ -6,7 +6,7 @@
 /*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 16:07:08 by alia              #+#    #+#             */
-/*   Updated: 2024/08/31 04:28:31 by alia             ###   ########.fr       */
+/*   Updated: 2024/08/31 17:25:50 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,7 @@
 
 void fake_init(char **env, t_prompt *prompt)
 {
-	//prompt->file->file = (char * )malloc(sizeof(char) * 4);
-	prompt->cmd = ft_split("cat", ' ');
-	//ft_printf("%s\n%s\n", prompt->cmd[0], prompt->cmd[1]);
-	//prompt->cmd = NULL;
+	prompt->cmd = ft_split("exit 4 5", ' ');
 	prompt->env = NULL;
 	if (env[0])
 		prompt->path = get_path(prompt->cmd[0], env);
@@ -26,7 +23,6 @@ void fake_init(char **env, t_prompt *prompt)
 	prompt->next = NULL;
 	prompt->file = NULL;
 	prompt->here_doc_fd = -2;
-	//free(env);
 }
 
 t_exec	*init_exec(char **env, t_prompt *prompt)
@@ -101,7 +97,7 @@ t_prompt	*new_prompt(char *cmd, char *file0, char *file1, char **env, int file)
 
 	if (file)
 	{
-		new_prompt->file = new_file(file0, 1);
+		new_prompt->file = new_file(file0, 0);
 		fileadd_back(&new_prompt->file, new_file(file1, 1));
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 13:14:59 by marc              #+#    #+#             */
-/*   Updated: 2024/08/31 04:13:49 by alia             ###   ########.fr       */
+/*   Updated: 2024/08/31 16:37:52 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int	is_builtin(t_prompt *prompt)
 		return (1);
 	else if (ft_strncmp(prompt->cmd[0], "unset", 5) == 0)
 		return (1);
+	else if (ft_strncmp(prompt->cmd[0], "exit", 4) == 0)
+		return (1);
 	return (0);
 }
 
@@ -57,6 +59,8 @@ int	exec_builtin(t_prompt *prompt, t_exec *exec, int *pipe_fd)
 		return (cd_builtin(prompt, exec));
 	else if (ft_strncmp(prompt->cmd[0], "export", 6) == 0 && exec->n_cmd > 1)
 		return (export_builtin(prompt, exec));
+	else if (ft_strncmp(prompt->cmd[0], "exit", 4) == 0)
+		return (exit_builtin(prompt, exec));
 	return (0);
 }
 
@@ -84,5 +88,7 @@ int	exec_solo_builtin(t_prompt *prompt, t_exec *exec)
 		return (export_builtin(prompt, exec));
 	else if (ft_strncmp(prompt->cmd[0], "unset", 5) == 0)
 		return (unset_builtin(prompt, exec));
+	else if (ft_strncmp(prompt->cmd[0], "exit", 4) == 0)
+		return (exit_builtin(prompt, exec));
 	return (0);
 }
