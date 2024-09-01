@@ -6,7 +6,7 @@
 /*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 13:14:59 by marc              #+#    #+#             */
-/*   Updated: 2024/08/31 16:37:52 by alia             ###   ########.fr       */
+/*   Updated: 2024/09/01 21:06:10 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ int	is_builtin(t_prompt *prompt)
 	return (0);
 }
 
-int	exec_builtin(t_prompt *prompt, t_exec *exec, int *pipe_fd)
+int	exec_builtin(t_prompt *prompt, t_exec *exec)
 {
-	close(pipe_fd[READ]);
-	if (exec->fd_out <= 2)
-		dup2(pipe_fd[WRITE], exec->fd_out);
-	close(pipe_fd[WRITE]);
+	// close(pipe_fd[READ]);
+	// if (exec->fd_out <= 2)
+	// 	dup2(pipe_fd[WRITE], exec->fd_out);
+	// close(pipe_fd[WRITE]);
 	if (ft_strncmp(prompt->cmd[0], "pwd", 3) == 0)
 		return (pwd_builtin(exec));
 	else if (ft_strncmp(prompt->cmd[0], "echo", 4) == 0)

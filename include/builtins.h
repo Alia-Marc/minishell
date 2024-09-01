@@ -6,7 +6,7 @@
 /*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 18:33:46 by alia              #+#    #+#             */
-/*   Updated: 2024/08/31 17:11:04 by alia             ###   ########.fr       */
+/*   Updated: 2024/09/01 21:06:29 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 /*			ENGAGE			*/
 int			is_builtin(t_prompt *prompt);
 int			is_modifying_env_builtin(t_prompt *prompt, t_exec *exec);
-int			exec_builtin(t_prompt *prompt, t_exec *exec, int *pipe_fd);
+int			exec_builtin(t_prompt *prompt, t_exec *exec);
 int			exec_solo_builtin(t_prompt *prompt, t_exec *exec);
 
 /*			MAKE ENV 		*/

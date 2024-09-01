@@ -6,7 +6,7 @@
 /*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 15:52:36 by malia             #+#    #+#             */
-/*   Updated: 2024/08/31 04:23:18 by alia             ###   ########.fr       */
+/*   Updated: 2024/09/01 21:06:15 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ int	handle_pipe(t_prompt *prompt, t_exec *exec, int fd_infile)
 		exit(0);
 	if (exec->pid == 0 && prompt->cmd[0])
 	{
+		do_child(fd_infile, exec->fd_out, pipe_fd, prompt);	
 		if (is_builtin(prompt))
-			exec->exit = exec_builtin(prompt, exec, pipe_fd);
+			exec->exit = exec_builtin(prompt, exec);
 		else
 		{
-			do_child(fd_infile, exec->fd_out, pipe_fd, prompt);
 			ft_putstr_fd("true cmd\n", 2);
 			exec_cmd(prompt, exec);
 		}
@@ -38,10 +38,7 @@ int	handle_pipe(t_prompt *prompt, t_exec *exec, int fd_infile)
 		close(pipe_fd[WRITE]);
 		if (!isatty(fd_infile) && fd_infile > 2)
 			close(fd_infile);
-		exec->exit = is_modifying_env_builtin(prompt, exec);
-		// if (fd_infile >= 0)
-		// 	fd_infile = dup2(pipe_fd[READ], fd_infile);
-		// close(pipe_fd[READ]);
+		//exec->exit = is_modifying_env_builtin(prompt, exec);
 		return (pipe_fd[READ]);
 	}
 }

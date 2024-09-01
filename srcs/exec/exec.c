@@ -6,7 +6,7 @@
 /*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:08:15 by malia             #+#    #+#             */
-/*   Updated: 2024/08/31 18:09:08 by alia             ###   ########.fr       */
+/*   Updated: 2024/09/01 21:46:16 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 static void	exit_command(t_prompt *prompt, t_exec *exec, int fd, t_prompt *tmp)
 {
 	if (exec->pid == 0 || (!ft_strncmp(tmp->cmd[0], "exit", 4) && !tmp->next
-		&& (ft_strlen2(tmp->cmd) <= 2 || !exit_check_first_arg(tmp->cmd[1]))))
+		&& (ft_strlen2(tmp->cmd) <= 2 || !exit_check_first_arg(tmp->cmd[1]))
+		&& exec->n_cmd == 1))
 	{
 		if (!isatty(fd) && fd > 2)
 			close(fd);
@@ -33,7 +34,7 @@ void	exec_prompt(t_prompt *prompt, t_exec *exec)
 	while (tmp_prompt)
 	{
 		assign_fds(tmp_prompt, exec);
-		if (is_builtin(tmp_prompt) && (exec->n_cmd == 1 || !tmp_prompt->next)) //|| !tmp_prompt->next
+		if (is_builtin(tmp_prompt) && exec->n_cmd == 1) //|| !tmp_prompt->next
 			exec->exit = exec_solo_builtin(tmp_prompt, exec);
 		else
 		{
@@ -59,6 +60,8 @@ void	exec_prompt(t_prompt *prompt, t_exec *exec)
 	}
 	if (!isatty(prev_pipe) && prev_pipe > 2)
 		close(prev_pipe);
+	if (is_builtin(prompt) && exec->n_cmd == 1)
+		return ;
 	exec->exit = wait_children(exec->pid);
 }
 
@@ -91,7 +94,7 @@ int	main(int ac, char **av, char **env)
 
 	fake_init(env, prompt);
 	//prompt->file = new_file("/dev/full", 1);
-	prompt->file = new_file("a", 0);
+	//prompt->file = new_file("a", 0);
 	//fileadd_back(&prompt->file, new_file("oui", 2));
 	//fileadd_back(&prompt->file, new_file("eheh", 0));
 	//fileadd_back(&prompt->file, new_file("k", 1));
@@ -102,7 +105,7 @@ int	main(int ac, char **av, char **env)
 	//promptadd_back(&prompt, new_prompt("grep o", "o", "outfile", env, 1));
 	//promptadd_back(&prompt, new_prompt("exit 32d", "j", "outfile", env, 1));
 	
-	//promptadd_back(&prompt, new_prompt("cat", "dawd", "outfile", env, 1));
+	promptadd_back(&prompt, new_prompt("exit", "dawd", "outfile", env, 0));
 	//promptadd_back(&prompt, new_prompt("cd", "o", "outfile", env, 0));
 	//promptadd_back(&prompt, new_prompt("", "o", "outfile", env, 0));
 

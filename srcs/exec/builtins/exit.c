@@ -6,7 +6,7 @@
 /*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 23:22:40 by alia              #+#    #+#             */
-/*   Updated: 2024/08/31 17:11:11 by alia             ###   ########.fr       */
+/*   Updated: 2024/09/01 20:54:02 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	exit_builtin(t_prompt *prompt, t_exec *exec)
 	int	len_cmd;
 
 	len_cmd = ft_strlen2(prompt->cmd);
-	if (!prompt->next)
+	if (exec->n_cmd == 1)
 		ft_fdprintf(2, "exit\n");
 	if (len_cmd == 1)
 		return (exec->exit);

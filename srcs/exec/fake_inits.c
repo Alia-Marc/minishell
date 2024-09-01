@@ -6,7 +6,7 @@
 /*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 16:07:08 by alia              #+#    #+#             */
-/*   Updated: 2024/08/31 17:44:28 by alia             ###   ########.fr       */
+/*   Updated: 2024/09/01 21:41:09 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void fake_init(char **env, t_prompt *prompt)
 {
-	prompt->cmd = ft_split("ls", ' ');
+	prompt->cmd = ft_split("exit 43", ' ');
 	prompt->env = NULL;
 	if (env[0])
 		prompt->path = get_path(prompt->cmd[0], env);
