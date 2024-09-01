@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:18:34 by malia             #+#    #+#             */
-/*   Updated: 2024/08/31 17:36:15 by alia             ###   ########.fr       */
+/*   Updated: 2024/09/01 23:41:46 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void		close_fds(t_exec *exec);
 // Pipe handling
 int			handle_pipe(t_prompt *prompt, t_exec *exec, int fd_infile);
 int			last_pipe(t_prompt *prompt, t_exec *exec, int fd_infile);
-void		do_child(int fd_in, int fd_out, int *pipe_fd, t_prompt *prompt);
+void		do_child(int fd_in, t_exec *exec, int *pipe_fd, t_prompt *prompt);
 void		exec_cmd(t_prompt *prompt, t_exec *exec);
 
 // here_doc

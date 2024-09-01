@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fake_inits.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 16:07:08 by alia              #+#    #+#             */
-/*   Updated: 2024/09/01 21:41:09 by alia             ###   ########.fr       */
+/*   Updated: 2024/09/02 00:34:04 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void fake_init(char **env, t_prompt *prompt)
 {
-	prompt->cmd = ft_split("exit 43", ' ');
+	prompt->cmd = ft_split("ls", ' ');
 	prompt->env = NULL;
 	if (env[0])
 		prompt->path = get_path(prompt->cmd[0], env);
@@ -97,7 +97,7 @@ t_prompt	*new_prompt(char *cmd, char *file0, char *file1, char **env, int file)
 
 	if (file)
 	{
-		new_prompt->file = new_file(file0, 0);
+		new_prompt->file = new_file(file0, 1);
 		fileadd_back(&new_prompt->file, new_file(file1, 1));
 	}
 	else

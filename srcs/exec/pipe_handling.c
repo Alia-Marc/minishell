@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_handling.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 15:52:36 by malia             #+#    #+#             */
-/*   Updated: 2024/09/01 21:06:15 by alia             ###   ########.fr       */
+/*   Updated: 2024/09/02 00:14:52 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ int	handle_pipe(t_prompt *prompt, t_exec *exec, int fd_infile)
 		exit(0);
 	if (exec->pid == 0 && prompt->cmd[0])
 	{
-		do_child(fd_infile, exec->fd_out, pipe_fd, prompt);	
 		if (is_builtin(prompt))
-			exec->exit = exec_builtin(prompt, exec);
+			exec->exit = exec_builtin(prompt, exec, pipe_fd);
 		else
 		{
-			ft_putstr_fd("true cmd\n", 2);
+			do_child(fd_infile, exec, pipe_fd, prompt);	
+			ft_fdprintf(2, "true cmd");
 			exec_cmd(prompt, exec);
 		}
 		return (exec->pid);
@@ -43,7 +43,7 @@ int	handle_pipe(t_prompt *prompt, t_exec *exec, int fd_infile)
 	}
 }
 
-void	do_child(int fd_in, int fd_out, int *pipe_fd, t_prompt *prompt)
+void	do_child(int fd_in, t_exec *exec, int *pipe_fd, t_prompt *prompt)
 {
 	// if (fd_in < 0 && mid == 0)
 	// {
@@ -57,10 +57,10 @@ void	do_child(int fd_in, int fd_out, int *pipe_fd, t_prompt *prompt)
 		dup2(fd_in, STDIN_FILENO);
 		close(fd_in);
 	}
-	if (!isatty(fd_out) && fd_out > 2)
+	if (!isatty(exec->fd_out) && exec->fd_out > 2)
 	{
-		dup2(fd_out, STDOUT_FILENO);
-		close(fd_out);
+		dup2(exec->fd_out, STDOUT_FILENO);
+		close(exec->fd_out);
 	}
 	else if (prompt->next)
 		dup2(pipe_fd[WRITE], STDOUT_FILENO);
