@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:08:15 by malia             #+#    #+#             */
-/*   Updated: 2024/09/02 00:35:01 by marc             ###   ########.fr       */
+/*   Updated: 2024/09/02 15:40:55 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	main(int ac, char **av, char **env)
 
 	fake_init(env, prompt);
 	//prompt->file = new_file("/dev/full", 1);
-	prompt->file = new_file("bah", 1);
+	//prompt->file = new_file("bah", 1);
 	//fileadd_back(&prompt->file, new_file("oui", 2));
 	//fileadd_back(&prompt->file, new_file("eheh", 0));
 	//fileadd_back(&prompt->file, new_file("k", 1));
@@ -105,7 +105,7 @@ int	main(int ac, char **av, char **env)
 	//promptadd_back(&prompt, new_prompt("grep o", "o", "outfile", env, 1));
 	//promptadd_back(&prompt, new_prompt("exit 32d", "j", "outfile", env, 1));
 	
-	promptadd_back(&prompt, new_prompt("env", "a", "outfile", env, 0));
+	//promptadd_back(&prompt, new_prompt("env", "a", "outfile", env, 0));
 	//promptadd_back(&prompt, new_prompt("cd", "o", "outfile", env, 0));
 	//promptadd_back(&prompt, new_prompt("", "o", "outfile", env, 0));
 
