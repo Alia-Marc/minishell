@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:01:56 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/09 14:02:20 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/09 17:18:51 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 t_prompt	*prompt_init(t_prompt *prompt)
 {
 	prompt = malloc(sizeof(t_prompt));
+	if (!prompt)
+		return (NULL);
     prompt->file = NULL;
 	// prompt->cmd = NULL;
 	prompt->use_heredoc = 0;
