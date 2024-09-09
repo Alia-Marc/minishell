@@ -6,18 +6,11 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:08:15 by malia             #+#    #+#             */
-/*   Updated: 2024/07/31 16:11:09 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/06 12:12:52 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-void	fake_init(char **env, t_prompt *prompt)
-{
-	prompt->file = "oui";
-	prompt->cmd[0] = "cat";
-	prompt->env = env;
-}
 
 char	*get_path(char *cmd, char **env)
 {

@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 17:51:53 by emfourni          #+#    #+#             */
-/*   Updated: 2024/08/24 17:35:54 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/06 11:18:17 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,6 @@ int	ft_is_redirect(char c)
 		return (1);
 	return (0);
 }
-
-// int	ft_dollarsign_redirect(char *file, int index)
-// {
-// 	int	temp;
-
-// 	temp = index;
-// 	while (file[index])
-// 	{
-// 		if (file[temp + 1] == '$')
-// 			return (write(2, "tie ambigu dans tes redirect tonton\n", 36), 0);
-// 		else if (file[index] == '$' && index == ft_strlen(file) - 1)
-// 			return (-1); // '$' is at the end and should be in file name
-// 		else if (file[index] == '$')
-// 			return (index - temp - 1); //  witouth '>' or '$'
-// 		index++;
-// 	}
-// 	return (0);
-// }
 
 int	nb_redirect(char *str)
 {
@@ -112,6 +94,8 @@ int	redirect_checker(char *cmd_line)
 		if (!check_parenthesis(cmd_line))
 			return (0);
 		if (!check_empty_name(cmd_line))
+			return (0);
+		if (!ft_dollarsign_redirect(cmd_line))
 			return (0);
 		index++;
 	}

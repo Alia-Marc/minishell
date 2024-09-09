@@ -6,12 +6,24 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:01:56 by emfourni          #+#    #+#             */
-/*   Updated: 2024/08/24 17:33:17 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/09 14:02:20 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include "../../include/parsing.h"
+
+t_prompt	*prompt_init(t_prompt *prompt)
+{
+	prompt = malloc(sizeof(t_prompt));
+    prompt->file = NULL;
+	// prompt->cmd = NULL;
+	prompt->use_heredoc = 0;
+	// prompt->env = make_env();
+	// prompt->path = getpath(prompt->cmd, prompt->env);
+    prompt->next = NULL;
+	return (prompt);
+}
 
 t_prompt	*promptlast(t_prompt *prompt)
 {
@@ -54,3 +66,21 @@ void	free_prompt(t_prompt **prompt)
 		*prompt = tmp;
 	}
 }
+
+bool	ft_is_metachar(char c)
+{
+	if (c == '|' || c == '&' || c == '(' || c == ')' || c == '<' || c == '>')
+		return (true);
+	return (false);
+}
+
+// int	ft_onlywhitespace(char *str, int len)
+// {
+// 	while (len > 0)
+// 	{
+// 		if (!ft_isspace(str[len]))
+// 			return (0);
+// 		len--;
+// 	}
+// 	return (1);
+// }

@@ -6,12 +6,29 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 12:22:35 by emilefourni       #+#    #+#             */
-/*   Updated: 2024/08/24 17:36:52 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/09 17:03:12 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/parsing.h"
 #include "../../../include/minishell.h"
+
+void    print_file(t_file *file)
+{
+    t_file *tmp_file;
+
+    tmp_file = file;
+    while (tmp_file->next != NULL)
+	{
+        printf("redirect name : %s\nredirect mode : %d\n", tmp_file->file, tmp_file->mode);
+		tmp_file = tmp_file->next;
+        if (!tmp_file->next)
+        {
+            printf("redirect name : %s\nredirect mode : %d\n", tmp_file->file, tmp_file->mode);
+            break ;
+        }
+	}
+}
 
 void	redirect_filler(char *cmd_line, int index, t_prompt *prompt, int mode)
 {
@@ -33,7 +50,7 @@ void	redirect_filler(char *cmd_line, int index, t_prompt *prompt, int mode)
 	}
 }
 
-int	redirect_handler(char *cmd_line, t_prompt *prompt)
+void	redirect_handler(char *cmd_line, t_prompt *prompt)
 {
 	int	index;
 
@@ -50,5 +67,5 @@ int	redirect_handler(char *cmd_line, t_prompt *prompt)
 			redirect_filler(cmd_line, index, prompt, 0);
 		index++;
 	}
-	return (1);
+	print_file(prompt->file);
 }
