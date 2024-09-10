@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:56:27 by malia             #+#    #+#             */
-/*   Updated: 2024/08/21 11:01:24 by marc             ###   ########.fr       */
+/*   Updated: 2024/09/09 23:08:40 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ typedef struct s_prompt
 	char			**cmd;
 //	int				len_cmd;
 	char			*path;
-	char			**env;
-	int				error;
+	// char			**env;
+	// int				error;
 	struct s_prompt	*next;
 }					t_prompt;
 

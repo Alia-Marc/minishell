@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:08:15 by malia             #+#    #+#             */
-/*   Updated: 2024/09/02 15:40:55 by marc             ###   ########.fr       */
+/*   Updated: 2024/09/10 03:34:54 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ int	main(int ac, char **av, char **env)
 	//promptadd_back(&prompt, new_prompt("export 7oui=da non=da", "o", "outfile", env, 0));
 	//promptadd_back(&prompt, new_prompt("grep o", "o", "outfile", env, 1));
 	//promptadd_back(&prompt, new_prompt("exit 32d", "j", "outfile", env, 1));
+	promptadd_back(&prompt, new_prompt("ls", "j", "outfile", env, 1));
 	
 	//promptadd_back(&prompt, new_prompt("env", "a", "outfile", env, 0));
 	//promptadd_back(&prompt, new_prompt("cd", "o", "outfile", env, 0));
@@ -134,6 +135,7 @@ int	main(int ac, char **av, char **env)
 		cmd = readline("");
 		if (ft_strncmp(cmd, "caca", 4) == 0)
 			break;
+		add_history(cmd);
 		prompt = new_prompt(cmd, "o", "outfile", exec->env, 0);
 		free(cmd);
 		exec->fd_in = 0;
@@ -159,6 +161,7 @@ int	main(int ac, char **av, char **env)
 	free_prompt(&prompt);
 	ft_free_tab(exec->env);
 	free(exec);
+	rl_clear_history();
 
 /*
 	char	**tcmd;

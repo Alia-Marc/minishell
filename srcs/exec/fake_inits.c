@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 16:07:08 by alia              #+#    #+#             */
-/*   Updated: 2024/09/02 00:34:04 by marc             ###   ########.fr       */
+/*   Updated: 2024/09/10 03:34:00 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,11 @@
 
 void fake_init(char **env, t_prompt *prompt)
 {
-	prompt->cmd = ft_split("ls", ' ');
-	prompt->env = NULL;
-	if (env[0])
-		prompt->path = get_path(prompt->cmd[0], env);
-	else
-		prompt->path = NULL;
+	prompt->cmd = ft_split("cat", ' ');
+	prompt->path = get_path(prompt->cmd[0], env);
 	prompt->next = NULL;
 	prompt->file = NULL;
 	prompt->here_doc_fd = -2;
-}
-
-t_exec	*init_exec(char **env, t_prompt *prompt)
-{
-	t_exec	*exec;
-	
-	exec = (t_exec *)malloc(sizeof(t_exec));
-	if (!exec)
-		return (NULL);
-	exec->env = make_env(env);
-	exec->fd_in = 0;
-	exec->fd_out = 1;
-	exec->exit = 0;
-	exec->pid = -2;
-	exec->n_cmd = len_prompt(prompt);
-	return (exec);
 }
 
 t_file	*new_file(char *file, int mode)
@@ -87,11 +67,7 @@ t_prompt	*new_prompt(char *cmd, char *file0, char *file1, char **env, int file)
 
 	new_prompt = (t_prompt *)malloc(sizeof(t_prompt));
 	new_prompt->cmd = ft_split(cmd, ' ');
-	new_prompt->env = NULL;
-	if (env[0])
-		new_prompt->path = get_path(new_prompt->cmd[0], env);
-	else
-		new_prompt->path = NULL;
+	new_prompt->path = get_path(new_prompt->cmd[0], env);
 	new_prompt->here_doc_fd = -2;
 	new_prompt->next = NULL;
 

@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 15:52:36 by malia             #+#    #+#             */
-/*   Updated: 2024/09/02 00:14:52 by marc             ###   ########.fr       */
+/*   Updated: 2024/09/10 02:40:11 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	handle_pipe(t_prompt *prompt, t_exec *exec, int fd_infile)
 		else
 		{
 			do_child(fd_infile, exec, pipe_fd, prompt);	
-			ft_fdprintf(2, "true cmd");
+			ft_fdprintf(2, "true cmd\n");
 			exec_cmd(prompt, exec);
 		}
 		return (exec->pid);

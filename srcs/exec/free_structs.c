@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 23:49:11 by marc              #+#    #+#             */
-/*   Updated: 2024/08/31 04:21:28 by alia             ###   ########.fr       */
+/*   Updated: 2024/09/10 03:45:20 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ void	exit_free_all(t_prompt *prompt, t_exec *exec, int code)
 	free_prompt(&prompt);
 	ft_free_tab(exec->env);
 	free(exec);
+	rl_clear_history();
 	exit(code);
 }

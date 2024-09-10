@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:18:34 by malia             #+#    #+#             */
-/*   Updated: 2024/09/01 23:41:46 by marc             ###   ########.fr       */
+/*   Updated: 2024/09/09 23:36:08 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ void		free_file(t_file **file);
 void		free_prompt(t_prompt **prompt);
 void		exit_free_all(t_prompt *prompt, t_exec *exec, int code);
 
+// Init Exec
+t_exec		*init_exec(char **env, t_prompt *prompt);
+void		reset_exec(t_prompt *prompt, t_exec *exec);
+
 // Fake inits of t_files and t_prompts + small init of exec
 void		fake_init(char **env, t_prompt *prompt);
 t_file		*new_file(char *file, int mode);
@@ -39,7 +43,6 @@ void		fileadd_back(t_file **file, t_file *new);
 t_prompt	*new_prompt(char *cmd, char *file0, char *file1, char **env, int file);
 t_prompt	*promptlast(t_prompt *prompt);
 void		promptadd_back(t_prompt **prompt, t_prompt *new);
-t_exec		*init_exec(char **env, t_prompt *prompt);
 
 // Handle files functions
 int			open_close_redir(t_prompt *prompt);

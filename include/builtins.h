@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 18:33:46 by alia              #+#    #+#             */
-/*   Updated: 2024/09/02 00:09:27 by marc             ###   ########.fr       */
+/*   Updated: 2024/09/09 23:33:23 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int			is_modifying_env_builtin(t_prompt *prompt, t_exec *exec);
 int			exec_builtin(t_prompt *prompt, t_exec *exec, int *pipe_fd);
 int			exec_solo_builtin(t_prompt *prompt, t_exec *exec);
 
-/*			MAKE ENV 		*/
-char		**make_env(char **env);
+/*			INIT LOCAL ENV 		*/
+char		**init_local_env(char **env);
 char		**sort_env(char **env);
 
 /*			PWD				*/

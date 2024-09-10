@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 00:39:25 by alia              #+#    #+#             */
-/*   Updated: 2024/08/23 14:29:23 by malia            ###   ########.fr       */
+/*   Updated: 2024/09/10 03:09:46 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,3 +19,5 @@ void	error_handler(char *file, char *word, int code)
 		perror("");
 	//exit(code);
 }
+
+// MDR c'est quoi ce fichier qui sert à rien

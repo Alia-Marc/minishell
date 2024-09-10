@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 15:14:48 by malia             #+#    #+#             */
-/*   Updated: 2024/08/26 02:51:54 by marc             ###   ########.fr       */
+/*   Updated: 2024/09/10 03:02:15 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*get_line_value(char *name, char **env)
 	int	j;
 
 	i = 0;
-	while (env[i])
+	while (env && env[i])
 	{
 		j = 0;
 		while (env[i][j] && env[i][j] != '=')
