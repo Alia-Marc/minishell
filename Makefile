@@ -18,6 +18,7 @@ SRC =	srcs/main.c \
 		srcs/parsing/struct_filler/redirect_handler.c \
 		srcs/parsing/struct_filler/redirect_utils.c \
 		srcs/parsing/struct_filler/cmd_handler.c \
+		srcs/parsing/struct_filler/cmd_utils.c \
 		srcs/error/error_msg.c \
 		srcs/error/error_msg2.c \
 

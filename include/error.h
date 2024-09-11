@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 16:14:28 by emfourni          #+#    #+#             */
-/*   Updated: 2024/08/24 17:19:04 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/10 12:29:19 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ void	ft_metachar_near_token(void);
 // error_msg2.c
 
 void	ft_bad_pipe_msg(void);
+void	too_many_redirect(void);
 
 #endif

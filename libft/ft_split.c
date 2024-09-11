@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 16:45:04 by malia             #+#    #+#             */
-/*   Updated: 2023/11/09 18:45:16 by malia            ###   ########.fr       */
+/*   Updated: 2024/09/10 15:14:29 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "../include/parsing.h"
 
 static void	free_tab(char **tab, size_t k, size_t max)
 {

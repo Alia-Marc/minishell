@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:54:18 by malia             #+#    #+#             */
-/*   Updated: 2024/09/09 13:14:24 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/11 17:09:26 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,42 +15,55 @@
 
 // int main(int argc, char *argv[])
 // {
-//     t_prompt	*prompt;
+// 	t_prompt	*prompt;
 
-//     prompt = malloc(sizeof(t_prompt));
-//     prompt->file = NULL;
-//     prompt->next = NULL;
-// 	// prompt->file = malloc(sizeof(t_list));
-//     redirect_handler(argv[1], prompt);
-//     print_list(prompt->file);
-// 	free_prompt(&prompt);
-//     return (argc);
+// 	prompt = NULL;
+// 	prompt = prompt_init(prompt);
+// 	prompt = ft_filler(argv[1], prompt);
+//     return argc;
+// }
+
+int    main(void)
+{
+    char    *line;
+	t_prompt	*prompt;
+
+	prompt = NULL;
+    while (1)
+    {
+        line = readline("");
+		if (ft_checker(line))
+		{
+			prompt = prompt_init(prompt);
+			prompt = ft_filler(line, prompt);
+			// free_prompt(&prompt, line);
+		}
+    }
+    return (0);
+}
+
+// int main(int argc, char *argv[])
+// {
+// 	// t_prompt	*prompt;
+
+// 	// prompt = NULL;
+// 	// prompt = prompt_init(prompt);
+//     // if (ft_checker(argv[1]))
+//     //     ft_filler(argv[1], prompt);
+//     char **split;
+
+//     split = NULL;
+//     split = split_cmd(argv[1], ' ');
+//     print_split(split, argv[1]);
+//     printf("\n%zu\n", ft_countword(argv[1], ' '));
+// 	// free_cmd(split);
+//     return argc;
 // }
 
 // int main(int argc, char *argv[])
 // {
-//     printf("%d\n", ft_checker(argv[1]));
-//     return argc;
+// 	printf("%d\n", quotes_handler(argv[1]));
+// 	return argc;
 // }
 
-
-// int    main(void)
-// {
-//     char    *line;
-//     t_prompt    *prompt;
-
-//     prompt = NULL;
-//     while (1)
-//     {
-//         line = readline("");
-//         printf("%d\n", ft_checker(line));
-//     }
-//     return (0);
-// }
-
-int main(int argc, char *argv[])
-{
-    ft_filler(argv[1]);
-    return argc;
-}
 

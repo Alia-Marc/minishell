@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 16:09:38 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/06 11:25:51 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/10 12:33:46 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_syntax_error(void)
 
 void	ft_metachar_near_token(void)
 {
-	write(2, "frerot tia un token dans le nom d'une redirection le S\n", 55);
+	write(2, "frerot tia une erreur a cote d'un token surprenant\n", 53);
 }
 
 void	ft_redirect_name_empty(void)

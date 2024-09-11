@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 17:51:53 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/06 11:18:17 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/10 12:27:18 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int	nb_redirect(char *str)
 			pos_redirect = index;
 		if ((str[index] == '>' && str[index + 1] == '<')
 			|| (str[index] == '<' && str[index + 1] == '>'))
-			return (ft_syntax_error(), 0);
+			return (too_many_redirect(), 0);
 		if (ft_is_redirect(str[pos_redirect + 2]))
-			return (ft_syntax_error(), 0);
+			return (too_many_redirect(), 0);
 		index++;
 	}
 	return (1);
@@ -71,6 +71,8 @@ int	check_empty_name(char *str)
 		if (ft_is_redirect(str[index]))
 		{
 			index++;
+			if (ft_is_redirect(str[index]))
+				index++;
 			while (ft_isspace(str[index]) && str[index])
 				index++;
 			if (ft_is_redirect(str[index]) || str[index] == '|'

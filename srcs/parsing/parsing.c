@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:59:39 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/09 14:44:22 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/11 15:04:42 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,9 @@ int	ft_checker(char *cmd_line)
 	return (1);
 }
 
-void	ft_filler(char *cmd_line)
+t_prompt	*ft_filler(char *cmd_line, t_prompt *prompt)
 {
-	t_prompt	*prompt;
-	int			index;
-
-	index = 0;
-	prompt = NULL;
-	prompt = prompt_init(prompt);
 	cmd_handler(cmd_line, prompt);
+	// free_prompt(&prompt, cmd_line);
+	return (prompt);
 }

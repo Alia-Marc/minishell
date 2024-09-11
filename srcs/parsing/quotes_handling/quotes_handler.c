@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:13:39 by emfourni          #+#    #+#             */
-/*   Updated: 2024/08/24 16:27:59 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:11:47 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	single_quote_closed(char *str)
 	nb_outside_quote = 0;
 	while (str[index])
 	{
-		if (str[index] == 39 && !within_double_quote(str, index))
+		if (str[index] == 39 /*&& !within_double_quote(str, index)*/)
 		{
 			index++;
 			while (str[index] != 39 && str[index])
@@ -43,7 +43,7 @@ int	double_quote_closed(char *str)
 	index = 0;
 	while (str[index])
 	{
-		if (str[index] == 34 && !within_single_quote(str, index))
+		if (str[index] == 34 /*&& !within_single_quote(str, index)*/)
 		{
 			index++;
 			while (str[index] != 34 && str[index])
@@ -69,9 +69,9 @@ int	even_nb_outside_quote(char *str)
 	outside_double_quote = 0;
 	while (str[i])
 	{
-		if (str[i] == 39 && !within_double_quote(str, i))
+		if (str[i] == 39 /*&& !within_double_quote(str, i)*/)
 			outside_single_quote++;
-		else if (str[i] == 34 && !within_single_quote(str, i))
+		else if (str[i] == 34 /*&& !within_single_quote(str, i)*/)
 			outside_double_quote++;
 		i++;
 	}
@@ -83,7 +83,7 @@ int	even_nb_outside_quote(char *str)
 int	quotes_handler(char *cmd_line)
 {
 	if (!double_quote_closed(cmd_line) || !single_quote_closed(cmd_line)
-		|| !even_nb_outside_quote(cmd_line))
+		/*|| !even_nb_outside_quote(cmd_line)*/)
 		return (ft_quote_error(), 0);
 	return (1);
 }

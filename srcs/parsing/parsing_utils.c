@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:01:56 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/09 17:18:51 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:33:09 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,17 @@ void	promptadd_back(t_prompt **prompt, t_prompt *new)
 	}
 }
 
-void	free_prompt(t_prompt **prompt)
+void	free_prompt(t_prompt **prompt, char *cmd_line)
 {
 	t_prompt	*tmp;
 
 	if (!prompt)
 		return ;
-	while (*prompt)
+	while ((*prompt)->next != NULL)
 	{
 		tmp = (*prompt)->next;
 		free_file(&(*prompt)->file);
+		free_cmd((*prompt)->cmd, ft_countword(cmd_line, ' '));
 		free(*prompt);
 		*prompt = tmp;
 	}
@@ -75,14 +76,3 @@ bool	ft_is_metachar(char c)
 		return (true);
 	return (false);
 }
-
-// int	ft_onlywhitespace(char *str, int len)
-// {
-// 	while (len > 0)
-// 	{
-// 		if (!ft_isspace(str[len]))
-// 			return (0);
-// 		len--;
-// 	}
-// 	return (1);
-// }
