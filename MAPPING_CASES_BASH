@@ -1,3 +1,9 @@
 redirections 
+erreurs de read of size 1 dans ft_checker s'il y a des chevrons
 
 si erreur dans premiere commande, fichiers crees mais commande pas execute, toutes les autres commandes (apres les pipes) sont executes normalement
+
+
+"cat | ls" 'cat | ls' = devrait mettre toute la quote en cmd[0], aulieu de faire 2 node de prompt avec cmd[0] : "cat puis ls"
+Si on le test avec des redir ca ls mets dans files aulieu de tout laisser dans les quotes
++ ca fait des erreurs de read of size 1 dans split_cmd
