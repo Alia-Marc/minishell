@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 15:27:28 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/11 17:17:48 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/13 14:52:45 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,42 +58,18 @@ static	char	*ft_worddup(char *str, char c)
 	return (dst);
 }
 
-void	free_cmd(char **str, int i)
+void	free_cmd(char **str)
 {
-	while (i > 0)
+	int	index;
+
+	index = 0;
+	while (str[index])
 	{
-		free(str[i]);
-		i--;
+		free(str[index]);
+		index++;;
 	}
 	free(str);
 }
-
-// char	**split_cmd(char *str, char c)
-// {
-// 	int		word;
-// 	int		index;
-// 	char	**split;
-
-// 	word = 0;
-// 	index = 0;
-// 	split = malloc(sizeof(char *) * (ft_countword(str, c) + 1));
-// 	if (!split)
-// 		return (NULL);
-// 	while (str[index])
-// 	{
-// 		while (str[index] && str[index] == c)
-// 			index++;
-// 		if (str[index] && str[index] != c)
-// 		{
-// 			if (str[index] == '$' && within_double_quote(str, index))
-// 				split[word] =
-// 			split[word] = ft_strdupnospace(str, index);
-// 			if (!split[word])
-// 				return (free_cmd(split, word), NULL);
-// 			word++;
-// 		}
-// 	}
-// }
 
 char	**split_cmd(char *s, char c)
 {
@@ -110,12 +86,13 @@ char	**split_cmd(char *s, char c)
 			s++;
 		if (*s && *s != c)
 		{
-			// if (*s == '$' && within_double_quote(s, index))
-			// 	split[word] = ft_strdupenv(s, c);
-			split[word] = ft_worddup(s, c);
-			if (!split[word])
-				return (free_cmd(split, word), NULL);
-			word++;
+			if (!ft_is_redirect(*s))
+			{
+				split[word] = ft_worddup(s, c);
+				if (!split[word])
+					return (free_cmd(split), NULL);
+				word++;
+			}
 			while ((*s && *s != c))
 			{
 				if (*s == 34 || *s == 39)

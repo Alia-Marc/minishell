@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:16:09 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/11 15:49:45 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/13 14:45:21 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void			cmd_handler(char *cmd_line, t_prompt *prompt);
 //cmd_utils.c
 
 char			**split_cmd(char *cmd_line, char c);
-void			free_cmd(char **split, int i);
+void			free_cmd(char **split);
 int				ft_countword(char *str, char c);
 
 
@@ -93,7 +93,7 @@ t_prompt		*ft_filler(char *cmd_line, t_prompt *prompt);
 //parsing_utils.c
 
 
-void			free_prompt(t_prompt **prompt, char *cmd_line);
+void			free_prompt(t_prompt **prompt);
 bool			ft_is_metachar(char c);
 t_prompt		*prompt_init(t_prompt *prompt);
 t_prompt		*promptlast(t_prompt *prompt);

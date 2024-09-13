@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:01:56 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/11 16:33:09 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/13 14:59:18 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_prompt	*prompt_init(t_prompt *prompt)
 	if (!prompt)
 		return (NULL);
     prompt->file = NULL;
-	// prompt->cmd = NULL;
+	prompt->cmd = NULL;
 	prompt->use_heredoc = 0;
 	// prompt->env = make_env();
 	// prompt->path = getpath(prompt->cmd, prompt->env);
@@ -54,7 +54,7 @@ void	promptadd_back(t_prompt **prompt, t_prompt *new)
 	}
 }
 
-void	free_prompt(t_prompt **prompt, char *cmd_line)
+void	free_prompt(t_prompt **prompt)
 {
 	t_prompt	*tmp;
 
@@ -64,7 +64,7 @@ void	free_prompt(t_prompt **prompt, char *cmd_line)
 	{
 		tmp = (*prompt)->next;
 		free_file(&(*prompt)->file);
-		free_cmd((*prompt)->cmd, ft_countword(cmd_line, ' '));
+		free_cmd((*prompt)->cmd);
 		free(*prompt);
 		*prompt = tmp;
 	}

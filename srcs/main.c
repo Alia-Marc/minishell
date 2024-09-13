@@ -6,41 +6,44 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:54:18 by malia             #+#    #+#             */
-/*   Updated: 2024/09/11 17:09:26 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/13 15:03:38 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 #include "../include/parsing.h"
 
-// int main(int argc, char *argv[])
-// {
-// 	t_prompt	*prompt;
-
-// 	prompt = NULL;
-// 	prompt = prompt_init(prompt);
-// 	prompt = ft_filler(argv[1], prompt);
-//     return argc;
-// }
-
-int    main(void)
+int main(int argc, char *argv[])
 {
-    char    *line;
 	t_prompt	*prompt;
 
 	prompt = NULL;
-    while (1)
-    {
-        line = readline("");
-		if (ft_checker(line))
-		{
-			prompt = prompt_init(prompt);
-			prompt = ft_filler(line, prompt);
-			// free_prompt(&prompt, line);
-		}
-    }
-    return (0);
+	prompt = prompt_init(prompt);
+	prompt = ft_filler(argv[1], prompt);
+	free_prompt(&prompt);
+	free(prompt);
+    return argc;
 }
+
+// int    main(void)
+// {
+//     char    *line;
+// 	t_prompt	*prompt;
+
+// 	prompt = NULL;
+//     while (1)
+//     {
+//         line = readline("");
+// 		if (ft_checker(line))
+// 		{
+// 			prompt = prompt_init(prompt);
+// 			prompt = ft_filler(line, prompt);
+// 			free_prompt(&prompt);
+// 			free(prompt);
+// 		}
+//     }
+//     return (0);
+// }
 
 // int main(int argc, char *argv[])
 // {
