@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:54:18 by malia             #+#    #+#             */
-/*   Updated: 2024/09/13 16:10:47 by marc             ###   ########.fr       */
+/*   Updated: 2024/09/13 17:54:58 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 // 	t_prompt	*prompt;
 
 // 	prompt = NULL;
-// 	prompt = prompt_init(prompt);
+// 	prompt = prompt_init();
 // 	prompt = ft_filler(argv[1], prompt);
 // 	free_prompt(&prompt);
 // 	free(prompt);
@@ -29,33 +29,50 @@ void	printf_prompt(t_prompt *prompt);
 void	print_files(t_prompt *prompt);
 void	free_prompt1(t_prompt **prompt);
 
-int    main(void)
+int main(int argc, char *argv[])
 {
-    char    *line;
 	t_prompt	*prompt;
 
 	prompt = NULL;
-    while (1)
-    {
-        line = readline("");
-		if (ft_strcmp(line, "caca") == 0)
-		{
-			free(line);
-			break ;
-		}
-
-		if (ft_checker(line))
-		{
-			prompt = prompt_init();
-			prompt = ft_filler(line, prompt);
-			
-			free(line);
-			printf_prompt(prompt);
-			free_prompt1(&prompt);
-		}
-    }
-    return (0);
+	if (ft_checker(argv[1]))
+	{
+		prompt = prompt_init();
+		prompt = ft_filler(argv[1], prompt);
+		printf_prompt(prompt);
+		free_prompt1(&prompt);
+		free(prompt);;
+	}
+	return argc;
 }
+
+
+// int    main(void)
+// {
+//     char    *line;
+// 	t_prompt	*prompt;
+
+// 	prompt = NULL;
+//     while (1)
+//     {
+//         line = readline("");
+// 		if (ft_strcmp(line, "caca") == 0)
+// 		{
+// 			free(line);
+// 			break ;
+// 		}
+
+// 		if (ft_checker(line))
+// 		{
+// 			prompt = prompt_init();
+// 			prompt = ft_filler(line, prompt);
+
+// 			free(line);
+// 			printf_prompt(prompt);
+// 			free_prompt1(&prompt);
+// 		}
+//     }
+//     return (0);
+// }
 
 void	free_prompt1(t_prompt **prompt)
 {

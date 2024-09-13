@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 17:51:53 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/10 12:27:18 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/13 17:49:06 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ int	check_parenthesis(char *str)
 	int	index;
 
 	index = 0;
-	while (str[index])
+	if (!str)
+		return (0);
+	while (str[index] != '\0')
 	{
 		if (ft_is_redirect(str[index]))
 		{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:28:02 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/13 16:31:44 by marc             ###   ########.fr       */
+/*   Updated: 2024/09/13 18:09:21 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	cmd_handler(char *cmd_line, t_prompt *prompt)
 
 	index = 0;
 	nb_pipes = ft_countpipes(cmd_line);
-	cmd_split = ft_split(cmd_line, '|');
+	cmd_split = split_cmd(cmd_line, '|');
 	while (index < nb_pipes)
 	{
 		prompt->cmd = split_cmd(cmd_split[index], ' ');
@@ -82,6 +82,5 @@ void	cmd_handler(char *cmd_line, t_prompt *prompt)
 			promptadd_back(&prompt, prompt_init());
 		prompt = prompt->next;
 	}
-	//free_cmd(cmd_split, nb_pipes); ta fonction est claque ca free meme pas, utilise just un free tab normal zebi
 	ft_free_tab(cmd_split);
 }

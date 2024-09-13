@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 15:27:28 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/13 14:52:45 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:06:31 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	ft_countword(char *str, char c)
 
 	index = 0;
 	count = 0;
+	if (!str)
+		return (0);
 	while (str[index])
 	{
 		while (str[index] && str[index] == c)
@@ -76,6 +78,8 @@ char	**split_cmd(char *s, char c)
 	int		word;
 	char	**split;
 
+	if (!s)
+		return (NULL);
 	word = 0;
 	split = malloc(sizeof(char *) * (ft_countword(s, c) + 1));
 	if (!split)

@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 12:22:35 by emilefourni       #+#    #+#             */
-/*   Updated: 2024/09/13 15:05:19 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:07:37 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	redirect_handler(char *cmd_line, t_prompt *prompt)
 	int	index;
 
 	index = 0;
+	if (!cmd_line)
+		return ;
 	while (cmd_line[index])
 	{
 		if (cmd_line[index] == '>' && cmd_line[index + 1] == '>')
