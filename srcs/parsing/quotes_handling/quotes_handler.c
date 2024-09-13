@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:13:39 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/13 14:29:31 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/13 16:03:16 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 int	single_quote_closed(char *str)
 {
 	size_t	index;
-	size_t	nb_outside_quote;
+	// size_t	nb_outside_quote;
 
 	index = 0;
-	nb_outside_quote = 0;
+	// nb_outside_quote = 0;
 	while (str[index])
 	{
 		if (str[index] == 39)

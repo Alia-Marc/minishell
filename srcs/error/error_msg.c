@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_msg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 16:09:38 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/10 12:33:46 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/13 16:02:35 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_syntax_error(void)
 
 void	ft_metachar_near_token(void)
 {
-	write(2, "frerot tia une erreur a cote d'un token surprenant\n", 53);
+	write(2, "frerot tia une erreur a cote d'un token surprenant\n", 52);
 }
 
 void	ft_redirect_name_empty(void)

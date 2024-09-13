@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:16:09 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/13 14:45:21 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/13 16:10:32 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ t_prompt		*ft_filler(char *cmd_line, t_prompt *prompt);
 
 void			free_prompt(t_prompt **prompt);
 bool			ft_is_metachar(char c);
-t_prompt		*prompt_init(t_prompt *prompt);
+t_prompt		*prompt_init(void);
 t_prompt		*promptlast(t_prompt *prompt);
 void			promptadd_back(t_prompt **prompt, t_prompt *new);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_msg2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 15:15:01 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/10 12:30:22 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/13 16:02:39 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ void	ft_bad_pipe_msg(void)
 
 void	too_many_redirect(void)
 {
-	write(2, "tia trop de chevrons dans le redirect, tie baise le S\n", 56);
+	write(2, "tia trop de chevrons dans le redirect, tie baise le S\n", 55);
 }

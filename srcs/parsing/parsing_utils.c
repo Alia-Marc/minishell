@@ -3,28 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:01:56 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/13 14:59:18 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/13 16:10:12 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include "../../include/parsing.h"
 
-t_prompt	*prompt_init(t_prompt *prompt)
+t_prompt	*prompt_init(void)
 {
-	prompt = malloc(sizeof(t_prompt));
-	if (!prompt)
+	t_prompt *new_prompt;
+	
+	new_prompt = malloc(sizeof(t_prompt));
+	if (!new_prompt)
 		return (NULL);
-    prompt->file = NULL;
-	prompt->cmd = NULL;
-	prompt->use_heredoc = 0;
-	// prompt->env = make_env();
-	// prompt->path = getpath(prompt->cmd, prompt->env);
-    prompt->next = NULL;
-	return (prompt);
+    new_prompt->file = NULL;
+	new_prompt->cmd = NULL;
+	new_prompt->use_heredoc = 0;
+	// new_prompt->path = getpath(new_prompt->cmd, new_prompt->env);
+	new_prompt->path = NULL;
+    new_prompt->next = NULL;
+	return (new_prompt);
 }
 
 t_prompt	*promptlast(t_prompt *prompt)
