@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_utils.c                                        :+:      :+:    :+:   */
+/*   cmd_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/10 15:27:28 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/16 18:25:54 by emfourni         ###   ########.fr       */
+/*   Created: 2024/09/16 13:59:41 by emfourni          #+#    #+#             */
+/*   Updated: 2024/09/16 17:08:18 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/parsing.h"
 
-int	ft_countword(char *str, char c)
+static int	ft_countpipe_split(char *str, char c)
 {
 	int	index;
 	int	count;
@@ -29,75 +29,38 @@ int	ft_countword(char *str, char c)
 		{
 			count++;
 			while ((str[index] && str[index] != c)
-					|| (within_single_quote2(str, index)
-					|| within_double_quote2(str, index)))
+					|| (within_single_quote_pipe(str, index)
+					|| within_double_quote_pipe(str, index)))
 				index++;
 		}
 	}
 	return (count);
 }
 
-static get_first_quote(char *str)
-{
-	int	index;
-	int	first_pos;
-
-
-	index = 0;
-	first_pos = 0;
-	while (str[index])
-	{
-		if (str[index] == 34 || str[index] == 39)
-			first_pos = 0;
-		index++;
-	}
-}
-
-static get_first_quote(char *str)
-{
-
-}
 static	char	*ft_worddup(char *str, char c)
 {
-	int		index;
-	int		first_quote;
-	int		last_quote;
+	size_t	index;
 	char	*dst;
 
 	index = 0;
-	first_quote = get_first_quote(str);
-	last_quote = get_last_quote(str);
 	while ((str[index] && str[index] != c)
-			|| (within_single_quote2(str, index) || within_double_quote2(str, index)))
-			index++;
+			|| (within_single_quote_pipe(str, index) || within_double_quote_pipe(str, index)))
+		index++;
 	dst = malloc(sizeof(char) * (index + 1));
 	if (!dst)
 		return (NULL);
 	index = 0;
 	while ((str[index] && str[index] != c)
-			|| (within_single_quote2(str, index) || within_double_quote2(str, index)))
+			|| (within_single_quote_pipe(str, index) || within_double_quote_pipe(str, index)))
 	{
-			dst[index] = str[index];
-			index++;
+		dst[index] = str[index];
+		index++;
 	}
 	dst[index] = '\0';
 	return (dst);
 }
 
-void	free_cmd(char **str)
-{
-	int	index;
-
-	index = 0;
-	while (str[index])
-	{
-		free(str[index]);
-		index++;;
-	}
-	free(str);
-}
-
-char	**split_cmd(char *s, char c)
+char	**split_cmd_pipe(char *s, char c)
 {
 	int		word;
 	char	**split;
@@ -105,7 +68,7 @@ char	**split_cmd(char *s, char c)
 	if (!s)
 		return (NULL);
 	word = 0;
-	split = malloc(sizeof(char *) * (ft_countword(s, c) + 1));
+	split = malloc(sizeof(char *) * (ft_countpipe_split(s, c) + 1));
 	if (!split)
 		return (NULL);
 	while (*s)

@@ -6,29 +6,12 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 12:22:35 by emilefourni       #+#    #+#             */
-/*   Updated: 2024/09/13 18:07:37 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:58:58 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/parsing.h"
 #include "../../../include/minishell.h"
-
-// void    print_file(t_file *file)
-// {
-//     t_file *tmp_file;
-
-//     tmp_file = file;
-//     while (tmp_file->next)
-// 	{
-//         printf("redirect name : %s\nredirect mode : %d\n", tmp_file->file, tmp_file->mode);
-// 		tmp_file = tmp_file->next;
-//         if (!tmp_file->next)
-//         {
-//             printf("redirect name : %s\nredirect mode : %d\n", tmp_file->file, tmp_file->mode);
-//             break ;
-//         }
-// 	}
-// }
 
 void	redirect_filler(char *cmd_line, int index, t_prompt *prompt, int mode)
 {
@@ -59,16 +42,14 @@ void	redirect_handler(char *cmd_line, t_prompt *prompt)
 		return ;
 	while (cmd_line[index])
 	{
-		if (cmd_line[index] == '>' && cmd_line[index + 1] == '>')
+		if (cmd_line[index] == '>' && cmd_line[index + 1] == '>' && !(within_double_quote(cmd_line, index) || within_single_quote(cmd_line, index)))
 			redirect_filler(cmd_line, index, prompt, 2);
-		else if (cmd_line[index] == '<' && cmd_line[index + 1] == '<')
+		else if (cmd_line[index] == '<' && cmd_line[index + 1] == '<' && !(within_double_quote(cmd_line, index) || within_single_quote(cmd_line, index)))
 			redirect_filler(cmd_line, index, prompt, 3);
-		else if (cmd_line[index] == '>' && cmd_line[index - 1] != '>')
+		else if (cmd_line[index] == '>' && cmd_line[index - 1] != '>' && !(within_double_quote(cmd_line, index) || within_single_quote(cmd_line, index)))
 			redirect_filler(cmd_line, index, prompt, 1);
-		else if (cmd_line[index] == '<' && cmd_line[index - 1] != '<')
+		else if (cmd_line[index] == '<' && cmd_line[index - 1] != '<' && !(within_double_quote(cmd_line, index) || within_single_quote(cmd_line, index)))
 			redirect_filler(cmd_line, index, prompt, 0);
 		index++;
 	}
-	// if (prompt->file)
-	// 	print_file(prompt->file);
 }

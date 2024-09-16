@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:16:09 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/13 16:10:32 by marc             ###   ########.fr       */
+/*   Updated: 2024/09/16 18:21:32 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,19 @@ int				single_quote_closed(char *str);
 
 int				within_double_quote(char *str, size_t index);
 int				within_single_quote(char *str, size_t index);
-size_t			get_first_pos_quote(char *str, char c);
-size_t			get_last_pos_quote(char *str, char c);
+
+//within_quotes_split.c
+
+int				within_single_quote2(char *str, int index);
+int				within_double_quote2(char *str, int index);
+
+
+//within_quotes_pipe.c
+
+int				within_single_quote_pipe(char *str, int index);
+int				within_double_quote_pipe(char *str, int index);
+
+
 
 ///////////////////////////////////////////////////////SYNTAX CHECKER
 
@@ -69,6 +80,9 @@ char			**split_cmd(char *cmd_line, char c);
 void			free_cmd(char **split);
 int				ft_countword(char *str, char c);
 
+//cmd_utils.c
+
+char			**split_cmd_pipe(char *s, char c);
 
 //redirection_handlers.c
 
@@ -91,7 +105,6 @@ int				ft_checker(char *cmd_line);
 t_prompt		*ft_filler(char *cmd_line, t_prompt *prompt);
 
 //parsing_utils.c
-
 
 void			free_prompt(t_prompt **prompt);
 bool			ft_is_metachar(char c);

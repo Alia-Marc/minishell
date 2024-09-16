@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:13:39 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/13 16:03:16 by marc             ###   ########.fr       */
+/*   Updated: 2024/09/16 16:21:45 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 int	single_quote_closed(char *str)
 {
 	size_t	index;
-	// size_t	nb_outside_quote;
 
 	index = 0;
-	// nb_outside_quote = 0;
 	while (str[index])
 	{
 		if (str[index] == 39)
@@ -82,7 +80,8 @@ int	even_nb_outside_quote(char *str)
 
 int	quotes_handler(char *cmd_line)
 {
-	if (!double_quote_closed(cmd_line) || !single_quote_closed(cmd_line))
+	if (!double_quote_closed(cmd_line) || !single_quote_closed(cmd_line)
+		|| !even_nb_outside_quote(cmd_line))
 		return (ft_quote_error(), 0);
 	return (1);
 }
