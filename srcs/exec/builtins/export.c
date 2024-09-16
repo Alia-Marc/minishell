@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 22:12:54 by alia              #+#    #+#             */
-/*   Updated: 2024/08/31 02:56:00 by alia             ###   ########.fr       */
+/*   Updated: 2024/09/16 14:26:41 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ static int	no_args(t_exec *exec)
 		while (exec->env[i][j])
 		{
 			write(exec->fd_out, &exec->env[i][j], 1);
-			if ((exec->env[i][j] == '=' && !first)
-				|| (exec->env[i][j + 1] == '\0' && first))
+			if (exec->env[i][j] == '=' && !first)
 			{
 				write(exec->fd_out, "\"", 1);
 				first = 1;
@@ -36,7 +35,7 @@ static int	no_args(t_exec *exec)
 			j++;
 		}
 		i++;
-		write(exec->fd_out, "\n", 1);
+		write(exec->fd_out, "\"\n", 2);
 	}
 	return (0);
 }
