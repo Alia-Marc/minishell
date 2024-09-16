@@ -12,7 +12,7 @@ SRC = srcs/exec/exec.c srcs/exec/path.c srcs/exec/fake_inits.c srcs/exec/redirec
 		srcs/exec/builtins/echo.c srcs/exec/builtins/env.c srcs/exec/builtins/cd.c \
 		srcs/exec/builtins/init_local_env.c srcs/exec/builtins/export.c srcs/exec/builtins/export_utils.c \
 		srcs/exec/builtins/sort_env.c srcs/exec/builtins/unset.c srcs/exec/builtins/exit.c \
-		srcs/exec/init_exec.c \
+		srcs/exec/init_exec.c srcs/parsing/expand_var.c \
 
 FLAGS = -Wall -Wextra -Werror
 

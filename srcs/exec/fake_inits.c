@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fake_inits.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 16:07:08 by alia              #+#    #+#             */
-/*   Updated: 2024/09/10 03:34:00 by marc             ###   ########.fr       */
+/*   Updated: 2024/09/16 13:44:07 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void fake_init(char **env, t_prompt *prompt)
 {
-	prompt->cmd = ft_split("cat", ' ');
+	prompt->cmd = ft_split("", ' ');
 	prompt->path = get_path(prompt->cmd[0], env);
 	prompt->next = NULL;
 	prompt->file = NULL;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:08:15 by malia             #+#    #+#             */
-/*   Updated: 2024/09/10 03:34:54 by marc             ###   ########.fr       */
+/*   Updated: 2024/09/16 14:37:56 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,24 +133,18 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		cmd = readline("");
+		ft_fdprintf(2, "len expanded line : %d\n", expanded_len(exec, cmd));
 		if (ft_strncmp(cmd, "caca", 4) == 0)
 			break;
 		add_history(cmd);
 		prompt = new_prompt(cmd, "o", "outfile", exec->env, 0);
 		free(cmd);
-		exec->fd_in = 0;
-		exec->fd_out = 1;
-		exec->pid = -2;
-		exec->n_cmd = len_prompt(prompt);
+		reset_exec(prompt, exec);
 		if (open_close_redir(prompt))
 			exec_prompt(prompt, exec);
 		else
 			exec->exit = 1;
 		ft_fdprintf(2, "%d\n", exec->exit);
-		if (!isatty(exec->fd_in) && exec->fd_in > 2)
-			close(exec->fd_in);
-		if (!isatty(exec->fd_out) && exec->fd_out > 2)
-			close(exec->fd_out);
 		free_prompt(&prompt);
 	}
 	free(cmd);

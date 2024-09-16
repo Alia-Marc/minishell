@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:18:34 by malia             #+#    #+#             */
-/*   Updated: 2024/09/09 23:36:08 by marc             ###   ########.fr       */
+/*   Updated: 2024/09/16 15:38:10 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,7 @@ void		error_handler(char *file, char *word, int code);
 // Utils
 int			wait_children(int pid);
 int			len_prompt(t_prompt *prompt);
+
+int			expanded_len(t_exec *exec, char *line);
 
 #endif
