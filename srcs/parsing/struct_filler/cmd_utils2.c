@@ -3,39 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emilefournier <emilefournier@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:59:41 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/16 17:08:18 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:46:58 by emilefourni      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/parsing.h"
-
-static int	ft_countpipe_split(char *str, char c)
-{
-	int	index;
-	int	count;
-
-	index = 0;
-	count = 0;
-	if (!str)
-		return (0);
-	while (str[index])
-	{
-		while (str[index] && str[index] == c)
-			index++;
-		if (str[index] && str[index] != c)
-		{
-			count++;
-			while ((str[index] && str[index] != c)
-					|| (within_single_quote_pipe(str, index)
-					|| within_double_quote_pipe(str, index)))
-				index++;
-		}
-	}
-	return (count);
-}
 
 static	char	*ft_worddup(char *str, char c)
 {
@@ -44,14 +19,14 @@ static	char	*ft_worddup(char *str, char c)
 
 	index = 0;
 	while ((str[index] && str[index] != c)
-			|| (within_single_quote_pipe(str, index) || within_double_quote_pipe(str, index)))
+			|| (str[index] == c && is_char_in_quotes(str, index)))
 		index++;
 	dst = malloc(sizeof(char) * (index + 1));
 	if (!dst)
 		return (NULL);
 	index = 0;
 	while ((str[index] && str[index] != c)
-			|| (within_single_quote_pipe(str, index) || within_double_quote_pipe(str, index)))
+			|| (str[index] == c && is_char_in_quotes(str, index)))
 	{
 		dst[index] = str[index];
 		index++;
@@ -68,7 +43,7 @@ char	**split_cmd_pipe(char *s, char c)
 	if (!s)
 		return (NULL);
 	word = 0;
-	split = malloc(sizeof(char *) * (ft_countpipe_split(s, c) + 1));
+	split = malloc(sizeof(char *) * (ft_countword(s, c) + 1));
 	if (!split)
 		return (NULL);
 	while (*s)

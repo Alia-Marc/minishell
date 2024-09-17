@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emilefournier <emilefournier@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 15:27:28 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/16 18:25:54 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:44:40 by emilefourni      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,57 +28,68 @@ int	ft_countword(char *str, char c)
 		if (str[index] && str[index] != c)
 		{
 			count++;
-			while ((str[index] && str[index] != c)
-					|| (within_single_quote2(str, index)
-					|| within_double_quote2(str, index)))
+			while ((str[index] && str[index] != c) 
+					|| (str[index] == c && is_char_in_quotes(str, index)))
 				index++;
 		}
 	}
 	return (count);
 }
 
-static get_first_quote(char *str)
+static int  ft_countlen(char *str, char c)
 {
 	int	index;
-	int	first_pos;
-
 
 	index = 0;
-	first_pos = 0;
-	while (str[index])
-	{
-		if (str[index] == 34 || str[index] == 39)
-			first_pos = 0;
+	if (!str)
+		return (0);
+	while ((str[index] && str[index] != c) 
+			|| (str[index] == c && is_char_in_quotes(str, index)))
 		index++;
-	}
+	return (index - 1);
 }
 
-static get_first_quote(char *str)
-{
-
-}
 static	char	*ft_worddup(char *str, char c)
 {
 	int		index;
-	int		first_quote;
-	int		last_quote;
+	int		first_pos;
+	int		last_pos;
+    int     i;
 	char	*dst;
 
 	index = 0;
-	first_quote = get_first_quote(str);
-	last_quote = get_last_quote(str);
-	while ((str[index] && str[index] != c)
-			|| (within_single_quote2(str, index) || within_double_quote2(str, index)))
-			index++;
+	first_pos = 0;
+	last_pos = 0;
+	while ((str[index] && str[index] != c) || (str[index] == c && is_char_in_quotes(str, index)))
+	{
+			if ((str[index] == 34 || str[index] == 39) && (index == 0))
+			{
+				first_pos = index;
+				index++;
+			}
+			else if ((str[index] == 34 || str[index] == 39) && (index == ft_countlen(str, c)))
+			{
+				last_pos = index;
+				index++;
+			}
+			else
+				index++;
+	}
 	dst = malloc(sizeof(char) * (index + 1));
 	if (!dst)
 		return (NULL);
 	index = 0;
-	while ((str[index] && str[index] != c)
-			|| (within_single_quote2(str, index) || within_double_quote2(str, index)))
+    i = 0;
+	while ((str[index] && str[index] != c) || (str[index] == c && is_char_in_quotes(str, index)))
 	{
-			dst[index] = str[index];
-			index++;
+			if ((str[index] == 34 || str[index] == 39) && (index == first_pos || index == last_pos))
+				index++;
+			else
+			{
+				dst[i] = str[index];
+				index++;
+                i++;
+			}
 	}
 	dst[index] = '\0';
 	return (dst);

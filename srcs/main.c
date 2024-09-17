@@ -3,47 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emilefournier <emilefournier@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:54:18 by malia             #+#    #+#             */
-/*   Updated: 2024/09/16 17:40:10 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/17 15:21:08 by emilefourni      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 #include "../include/parsing.h"
 
+void	printf_prompt(t_prompt *prompt);
+void	print_files(t_prompt *prompt);
+void	free_prompt1(t_prompt **prompt);
+
 // int main(int argc, char *argv[])
 // {
 // 	t_prompt	*prompt;
 
 // 	prompt = NULL;
-// 	prompt = prompt_init();
-// 	prompt = ft_filler(argv[1], prompt);
-// 	free_prompt(&prompt);
-// 	free(prompt);
-//     return argc;
+// 	if (ft_checker(argv[1]))
+// 	{
+// 		prompt = prompt_init();
+// 		prompt = ft_filler(argv[1], prompt);
+// 		printf_prompt(prompt);
+// 		free_prompt1(&prompt);
+// 		free(prompt);;
+// 	}
+// 	return argc;
 // }
-
-void	printf_prompt(t_prompt *prompt);
-void	print_files(t_prompt *prompt);
-void	free_prompt1(t_prompt **prompt);
-
-int main(int argc, char *argv[])
-{
-	t_prompt	*prompt;
-
-	prompt = NULL;
-	if (ft_checker(argv[1]))
-	{
-		prompt = prompt_init();
-		prompt = ft_filler(argv[1], prompt);
-		printf_prompt(prompt);
-		free_prompt1(&prompt);
-		free(prompt);;
-	}
-	return argc;
-}
 
 
 // int    main(void)
@@ -74,62 +62,62 @@ int main(int argc, char *argv[])
 //     return (0);
 // }
 
-void	free_prompt1(t_prompt **prompt)
-{
-	t_prompt	*tmp;
+// void	free_prompt1(t_prompt **prompt)
+// {
+// 	t_prompt	*tmp;
 
-	if (!prompt)
-		return ;
-	while (*prompt)
-	{
-		tmp = (*prompt)->next;
-		free_file(&(*prompt)->file);
-		ft_free_tab((*prompt)->cmd);
-		if ((*prompt)->path)
-			free((*prompt)->path);
-		free(*prompt);
-		*prompt = tmp;
-	}
-}
+// 	if (!prompt)
+// 		return ;
+// 	while (*prompt)
+// 	{
+// 		tmp = (*prompt)->next;
+// 		free_file(&(*prompt)->file);
+// 		ft_free_tab((*prompt)->cmd);
+// 		if ((*prompt)->path)
+// 			free((*prompt)->path);
+// 		free(*prompt);
+// 		*prompt = tmp;
+// 	}
+// }
 
-void	printf_prompt(t_prompt *prompt)
-{
-	int i = 0;
-	int j = 0;
-	t_prompt *tmp_prompt;
+// void	printf_prompt(t_prompt *prompt)
+// {
+// 	int i = 0;
+// 	int j = 0;
+// 	t_prompt *tmp_prompt;
 
-	tmp_prompt = prompt;
-	while (tmp_prompt)
-	{
-		i = 0;
-		ft_printf("\nprompt[%d]\n", j);
-		ft_printf("prompt->cmd : ");
-		while (tmp_prompt->cmd && tmp_prompt->cmd[i])
-		{
-			ft_printf("%s, ", tmp_prompt->cmd[i]);
-			i++;
-		}
-		ft_printf("\n");
-		print_files(tmp_prompt);
-		j++;
-		tmp_prompt = tmp_prompt->next;
-	}
-	ft_printf("\n");
-}
+// 	tmp_prompt = prompt;
+// 	while (tmp_prompt)
+// 	{
+// 		i = 0;
+// 		ft_printf("\nprompt[%d]\n", j);
+// 		ft_printf("prompt->cmd : ");
+// 		while (tmp_prompt->cmd && tmp_prompt->cmd[i])
+// 		{
+// 			ft_printf("%s, ", tmp_prompt->cmd[i]);
+// 			i++;
+// 		}
+// 		ft_printf("\n");
+// 		print_files(tmp_prompt);
+// 		j++;
+// 		tmp_prompt = tmp_prompt->next;
+// 	}
+// 	ft_printf("\n");
+// }
 
-void	print_files(t_prompt *prompt)
-{
-	t_file *tmp_file;
-	int 	i = 0;
+// void	print_files(t_prompt *prompt)
+// {
+// 	t_file *tmp_file;
+// 	int 	i = 0;
 
-	tmp_file = prompt->file;
-	while (tmp_file)
-	{
-		ft_printf("file[%d] = name : %s mode : %d\n", i, tmp_file->file, tmp_file->mode);
-		tmp_file = tmp_file->next;
-		i++;
-	}
-}
+// 	tmp_file = prompt->file;
+// 	while (tmp_file)
+// 	{
+// 		ft_printf("file[%d] = name : %s mode : %d\n", i, tmp_file->file, tmp_file->mode);
+// 		tmp_file = tmp_file->next;
+// 		i++;
+// 	}
+// }
 
 // int    main(void)
 // {

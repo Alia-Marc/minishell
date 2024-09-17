@@ -10,6 +10,7 @@ SRC =	srcs/main.c \
 		srcs/parsing/parsing.c \
 		srcs/parsing/parsing_utils.c \
 		srcs/parsing/quotes_handling/quotes_handler.c \
+		srcs/parsing/quotes_handling/true_within_quotes.c \
 		srcs/parsing/quotes_handling/within_quotes.c \
 		srcs/parsing/quotes_handling/within_quotes_split.c \
 		srcs/parsing/quotes_handling/within_quotes_pipe.c \
