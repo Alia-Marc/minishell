@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 23:32:13 by marc              #+#    #+#             */
-/*   Updated: 2024/09/10 03:32:27 by marc             ###   ########.fr       */
+/*   Updated: 2024/09/17 21:04:36 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_exec	*init_exec(char **env, t_prompt *prompt)
 {
 	t_exec	*exec;
-	
+
 	exec = (t_exec *)malloc(sizeof(t_exec));
 	if (!exec)
 		return (NULL);

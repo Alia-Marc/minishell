@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 17:22:01 by alia              #+#    #+#             */
-/*   Updated: 2024/08/31 17:38:09 by alia             ###   ########.fr       */
+/*   Updated: 2024/09/17 21:02:14 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	open_file(t_prompt *prompt, char *file, int mode)
 {
 	int	fd;
 	int	pipe_fd[2];
-	
+
 	fd = 0;
 	if (mode == 0)
 		fd = open(file, O_RDONLY, 0644);

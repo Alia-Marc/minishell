@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:42:54 by marc              #+#    #+#             */
-/*   Updated: 2024/09/17 19:09:44 by marc             ###   ########.fr       */
+/*   Updated: 2024/09/17 20:57:13 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ int	expanded_len(t_exec *exec, char *line)
 			if (line[i] == '?')
 				len += len_expanded_errno(exec) - len_var - 1;
 			else
-				len += ft_strlen(expanded_var(exec, &line[i], len_var)) - len_var - 1;
+				len += ft_strlen(expanded_var(exec, &line[i], len_var))
+					- len_var - 1;
 		}
 		else
 			i++;

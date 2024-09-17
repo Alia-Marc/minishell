@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:06:45 by malia             #+#    #+#             */
-/*   Updated: 2024/09/17 20:07:30 by marc             ###   ########.fr       */
+/*   Updated: 2024/09/17 20:58:51 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	copy_expanded_var(char *result, char *value, int *j)
 
 void	copy_expand(t_exec *exec, char *line, char *result, int *j)
 {
-	char	*value;
+	char	*val;
 	int		i;
 
 	i = 0;
@@ -61,12 +61,12 @@ void	copy_expand(t_exec *exec, char *line, char *result, int *j)
 		{
 			i++;
 			if (line[i] == '?')
-				value = ft_itoa(exec->exit);
+				val = ft_itoa(exec->exit);
 			else
-				value = expanded_var(exec, &line[i], len_potential_var(line, i));
-			copy_expanded_var(result, value, j);
+				val = expanded_var(exec, &line[i], len_potential_var(line, i));
+			copy_expanded_var(result, val, j);
 			if (line[i] == '?')
-				free(value);
+				free(val);
 			i += len_potential_var(line, i);
 		}
 		else
