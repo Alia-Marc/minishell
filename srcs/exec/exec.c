@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:08:15 by malia             #+#    #+#             */
-/*   Updated: 2024/09/16 14:37:56 by malia            ###   ########.fr       */
+/*   Updated: 2024/09/17 20:06:03 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ int	main(int ac, char **av, char **env)
 	fake_init(env, prompt);
 	//prompt->file = new_file("/dev/full", 1);
 	//prompt->file = new_file("bah", 1);
-	//fileadd_back(&prompt->file, new_file("oui", 2));
+	// fileadd_back(&prompt->file, new_file("oui", 2));
+	// fileadd_back(&prompt->file, new_file("da", 2));
 	//fileadd_back(&prompt->file, new_file("eheh", 0));
 	//fileadd_back(&prompt->file, new_file("k", 1));
 	//fileadd_back(&prompt->file, new_file("oui", 1));
@@ -104,7 +105,7 @@ int	main(int ac, char **av, char **env)
 	//promptadd_back(&prompt, new_prompt("export 7oui=da non=da", "o", "outfile", env, 0));
 	//promptadd_back(&prompt, new_prompt("grep o", "o", "outfile", env, 1));
 	//promptadd_back(&prompt, new_prompt("exit 32d", "j", "outfile", env, 1));
-	promptadd_back(&prompt, new_prompt("ls", "j", "outfile", env, 1));
+	//promptadd_back(&prompt, new_prompt("ls", "j", "outfile", env, 1));
 	
 	//promptadd_back(&prompt, new_prompt("env", "a", "outfile", env, 0));
 	//promptadd_back(&prompt, new_prompt("cd", "o", "outfile", env, 0));
@@ -133,10 +134,10 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		cmd = readline("");
-		ft_fdprintf(2, "len expanded line : %d\n", expanded_len(exec, cmd));
 		if (ft_strncmp(cmd, "caca", 4) == 0)
 			break;
 		add_history(cmd);
+		cmd = expand_var(exec, cmd);
 		prompt = new_prompt(cmd, "o", "outfile", exec->env, 0);
 		free(cmd);
 		reset_exec(prompt, exec);
