@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_tab.c                                      :+:      :+:    :+:   */
+/*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 09:22:58 by malia             #+#    #+#             */
-/*   Updated: 2024/08/19 23:46:00 by marc             ###   ########.fr       */
+/*   Created: 2024/08/29 18:31:06 by alia              #+#    #+#             */
+/*   Updated: 2024/08/29 18:31:23 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../../include/exec.h"
 
-void	ft_free_tab(char **tab)
+int	check_var_exist(char **env, char *arg)
 {
+	int	len_var;
 	int	i;
 
+	len_var = ft_strlen_until_char(arg, '=');
 	i = 0;
-	if (!tab)
-		return ;
-	while (tab[i])
+	while (env && env[i])
 	{
-		free(tab[i]);
+		if (ft_strncmp(env[i], arg, len_var) == 0)
+			return (1);
 		i++;
 	}
-	free(tab);
+	return (0);
 }

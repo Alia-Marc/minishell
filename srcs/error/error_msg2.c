@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_tab.c                                      :+:      :+:    :+:   */
+/*   error_msg2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 09:22:58 by malia             #+#    #+#             */
-/*   Updated: 2024/08/19 23:46:00 by marc             ###   ########.fr       */
+/*   Created: 2024/08/24 15:15:01 by emfourni          #+#    #+#             */
+/*   Updated: 2024/09/13 16:02:39 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../include/minishell.h"
 
-void	ft_free_tab(char **tab)
+void	ft_bad_pipe_msg(void)
 {
-	int	i;
+	write(2, "tia une erreur ton pipe il est en carton\n", 41);
+}
 
-	i = 0;
-	if (!tab)
-		return ;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
+void	too_many_redirect(void)
+{
+	write(2, "tia trop de chevrons dans le redirect, tie baise le S\n", 55);
 }

@@ -3,57 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:59:39 by emfourni          #+#    #+#             */
-/*   Updated: 2024/07/19 14:35:40 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/18 22:22:39 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../include/parsing.h"
+#include "../../include/exec.h"
 
-bool	ft_is_metachar(char c)
-{
-	if (c == '|' || c == '&' || c == ' ' || c == '\t' || c == '\n' ||
-		c == '(' || c == ')')
-			return (true);
-	return (false);
-}
-
-bool	ft_is_builtin(char *str)
-{
-	if (ft_strcmp(str, "echo") == 0)
-		return (true);
-	if (ft_strcmp(str, "cd") == 0)
-		return (true);
-	if (ft_strcmp(str, "pwd") == 0)
-		return (true);
-	if (ft_strcmp(str, "export") == 0)
-		return (true);
-	if (ft_strcmp(str, "unset") == 0)
-		return (true);
-	if (ft_strcmp(str, "env") == 0)
-		return (true);
-	if (ft_strcmp(str, "exit") == 0)
-		return (true);
-	else
-		return (false);
-}
-
-t_prompt	ft_lexer(char *cmd_line)
+int	ft_checker(char *cmd_line)
 {
 	size_t		index;
-	t_prompt	prompt;
-	char		**pipe_split;
 
+	index = 0;
+	if (!cmd_line[index])
+		return (ft_error_empty_cmd_line(), 0);
 	while (cmd_line[index])
 	{
-		if (!cmd_line[index])
-			return (ft_printf("rentre un truc zebi (ou alors tia le readline casse)\n"), free(cmd_line), prompt);
 		if (!quotes_handler(cmd_line))
-			return (ft_printf("frerot tia pas ferme le(s) quote(s)\n"), free(cmd_line), prompt);
+			return (free(cmd_line), 0);
 		if (!check_syntax(cmd_line))
-			return (ft_printf("achete un beschrelle tia la syntax eclatee\n"), free(cmd_line), prompt);
-
+			return (free(cmd_line), 0);
+		index++;
 	}
+	return (1);
+}
+
+t_prompt	*ft_filler(char *cmd_line, t_prompt *prompt, t_exec *exec)
+{
+	cmd_line = expand_var(exec, cmd_line);
+	if (!cmd_line[0])
+		return (free_prompt(&prompt), free(cmd_line), NULL);
+	cmd_handler(cmd_line, prompt, exec);
+	free(cmd_line);
+	exec->n_cmd = len_prompt(prompt);
+	return (prompt);
 }

@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_tab.c                                      :+:      :+:    :+:   */
+/*   ft_strlen_until_char.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 09:22:58 by malia             #+#    #+#             */
-/*   Updated: 2024/08/19 23:46:00 by marc             ###   ########.fr       */
+/*   Created: 2024/08/29 15:51:34 by alia              #+#    #+#             */
+/*   Updated: 2024/08/29 16:39:25 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_free_tab(char **tab)
+int	ft_strlen_until_char(char *str, char c)
 {
 	int	i;
 
 	i = 0;
-	if (!tab)
-		return ;
-	while (tab[i])
-	{
-		free(tab[i]);
+	while (str && str[i] && str[i] != c)
 		i++;
-	}
-	free(tab);
+	return (i);
 }

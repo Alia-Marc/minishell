@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_tab.c                                      :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 09:22:58 by malia             #+#    #+#             */
-/*   Updated: 2024/08/19 23:46:00 by marc             ###   ########.fr       */
+/*   Created: 2024/08/21 12:33:31 by marc              #+#    #+#             */
+/*   Updated: 2024/08/31 02:57:46 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../../include/exec.h"
 
-void	ft_free_tab(char **tab)
+int	pwd_builtin(t_exec *exec)
 {
-	int	i;
+	char	*pwd;
 
-	i = 0;
-	if (!tab)
-		return ;
-	while (tab[i])
+	pwd = getcwd(0, 0);
+	if (!pwd)
+		strerror(errno);
+	else
 	{
-		free(tab[i]);
-		i++;
+		write(exec->fd_out, pwd, ft_strlen(pwd));
+		write(exec->fd_out, "\n", 1);
 	}
-	free(tab);
+	free(pwd);
+	return (0);
 }

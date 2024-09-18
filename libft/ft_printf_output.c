@@ -6,7 +6,7 @@
 /*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:32:37 by malia             #+#    #+#             */
-/*   Updated: 2024/01/23 09:32:22 by malia            ###   ########.fr       */
+/*   Updated: 2024/08/23 13:08:01 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ void	pf_putnbr(int n)
 
 void	pf_putunsigned(unsigned long long n, unsigned long long len, char *base)
 {
-	if (n >= 0 && n < len)
+	if (n == 0)
+		write(1, &base[n], 1);
+	else if (n > 0 && n < len)
 		write(1, &base[n], 1);
 	else
 	{

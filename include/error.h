@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_tab.c                                      :+:      :+:    :+:   */
+/*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 09:22:58 by malia             #+#    #+#             */
-/*   Updated: 2024/08/19 23:46:00 by marc             ###   ########.fr       */
+/*   Created: 2024/07/19 16:14:28 by emfourni          #+#    #+#             */
+/*   Updated: 2024/09/18 20:27:45 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef ERROR_H
+# define ERROR_H
 
-void	ft_free_tab(char **tab)
-{
-	int	i;
+# include "minishell.h"
 
-	i = 0;
-	if (!tab)
-		return ;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-}
+// error_msg.h
+
+void	ft_error_empty_cmd_line(void);
+void	ft_quote_error(void);
+void	ft_syntax_error(void);
+void	ft_redirect_name_empty(void);
+void	ft_metachar_near_token(void);
+
+// error_msg2.c
+
+void	ft_bad_pipe_msg(void);
+void	too_many_redirect(void);
+
+#endif

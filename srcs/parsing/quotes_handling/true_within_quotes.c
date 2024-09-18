@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_tab.c                                      :+:      :+:    :+:   */
+/*   true_within_quotes.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 09:22:58 by malia             #+#    #+#             */
-/*   Updated: 2024/08/19 23:46:00 by marc             ###   ########.fr       */
+/*   Created: 2024/09/17 17:43:21 by emilefourni       #+#    #+#             */
+/*   Updated: 2024/09/18 20:39:20 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../../include/parsing.h"
 
-void	ft_free_tab(char **tab)
+int is_char_in_quotes(char *str, int index)
 {
-	int	i;
+    int i;
+    bool quotesOpen;
 
-	i = 0;
-	if (!tab)
-		return ;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
+    i = 0;
+    quotesOpen = false;
+    while (i <= index)
+    {
+        if (str[i] == 34 || str[i] == 39)
+            quotesOpen = !quotesOpen;
+        if (quotesOpen && i == index)
+            return (1);
+        i++;
+    }
+    return (0);
 }

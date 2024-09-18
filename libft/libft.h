@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 14:39:26 by malia             #+#    #+#             */
-/*   Updated: 2024/04/08 16:44:09 by malia            ###   ########.fr       */
+/*   Updated: 2024/08/29 15:55:03 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdarg.h>
+# include "fdprintf/ft_fdprintf.h"
 
 typedef struct s_list
 {
@@ -37,6 +38,9 @@ int			ft_check_charset(char *charset, char c);
 char		*ft_strjoin_freed(char *s1, char *s2);
 int			ft_rand(void);
 int			ft_range_rand(int max);
+int			ft_isspace(char c);
+char		**ft_dup_tab(char **tab);
+int			ft_strlen_until_char(char *str, char c);
 
 // Mandatory functions
 int			ft_isalpha(int c);
