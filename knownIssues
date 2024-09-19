@@ -1,0 +1,6 @@
+echo oe > o
+// écris aussi le 'o' dans le fichier en redir + leak
+
+echo>o oe
+
+"" | echo oe
