@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 12:22:35 by emilefourni       #+#    #+#             */
-/*   Updated: 2024/09/16 17:58:58 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:18:27 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ void	redirect_handler(char *cmd_line, t_prompt *prompt)
 		return ;
 	while (cmd_line[index])
 	{
-		if (cmd_line[index] == '>' && cmd_line[index + 1] == '>' && !(within_double_quote(cmd_line, index) || within_single_quote(cmd_line, index)))
+		if (cmd_line[index] == '>' && cmd_line[index + 1] == '>' && !(is_char_in_quotes(cmd_line, index)))
 			redirect_filler(cmd_line, index, prompt, 2);
-		else if (cmd_line[index] == '<' && cmd_line[index + 1] == '<' && !(within_double_quote(cmd_line, index) || within_single_quote(cmd_line, index)))
+		else if (cmd_line[index] == '<' && cmd_line[index + 1] == '<' && !(is_char_in_quotes(cmd_line, index)))
 			redirect_filler(cmd_line, index, prompt, 3);
-		else if (cmd_line[index] == '>' && cmd_line[index - 1] != '>' && !(within_double_quote(cmd_line, index) || within_single_quote(cmd_line, index)))
+		else if (cmd_line[index] == '>' && cmd_line[index - 1] != '>' && !(is_char_in_quotes(cmd_line, index)))
 			redirect_filler(cmd_line, index, prompt, 1);
-		else if (cmd_line[index] == '<' && cmd_line[index - 1] != '<' && !(within_double_quote(cmd_line, index) || within_single_quote(cmd_line, index)))
+		else if (cmd_line[index] == '<' && cmd_line[index - 1] != '<' && !(is_char_in_quotes(cmd_line, index)))
 			redirect_filler(cmd_line, index, prompt, 0);
 		index++;
 	}

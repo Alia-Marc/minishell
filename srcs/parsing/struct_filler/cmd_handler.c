@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:28:02 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/18 22:05:48 by marc             ###   ########.fr       */
+/*   Updated: 2024/09/19 12:52:39 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_countpipes(char *str)
 	pipe = 0;
 	while (str[index])
 	{
-		if (str[index] == '|' && !(within_double_quote_pipe(str, index) || within_single_quote_pipe(str, index)))
+		if (str[index] == '|' && !(is_char_in_quotes(str, index)))
 			pipe++;
 		index++;
 	}

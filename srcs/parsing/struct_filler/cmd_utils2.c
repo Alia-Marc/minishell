@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:59:41 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/18 22:01:45 by marc             ###   ########.fr       */
+/*   Updated: 2024/09/19 15:44:53 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ char	**split_cmd_pipe(char *s, char c)
 					return (free_cmd(split), NULL);
 				word++;
 			}
-			while ((*s && *s != c))
+			while (*s && *s != c)
 			{
-				if (*s == 34 || *s == 39)
+				if (*s && (*s == 34 || *s == 39))
 				{
 					s++;
 					while (*s)
@@ -75,6 +75,6 @@ char	**split_cmd_pipe(char *s, char c)
 			}
 		}
 	}
-	split[word] = '\0';
+	split[word] = NULL;
 	return (split);
 }

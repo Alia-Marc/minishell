@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 19:41:10 by marc              #+#    #+#             */
-/*   Updated: 2024/09/18 22:23:10 by marc             ###   ########.fr       */
+/*   Updated: 2024/09/19 16:27:10 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,3 +58,21 @@ int	main(int ac, char **av, char **env)
 	}
 	exit_free_all(prompt, exec, exec->exit);
 }
+
+// int main(int argc, char **argv, char **env)
+// {
+// 	t_exec		*exec;
+// 	t_prompt	*prompt;
+
+// 	(void) argc;
+// 	exec = init_exec(env);
+// 	prompt = NULL;
+// 	if (!exec)
+// 		return (1);
+// 	parse_and_exec(prompt, exec, argv[1]);
+// 	reset_exec(exec);
+// 	exit_free_all(prompt, exec, exec->exit);
+// 	return argc;
+// }
+
+

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 15:27:28 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/18 22:01:41 by marc             ###   ########.fr       */
+/*   Updated: 2024/09/19 16:42:30 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_countword(char *str, char c)
 		if (str[index] && str[index] != c)
 		{
 			count++;
-			while ((str[index] && str[index] != c) 
+			while ((str[index] && str[index] != c)
 					|| (str[index] == c && is_char_in_quotes(str, index)))
 				index++;
 		}
@@ -43,7 +43,7 @@ static int  ft_countlen(char *str, char c)
 	index = 0;
 	if (!str)
 		return (0);
-	while ((str[index] && str[index] != c) 
+	while ((str[index] && str[index] != c)
 			|| (str[index] == c && is_char_in_quotes(str, index)))
 		index++;
 	return (index - 1);
@@ -51,10 +51,10 @@ static int  ft_countlen(char *str, char c)
 
 static	char	*ft_worddup(char *str, char c)
 {
+	int		i;
 	int		index;
 	int		first_pos;
 	int		last_pos;
-    int     i;
 	char	*dst;
 
 	index = 0;
@@ -75,7 +75,7 @@ static	char	*ft_worddup(char *str, char c)
 			else
 				index++;
 	}
-	dst = malloc(sizeof(char) * (index + 1));
+	dst = ft_calloc(sizeof(char), (index + 1));
 	if (!dst)
 		return (NULL);
 	index = 0;
@@ -88,7 +88,7 @@ static	char	*ft_worddup(char *str, char c)
 			{
 				dst[i] = str[index];
 				index++;
-                i++;
+				i++;
 			}
 	}
 	dst[index] = '\0';
@@ -116,7 +116,7 @@ char	**split_cmd(char *s, char c)
 	if (!s)
 		return (NULL);
 	word = 0;
-	split = malloc(sizeof(char *) * (ft_countword(s, c) + 1));
+	split = ft_calloc(sizeof(char *), (ft_countword(s, c) + 1));
 	if (!split)
 		return (NULL);
 	while (*s)
@@ -134,7 +134,7 @@ char	**split_cmd(char *s, char c)
 			}
 			while ((*s && *s != c))
 			{
-				if (*s == 34 || *s == 39)
+				if (*s && (*s == 34 || *s == 39))
 				{
 					s++;
 					while (*s)
@@ -148,6 +148,6 @@ char	**split_cmd(char *s, char c)
 			}
 		}
 	}
-	split[word] = '\0';
+	split[word] = NULL;
 	return (split);
 }

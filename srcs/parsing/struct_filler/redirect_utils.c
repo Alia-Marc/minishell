@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 17:23:59 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/18 20:46:32 by marc             ###   ########.fr       */
+/*   Updated: 2024/09/19 16:11:42 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	*ft_strdupnospace(char *str, int index)
 		index++;
 		len++;
 	}
-	dup = (char *)malloc((len + 2) * sizeof(char));
+	dup = ft_calloc(sizeof(char), (len + 2));
 	if (dup == 0 || len == 0)
 		return (NULL);
 	while (!ft_isspace(str[temp]) && str[temp] && !ft_is_metachar(str[temp]))

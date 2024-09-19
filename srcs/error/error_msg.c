@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_msg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 16:09:38 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/13 16:02:35 by marc             ###   ########.fr       */
+/*   Updated: 2024/09/19 16:07:21 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,5 @@ void	ft_metachar_near_token(void)
 
 void	ft_redirect_name_empty(void)
 {
-	write(2, "m'emboucane le zin, tie ambigu dans les redirect\n", 50);
+	write(2, "m'emboucane pas le zin, tie ambigu dans les redirect\n", 54);
 }
