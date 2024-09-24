@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 15:45:21 by marc              #+#    #+#             */
-/*   Updated: 2024/09/24 17:44:05 by malia            ###   ########.fr       */
+/*   Updated: 2024/09/24 17:08:35 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,24 +55,11 @@ void	use_here_doc(t_prompt *prompt)
 		prompt->use_here_doc = 1;
 }
 
-void	close_unused_next_hd(t_prompt *prompt)
-{
-	t_prompt	*tmp_prompt;
-
-	tmp_prompt = prompt->next;
-	while (tmp_prompt)
-	{
-		if (!isatty(tmp_prompt->here_doc_fd) && tmp_prompt->here_doc_fd > 2)
-			close (tmp_prompt->here_doc_fd);
-		tmp_prompt = tmp_prompt->next;
-	}
-}
-
 // int	here_doc(char **av, char **env)
 // {
 // 	int		pipe_fd1[2];
 // 	int		pipe_fd2[2];
-// 	pid_t	pid;	
+// 	pid_t	pid;
 
 // 	if (pipe(pipe_fd1) == -1)
 // 		exit(0);

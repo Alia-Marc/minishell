@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:18:34 by malia             #+#    #+#             */
-/*   Updated: 2024/09/24 17:42:38 by malia            ###   ########.fr       */
+/*   Updated: 2024/09/24 17:07:34 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void		exec_cmd(t_prompt *prompt, t_exec *exec);
 // here_doc
 void		write_heredoc(char *delimiter, int *fd);
 void		use_here_doc(t_prompt *prompt);
-void		close_unused_next_hd(t_prompt *prompt);
 
 // Error funtcions
 void		error_handler(char *file, char *word, int code);

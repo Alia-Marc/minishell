@@ -1,0 +1,13 @@
+echo oe > o
+// leak
+
+NE PPAS OUBLIER D'ENLEVER le COM EXPAND DANS PARSING.C
+
+ca marche pas :
+echo 'bjr' >i
+
+envoie 'i' dans la redirect i
+
+echo>o oe
+
+"" | echo oe

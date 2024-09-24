@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:08:15 by malia             #+#    #+#             */
-/*   Updated: 2024/09/24 17:42:49 by malia            ###   ########.fr       */
+/*   Updated: 2024/09/24 17:14:21 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	exec_prompt(t_prompt *prompt, t_exec *exec)
 {
 	t_prompt	*tmp_prompt;
 	int			prev_pipe;
-	
+
 	tmp_prompt = prompt;
 	prev_pipe = -2;
 	while (tmp_prompt)
@@ -70,7 +70,6 @@ void	exec_prompt(t_prompt *prompt, t_exec *exec)
 
 void	exec_cmd(t_prompt *prompt, t_exec *exec)
 {
-	close_unused_next_hd(prompt);
 	execve(prompt->cmd[0], prompt->cmd, exec->env);
 	if (check_char(prompt->cmd[0], '/'))
 	{
@@ -105,12 +104,12 @@ void	exec_cmd(t_prompt *prompt, t_exec *exec)
 // 	//fileadd_back(&prompt->file, new_file("k", 1));
 // 	//fileadd_back(&prompt->file, new_file("oui", 1));
 // 	//fileadd_back(&prompt->file, new_file("gay", 2));
-	
+
 // 	//promptadd_back(&prompt, new_prompt("export 7oui=da non=da", "o", "outfile", env, 0));
 // 	//promptadd_back(&prompt, new_prompt("grep o", "o", "outfile", env, 1));
 // 	//promptadd_back(&prompt, new_prompt("exit 32d", "j", "outfile", env, 1));
 // 	//promptadd_back(&prompt, new_prompt("ls", "j", "outfile", env, 1));
-	
+
 // 	//promptadd_back(&prompt, new_prompt("env", "a", "outfile", env, 0));
 // 	//promptadd_back(&prompt, new_prompt("cd", "o", "outfile", env, 0));
 // 	//promptadd_back(&prompt, new_prompt("", "o", "outfile", env, 0));
@@ -166,7 +165,7 @@ void	exec_cmd(t_prompt *prompt, t_exec *exec)
 // 	char	**tcmd;
 // 	char	*path;
 // 	int		i = 0;
-	
+
 // 	tcmd = ft_split(av[1], ' ');
 // 	path = get_path(tcmd[0], env);
 // 	ft_printf("%d\n", ft_strlen2(tcmd));

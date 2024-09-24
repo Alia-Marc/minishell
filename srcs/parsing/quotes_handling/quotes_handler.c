@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:13:39 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/19 15:18:45 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/24 12:00:52 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	even_nb_outside_quote(char *str)
 int	quotes_handler(char *cmd_line)
 {
 	if (!double_quote_closed(cmd_line) || !single_quote_closed(cmd_line)
-		|| !even_nb_outside_quote(cmd_line))
+		/*|| !even_nb_outside_quote(cmd_line)*/)
 		return (ft_quote_error(), 0);
 	return (1);
 }

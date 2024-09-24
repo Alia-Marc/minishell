@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 17:22:01 by alia              #+#    #+#             */
-/*   Updated: 2024/09/24 17:30:33 by malia            ###   ########.fr       */
+/*   Updated: 2024/09/24 17:13:05 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	open_close_redir(t_prompt *prompt)
 					ft_fdprintf(2, NO_SUCH_FILE_OR_DIR, tmp_file->file);
 				break ;
 			}
-			//return (ft_fdprintf(2, NO_SUCH_FILE_OR_DIR, tmp_file->file), 0);//shoud be exiting and asking for a new prompt instead of continuing like now
 			if (tmp_file->mode != 3)
 				close(tmp_fd);
 			tmp_file = tmp_file->next;

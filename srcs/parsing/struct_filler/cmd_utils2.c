@@ -6,11 +6,48 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:59:41 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/19 15:44:53 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:22:38 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/parsing.h"
+
+int	ft_countword(char *str, char c)
+{
+	int	index;
+	int	count;
+
+	index = 0;
+	count = 0;
+	if (!str)
+		return (0);
+	while (str[index])
+	{
+		while (str[index] && str[index] == c)
+			index++;
+		if (str[index] && str[index] != c)
+		{
+			count++;
+			while ((str[index] && str[index] != c)
+					|| (str[index] == c && is_char_in_quotes(str, index)))
+				index++;
+		}
+	}
+	return (count);
+}
+
+void	free_cmd(char **str)
+{
+	int	index;
+
+	index = 0;
+	while (str[index])
+	{
+		free(str[index]);
+		index++;;
+	}
+	free(str);
+}
 
 static	char	*ft_worddup(char *str, char c)
 {
@@ -52,13 +89,10 @@ char	**split_cmd_pipe(char *s, char c)
 			s++;
 		if (*s && *s != c)
 		{
-			if (!ft_is_redirect(*s))
-			{
-				split[word] = ft_worddup(s, c);
-				if (!split[word])
-					return (free_cmd(split), NULL);
-				word++;
-			}
+			split[word] = ft_worddup(s, c);
+			if (!split[word])
+				return (free_cmd(split), NULL);
+			word++;
 			while (*s && *s != c)
 			{
 				if (*s && (*s == 34 || *s == 39))
