@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 17:22:01 by alia              #+#    #+#             */
-/*   Updated: 2024/09/17 21:02:14 by marc             ###   ########.fr       */
+/*   Updated: 2024/09/24 17:30:33 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,15 @@ int	open_close_redir(t_prompt *prompt)
 		{
 			tmp_fd = open_file(tmp_prompt, tmp_file->file, tmp_file->mode);
 			if (tmp_fd < 0)
-				return (ft_fdprintf(2, NO_SUCH_FILE_OR_DIR, tmp_file->file), 0);//shoud be exiting and asking for a new prompt instead of continuing like now
+			{
+				tmp_prompt->error = 1;
+				if (access(tmp_file->file, F_OK) == 0)
+					ft_fdprintf(2, PERMISSION_DENIED, tmp_file->file);
+				else
+					ft_fdprintf(2, NO_SUCH_FILE_OR_DIR, tmp_file->file);
+				break ;
+			}
+			//return (ft_fdprintf(2, NO_SUCH_FILE_OR_DIR, tmp_file->file), 0);//shoud be exiting and asking for a new prompt instead of continuing like now
 			if (tmp_file->mode != 3)
 				close(tmp_fd);
 			tmp_file = tmp_file->next;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:08:15 by malia             #+#    #+#             */
-/*   Updated: 2024/09/18 22:09:19 by marc             ###   ########.fr       */
+/*   Updated: 2024/09/24 17:42:49 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	exec_prompt(t_prompt *prompt, t_exec *exec)
 	prev_pipe = -2;
 	while (tmp_prompt)
 	{
-		assign_fds(tmp_prompt, exec);
-		if (tmp_prompt->cmd)
+		if (tmp_prompt->cmd && tmp_prompt->error == 0)
 		{
+			assign_fds(tmp_prompt, exec);
 			if (is_builtin(tmp_prompt) && exec->n_cmd == 1) //|| !tmp_prompt->next
 				exec->exit = exec_solo_builtin(tmp_prompt, exec);
 			else
@@ -70,6 +70,7 @@ void	exec_prompt(t_prompt *prompt, t_exec *exec)
 
 void	exec_cmd(t_prompt *prompt, t_exec *exec)
 {
+	close_unused_next_hd(prompt);
 	execve(prompt->cmd[0], prompt->cmd, exec->env);
 	if (check_char(prompt->cmd[0], '/'))
 	{

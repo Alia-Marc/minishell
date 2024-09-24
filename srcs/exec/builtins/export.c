@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 22:12:54 by alia              #+#    #+#             */
-/*   Updated: 2024/09/18 22:19:06 by marc             ###   ########.fr       */
+/*   Updated: 2024/09/24 16:40:02 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	no_args(t_exec *exec)
 	i = 0;
 	while (exec->env && exec->env[i])
 	{
-		write(exec->fd_out, "declare -x ", 11);
+		write(exec->fd_out, "export ", 11);
 		j = 0;
 		first = 0;
 		while (exec->env[i][j])

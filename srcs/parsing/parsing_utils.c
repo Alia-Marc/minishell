@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:01:56 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/18 20:45:30 by marc             ###   ########.fr       */
+/*   Updated: 2024/09/24 16:25:09 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_prompt	*prompt_init(void)
 	new_prompt->cmd = NULL;
 	new_prompt->use_here_doc = 0;
 	new_prompt->here_doc_fd = -2;
+	new_prompt->error = 0;
 	// new_prompt->path = getpath(new_prompt->cmd, new_prompt->env);
 	new_prompt->path = NULL;
     new_prompt->next = NULL;

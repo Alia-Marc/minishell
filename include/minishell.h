@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:56:27 by malia             #+#    #+#             */
-/*   Updated: 2024/09/18 19:19:58 by marc             ###   ########.fr       */
+/*   Updated: 2024/09/24 16:24:47 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <signal.h>
 
 extern int			g_signal;
 
@@ -37,6 +38,7 @@ typedef struct s_prompt
 	int				use_here_doc;
 	char			**cmd;
 	char			*path;
+	int				error;
 	struct s_prompt	*next;
 }					t_prompt;
 

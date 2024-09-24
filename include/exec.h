@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:18:34 by malia             #+#    #+#             */
-/*   Updated: 2024/09/18 20:56:34 by marc             ###   ########.fr       */
+/*   Updated: 2024/09/24 17:42:38 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define READ 0
 # define ERR_MALLOC "kimonOS: malloc failed\n"
 # define NO_SUCH_FILE_OR_DIR "kimonOS: %s: No such file or directory\n"
+# define PERMISSION_DENIED "kimonOS: %s: Permission denied\n"
 # define COMMAND_NOT_FOUND "kimonOS: %s: command not found\n"
 
 // get_path of a command
@@ -60,6 +61,7 @@ void		exec_cmd(t_prompt *prompt, t_exec *exec);
 // here_doc
 void		write_heredoc(char *delimiter, int *fd);
 void		use_here_doc(t_prompt *prompt);
+void		close_unused_next_hd(t_prompt *prompt);
 
 // Error funtcions
 void		error_handler(char *file, char *word, int code);

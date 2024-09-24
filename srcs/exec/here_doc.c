@@ -6,7 +6,7 @@
 /*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 15:45:21 by marc              #+#    #+#             */
-/*   Updated: 2024/08/23 14:29:41 by malia            ###   ########.fr       */
+/*   Updated: 2024/09/24 17:44:05 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	use_here_doc(t_prompt *prompt)
 	t_file	*tmp_file;
 	int		mode;
 
+	if (prompt->error)
+		return ;
 	tmp_file = prompt->file;
 	mode = -1;
 	while (tmp_file)
@@ -51,6 +53,19 @@ void	use_here_doc(t_prompt *prompt)
 	prompt->use_here_doc = 0;
 	if (mode == 3)
 		prompt->use_here_doc = 1;
+}
+
+void	close_unused_next_hd(t_prompt *prompt)
+{
+	t_prompt	*tmp_prompt;
+
+	tmp_prompt = prompt->next;
+	while (tmp_prompt)
+	{
+		if (!isatty(tmp_prompt->here_doc_fd) && tmp_prompt->here_doc_fd > 2)
+			close (tmp_prompt->here_doc_fd);
+		tmp_prompt = tmp_prompt->next;
+	}
 }
 
 // int	here_doc(char **av, char **env)
