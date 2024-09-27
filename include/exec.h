@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:18:34 by malia             #+#    #+#             */
-/*   Updated: 2024/09/24 17:42:38 by malia            ###   ########.fr       */
+/*   Updated: 2024/09/27 17:24:08 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void		close_unused_next_hd(t_prompt *prompt);
 void		error_handler(char *file, char *word, int code);
 
 // Utils
-int			wait_children(int pid);
+int			wait_children(t_exec *exec, int pid);
 int			len_prompt(t_prompt *prompt);
 
 void		exec_prompt(t_prompt *prompt, t_exec *exec);

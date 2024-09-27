@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 06:06:24 by marc              #+#    #+#             */
-/*   Updated: 2024/09/01 20:43:36 by alia             ###   ########.fr       */
+/*   Updated: 2024/09/27 17:23:26 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,14 @@ int	len_prompt(t_prompt *prompt)
 	return (len);
 }
 
-int	wait_children(int pid)
+int	wait_children(t_exec *exec, int pid)
 {
 	int	wait_status;
-	int	error_status;
 
-	error_status = 0;
 	while (errno != ECHILD)
 		if (wait(&wait_status) == pid && WIFEXITED(wait_status))
-			error_status = WEXITSTATUS(wait_status);
+			exec->exit = WEXITSTATUS(wait_status);
 	if (pid == -1)
 		return (127);
-	return (error_status);
+	return (exec->exit);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:08:15 by malia             #+#    #+#             */
-/*   Updated: 2024/09/24 17:42:49 by malia            ###   ########.fr       */
+/*   Updated: 2024/09/27 17:24:19 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,15 @@ void	exec_prompt(t_prompt *prompt, t_exec *exec)
 			// }
 			exit_command(prompt, exec, prev_pipe, tmp_prompt);
 		}
+		else if (tmp_prompt->error)
+			exec->exit = 1;
 		tmp_prompt = tmp_prompt->next;
 	}
 	if (!isatty(prev_pipe) && prev_pipe > 2)
 		close(prev_pipe);
 	if (is_builtin(prompt) && exec->n_cmd == 1)
 		return ;
-	exec->exit = wait_children(exec->pid);
+	exec->exit = wait_children(exec, exec->pid);
 }
 
 void	exec_cmd(t_prompt *prompt, t_exec *exec)
