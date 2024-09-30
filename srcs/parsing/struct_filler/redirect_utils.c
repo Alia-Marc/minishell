@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emilefournier <emilefournier@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 17:23:59 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/24 13:35:43 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/27 13:23:07 by emilefourni      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,17 @@ void	fileadd_back(t_file **file, t_file *new)
 		else
 			*file = new;
 	}
+}
+
+int	is_in_redirect(char *s, int index, int max_index)
+{
+	while (index < max_index)
+	{
+		if (ft_is_redirect(s[index]) && !is_char_in_quotes(s, index))
+			return (1);
+		index++;
+	}
+	return (0);
 }
 
 char	*ft_strdupnospace(char *str, int index)

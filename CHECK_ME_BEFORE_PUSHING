@@ -1,9 +1,7 @@
 echo oe > o
 // leak
 
-NE PPAS OUBLIER D'ENLEVER le COM EXPAND DANS PARSING.C
-
-ca marche pas :
+IL RESTE LE CMD_SPLIT_PIPE A REDUIRE ET REFAIRE SINON CA A L'AIR GOOD
 echo 'bjr' >i
 
 envoie 'i' dans la redirect i

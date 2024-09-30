@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: emilefournier <emilefournier@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:16:09 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/18 21:51:25 by marc             ###   ########.fr       */
+/*   Updated: 2024/09/26 22:06:07 by emilefourni      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,7 @@ int				quotes_handler(char *cmd_line);
 int				double_quote_closed(char *str);
 int				single_quote_closed(char *str);
 
-//within_quotes.c
-
-int				within_double_quote(char *str, size_t index);
-int				within_single_quote(char *str, size_t index);
-
-// //within_quotes_split.c
-
-// int				within_single_quote2(char *str, int index);
-// int				within_double_quote2(char *str, int index);
-
-
-// //within_quotes_pipe.c
-
-int				within_single_quote_pipe(char *str, int index);
-int				within_double_quote_pipe(char *str, int index);
+//true_within_quotes.c
 
 int 			is_char_in_quotes(char *str, int index);
 
@@ -60,10 +46,14 @@ int				ft_isspaceorpipe(char c);
 
 int				redirect_checker(char *cmd_line);
 int				ft_is_redirect(char c);
-int				ft_dollarsign_redirect(char *file);
 int				nb_redirect(char *str);
 int				check_parenthesis(char *str);
 int				check_empty_name(char *str);
+
+//redirect_checker2.c
+
+int				ft_dollarsign_redirect(char *file);
+int             space_between_cmd_redirect(char *cmd_line);
 
 //////////////////////////////////////////////////////STRUCT_FILLER
 
@@ -94,12 +84,12 @@ void			fileadd_back(t_file **file, t_file *new);
 void			free_file(t_file **file);
 char			*ft_strdupnospace(char *str, int index);
 
+////////////////////////////////////////////////////////PARSING
+
 char			*expand_var(t_exec *exec, char *line);
 int				expanded_len(t_exec *exec, char *line);
 int				len_potential_var(char *line, int i);
 char			*expanded_var(t_exec *exec, char *name, int len_var);
-
-////////////////////////////////////////////////////////PARSING
 
 //parsing.c
 
@@ -108,7 +98,6 @@ t_prompt		*ft_filler(char *cmd_line, t_prompt *prompt, t_exec *exec);
 
 //parsing_utils.c
 
-// void			free_prompt(t_prompt **prompt);
 bool			ft_is_metachar(char c);
 t_prompt		*prompt_init(void);
 t_prompt		*promptlast(t_prompt *prompt);

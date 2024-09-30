@@ -3,14 +3,77 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emilefournier <emilefournier@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 15:27:28 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/24 17:48:36 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/28 16:46:07 by emilefourni      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/parsing.h"
+
+int	ft_strlen(const char *s)
+{
+	int	i;
+
+	if (!s)
+		return (0);
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
+
+int	ft_is_redirect(char c)
+{
+	if (c == '<' || c == '>')
+		return (1);
+	return (0);
+}
+
+int	redirect_skip(char *s, int j, char c)
+{
+	while (s[j] && (ft_is_redirect(s[j]) || (s[j] == c)))
+		j++;
+	while (s[j] && s[j] != c)
+		j++;
+	while (s[j] && s[j] == c)
+	{
+		if (s[j + 1] != c)
+			break ;
+		j++;
+	}
+	return (j);
+}
+
+int	is_in_redirect(char *s, int index, int max_index)
+{
+	while (index < max_index)
+	{
+		if (ft_is_redirect(s[index]) && !is_char_in_quotes(s, index))
+			return (1);
+		index++;
+	}
+	return (0);
+}
+
+int is_char_in_quotes(char *str, int index)
+{
+    int i;
+    bool quotesOpen;
+
+    i = 0;
+    quotesOpen = false;
+    while (i <= index)
+    {
+        if (str[i] == 34 || str[i] == 39)
+            quotesOpen = !quotesOpen;
+        i++;
+        if (quotesOpen && i == index)
+            return (1);
+    }
+    return (0);
+}
 
 static void	free_tab(char **tab, size_t k, size_t max)
 {
@@ -25,37 +88,59 @@ static void	free_tab(char **tab, size_t k, size_t max)
 	free(tab);
 }
 
+int	check_for_cmd(char *s, int index, char c)
+{
+	while (s[index])
+	{
+		if (ft_is_redirect(s[index]) && !is_char_in_quotes(s, index))
+			index = redirect_skip(s, index, c);
+		if (s[index] && s[index] != c)
+			return (1);
+		if (s[index])
+			index++;
+	}
+	return (0);
+}
+
 static int	count_s(char *s, char c)
 {
-	int	i;
-	int	count;
+	int		(i) = 0;
+	int		(count) = 1;
 
-	i = 0;
-	count = 1;
 	while (s[i] == c && s[i])
 		i++;
 	if (!s[i])
 		return (0);
 	while (s[i])
 	{
-		if (s[i] == c && !is_char_in_quotes(s, i))
+		if (ft_is_redirect(s[i]) && !is_char_in_quotes(s, i))
+			i = redirect_skip(s, i, c);
+		else if (s[i] == c && ((!is_char_in_quotes(s, i) && !ft_is_redirect(s[i + 1]))
+				|| (!is_char_in_quotes(s, i) && check_for_cmd(s, i, c))))
 		{
 			if (s[i + 1] != c && s[i + 1] != '\0')
 				count++;
 		}
-		i++;
+		if (s[i])
+			i++;
 	}
 	return (count);
 }
 
+char	*tab_alloc(char **tab, int index_string, int count, int index_char)
+{
+	tab[index_string] = malloc(sizeof(char) * (index_char + 1));
+	if (!tab[index_string])
+		return (free_tab(tab, index_string, count), NULL);
+	return (tab[index_string]);
+}
+
 static int	fill_tab(char **tab,  char	*s, char c, int count)
 {
-	int	i;
-	int	j;
+	int	(i) = 0;
+	int	(j) = 0;
 	int	t;
 
-	i = 0;
-	j = 0;
 	while (i < count)
 	{
 		t = 0;
@@ -63,16 +148,21 @@ static int	fill_tab(char **tab,  char	*s, char c, int count)
 			j++;
 		while ((s[j] != c && s[j]) || (s[j] == c && is_char_in_quotes(s, j) && s[j]))
 		{
-			t++;
-			j++;
+			if (ft_is_redirect(s[j]))
+			{
+				j = redirect_skip(s, j, c);
+				t = redirect_skip(s, t, c);
+			}
+			else
+			{
+				t++;
+				j++;
+			}
 		}
-		tab[i] = malloc(sizeof(char) * (t + 1));
-		if (!tab[i])
-		{
-			free_tab(tab, i, count);
-			return (1);
-		}
-		i++;
+		if (!is_in_redirect(s, j - t, j))
+			tab[i] = tab_alloc(tab, i, count, t);
+		if (!is_in_redirect(s, j - t, j))
+			i++;
 	}
 	return (0);
 }
@@ -92,141 +182,86 @@ static char	**create_tab(char *s, char c)
 	return (tab);
 }
 
-int	first_pos_quote(char *str, int index)
+int	quotes_removal(char *s, int j, int t, char *tab)
 {
-	while(index > 0)
-
-
+	if (((t == 0 && (s[j] == 34 || s[j] == 39))) || (t == ft_strlen(tab) && (s[j] == 34 || s[j] == 39)))
+		return (1);
+	return (0);
 }
 
-char	**split_cmd(char *s, char c)
+char	**ft_strdupsplit(char **tab, int count_words, char *s, char c)
 {
 	int		t;
 	int		(i) = 0;
 	int		(j) = 0;
-	int		(count) =  count_s(s, c);
-	char	(**tab) = create_tab(s, c);
-
-	if (!s)
-		return (NULL);
-	while (i < count)
+	bool	(seen_redirect);
+	
+	while (i < count_words)
 	{
 		t = 0;
+		seen_redirect = false;
 		while (s[j] == c)
 			j++;
 		while ((s[j] != c && s[j]) || (s[j] == c && is_char_in_quotes(s, j)))
 		{
-			if (j == first_pos_quote(s, j) || j == last_pos_quote(s, j))
+			if (quotes_removal(s, j, t, tab[i]))
 				j++;
-			else
+			if (ft_is_redirect(s[j]) && !is_char_in_quotes(s, j))
+			{
+				j = redirect_skip(s, j, c);
+				seen_redirect = true;
+			}
+			else if (s[j] && (s[j] != c || (s[j] == c && is_char_in_quotes(s, j))))
 				tab[i][t++] = s[j++];
 		}
-		tab[i][t] = '\0';
-		i++;
+		if (tab[i] && !seen_redirect)
+		{
+			tab[i][t] = '\0';
+			i++;
+		}
 	}
 	return (tab);
 }
 
+char	**split_cmd(char *s, char c)
+{
+	int		count;
+	char	**tab;
 
+	if (!s)
+		return (NULL);
+	count = count_s(s, c);
+	tab = create_tab(s, c);
+	tab = ft_strdupsplit(tab, count, s, c);
+	return (tab);
+}
 
-// static int  ft_countlen(char *str, char c)
-// {
-// 	int	index;
+void	free_cmd(char **str)
+{
+	int	index;
 
-// 	index = 0;
-// 	if (!str)
-// 		return (0);
-// 	while ((str[index] && str[index] != c)
-// 			|| (str[index] == c && is_char_in_quotes(str, index)))
-// 		index++;
-// 	return (index - 1);
-// }
+	index = 0;
+	while (str[index])
+	{
+		free(str[index]);
+		index++;;
+	}
+	free(str);
+}
 
-// static	char	*ft_worddup(char *str, char c)
-// {
-// 	int		(i) = 0;
-// 	int		(index) = 0;
-// 	int		(first_pos) = 0;
-// 	int		(last_pos) = 0;
-// 	char	*dst;
+int main(int argc, char *argv[])
+{
+	char **split;
+	int	index;
+	int nb_words;
 
-// 	while ((str[index] && str[index] != c) || (str[index] == c && is_char_in_quotes(str, index)))
-// 	{
-// 			if ((str[index] == 34 || str[index] == 39) && (index == 0))
-// 			{
-// 				first_pos = index;
-// 				index++;
-// 			}
-// 			else if ((str[index] == 34 || str[index] == 39) && (index == ft_countlen(str, c)))
-// 			{
-// 				last_pos = index;
-// 				index++;
-// 			}
-// 			else
-// 				index++;
-// 	}
-// 	dst = ft_calloc(sizeof(char), (index + 1));
-// 	if (!dst)
-// 		return (NULL);
-// 	index = 0;
-// 	while ((str[index] && str[index] != c) || (str[index] == c && is_char_in_quotes(str, index)))
-// 	{
-// 			if ((str[index] == 34 || str[index] == 39) && (index == first_pos || index == last_pos))
-// 				index++;
-// 			else
-// 			{
-// 				dst[i] = str[index];
-// 				index++;
-// 				i++;
-// 			}
-// 	}
-// 	dst[index] = '\0';
-// 	return (dst);
-// }
-
-
-
-// char	**split_cmd(char *s, char c)
-// {
-// 	int		word;
-// 	char	**split;
-
-// 	if (!s)
-// 		return (NULL);
-// 	word = 0;
-// 	split = ft_calloc(sizeof(char *), (ft_countword(s, c) + 1));
-// 	if (!split)
-// 		return (NULL);
-// 	while (*s)
-// 	{
-// 		while (*s && *s == c)
-// 			s++;
-// 		if (*s && *s != c)
-// 		{
-// 			if (!ft_is_redirect(*s))
-// 			{
-// 				split[word] = ft_worddup(s, c);
-// 				if (!split[word])
-// 					return (free_cmd(split), NULL);
-// 				word++;
-// 			}
-// 			while ((*s && *s != c))
-// 			{
-// 				if (*s && (*s == 34 || *s == 39))
-// 				{
-// 					s++;
-// 					while (*s)
-// 					{
-// 						s++;
-// 						if (*s == 34 || *s == 39)
-// 							break ;
-// 					}
-// 				}
-// 				if ((*s && *s != c))
-// 					s++;
-// 			}
-// 		}
-// 	}
-// 	split[word] = NULL;
-// 	return (split);
-// }
+	(void) argc;
+	
+	index = 0;
+	split = split_cmd(argv[1], '|');
+	nb_words = count_s(argv[1], '|');
+	while (split[index])
+		printf("word : %s\n %d\n", split[index++], nb_words);
+	free_cmd(split);
+	return 0;
+}

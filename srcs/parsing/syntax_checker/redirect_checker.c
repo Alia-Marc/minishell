@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_checker.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emilefournier <emilefournier@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 17:51:53 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/19 16:46:58 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/28 16:08:05 by emilefourni      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,10 @@ int	check_parenthesis(char *str)
 	{
 		if (ft_is_redirect(str[index]) && !(is_char_in_quotes(str, index)))
 		{
-			while (str[index])
+			while (str[index] != ' ')
 			{
-				if (str[index] == '(' || str[index] == ')')
+				if (str[index] == '(' || str[index] == ')'
+					|| str[index] == 34 || str[index] == 39)
 					return (ft_metachar_near_token(), 0);
 				index++;
 			}
@@ -95,6 +96,8 @@ int	redirect_checker(char *cmd_line)
 	if (!check_parenthesis(cmd_line))
 		return (0);
 	if (!check_empty_name(cmd_line))
+		return (0);
+	if (!space_between_cmd_redirect(cmd_line))
 		return (0);
 	if (!ft_dollarsign_redirect(cmd_line))
 		return (0);

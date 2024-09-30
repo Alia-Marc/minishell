@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emilefournier <emilefournier@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:59:39 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/24 12:22:36 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/09/25 11:58:20 by emilefourni      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_checker(char *cmd_line)
 
 t_prompt	*ft_filler(char *cmd_line, t_prompt *prompt, t_exec *exec)
 {
-	// cmd_line = expand_var(exec, cmd_line);
+	cmd_line = expand_var(exec, cmd_line);
 	if (!cmd_line[0])
 		return (free_prompt(&prompt), free(cmd_line), NULL);
 	cmd_handler(cmd_line, prompt, exec);
