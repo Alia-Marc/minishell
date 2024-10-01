@@ -6,7 +6,7 @@
 /*   By: emilefournier <emilefournier@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 15:27:28 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/28 16:46:07 by emilefourni      ###   ########.fr       */
+/*   Updated: 2024/10/02 01:19:52 by emilefourni      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,8 @@ static char	**create_tab(char *s, char c)
 
 int	quotes_removal(char *s, int j, int t, char *tab)
 {
-	if (((t == 0 && (s[j] == 34 || s[j] == 39))) || (t == ft_strlen(tab) && (s[j] == 34 || s[j] == 39)))
+	if (((t == 0 && (s[j] == 34 || s[j] == 39)))
+		|| (t == ft_strlen(tab) && (s[j] == 34 || s[j] == 39)))
 		return (1);
 	return (0);
 }
