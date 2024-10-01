@@ -6,11 +6,17 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 06:06:24 by marc              #+#    #+#             */
-/*   Updated: 2024/09/27 17:23:26 by marc             ###   ########.fr       */
+/*   Updated: 2024/10/01 04:44:23 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/exec.h"
+
+static void	handle_sigint_cmd(int signum)
+{
+	g_signal = signum;
+	ft_putchar_fd('\n', 1);
+}
 
 int	len_prompt(t_prompt *prompt)
 {
@@ -31,10 +37,25 @@ int	wait_children(t_exec *exec, int pid)
 {
 	int	wait_status;
 
+	init_sig(SIGINT, &handle_sigint_cmd);
 	while (errno != ECHILD)
 		if (wait(&wait_status) == pid && WIFEXITED(wait_status))
 			exec->exit = WEXITSTATUS(wait_status);
 	if (pid == -1)
 		return (127);
 	return (exec->exit);
+}
+
+void	close_fds(t_exec *exec)
+{
+	if (!isatty(exec->fd_in) && exec->fd_in > 2)
+	{
+		close(exec->fd_in);
+		exec->fd_in = STDIN_FILENO;
+	}
+	if (!isatty(exec->fd_out) && exec->fd_out > 2)
+	{
+		close(exec->fd_out);
+		exec->fd_out = STDOUT_FILENO;
+	}
 }

@@ -23,9 +23,9 @@ PARSING = srcs/parsing/expand_var.c srcs/parsing/expand_var_len.c \
 
 FLAGS = -Wall -Wextra -Werror -g3
 
-$(NAME):    $(EXEC) $(PARSING) srcs/main.c
+$(NAME):    $(EXEC) $(PARSING) srcs/main.c srcs/signal.c
 			make --silent -C $(LIBFT)
-			cc  $(FLAGS)  $(EXEC) $(PARSING) srcs/main.c -I $(INCLUDE) -lreadline $(LIBFT)/libft.a -o $(NAME)
+			cc  $(FLAGS)  $(EXEC) $(PARSING) srcs/main.c srcs/signal.c -I $(INCLUDE) -lreadline $(LIBFT)/libft.a -o $(NAME)
 
 all:    $(NAME)
 

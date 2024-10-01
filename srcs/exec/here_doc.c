@@ -3,35 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 15:45:21 by marc              #+#    #+#             */
-/*   Updated: 2024/09/24 17:44:05 by malia            ###   ########.fr       */
+/*   Updated: 2024/10/01 04:43:01 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/exec.h"
 
+void	hd_manage_sigint(int dupped_stdin)
+{
+	if (g_signal == SIGINT)
+		dup2(dupped_stdin, STDIN_FILENO);
+	close(dupped_stdin);
+}
+
 void	write_heredoc(char *delimiter, int *fd)
 {
 	char	*line;
-	size_t	del_len;
+	int		dupped_stdin;
 
-	del_len = ft_strlen(delimiter);
+	dupped_stdin = dup(STDIN_FILENO);
 	while (1)
 	{
-		ft_printf("> ");
-		line = get_next_line(STDIN_FILENO);
+		line = readline("> ");
+		if (!line && g_signal == SIGINT)
+			return (hd_manage_sigint(dupped_stdin));
 		if (!line)
 		{
-			perror("");
+			ft_fdprintf(2, CLOSED_HD_BY_EOF, delimiter);
 			break ;
 		}
-		if (!ft_strncmp(line, delimiter, del_len) && line[del_len] == '\n')
+		if (!ft_strcmp(line, delimiter))
 			break ;
 		ft_putstr_fd(line, fd[WRITE]);
+		ft_putstr_fd("\n", fd[WRITE]);
 		free(line);
 	}
+	close(dupped_stdin);
 	free(line);
 }
 
@@ -55,11 +65,14 @@ void	use_here_doc(t_prompt *prompt)
 		prompt->use_here_doc = 1;
 }
 
-void	close_unused_next_hd(t_prompt *prompt)
+void	close_unused_next_hd(t_prompt *prompt, int next)
 {
 	t_prompt	*tmp_prompt;
 
-	tmp_prompt = prompt->next;
+	if (next)
+		tmp_prompt = prompt->next;
+	else
+		tmp_prompt = prompt;
 	while (tmp_prompt)
 	{
 		if (!isatty(tmp_prompt->here_doc_fd) && tmp_prompt->here_doc_fd > 2)

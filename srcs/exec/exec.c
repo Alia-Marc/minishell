@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:08:15 by malia             #+#    #+#             */
-/*   Updated: 2024/09/27 17:24:19 by marc             ###   ########.fr       */
+/*   Updated: 2024/10/01 04:11:23 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	exec_prompt(t_prompt *prompt, t_exec *exec)
 
 void	exec_cmd(t_prompt *prompt, t_exec *exec)
 {
-	close_unused_next_hd(prompt);
+	close_unused_next_hd(prompt, 1);
 	execve(prompt->cmd[0], prompt->cmd, exec->env);
 	if (check_char(prompt->cmd[0], '/'))
 	{

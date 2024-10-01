@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 17:22:01 by alia              #+#    #+#             */
-/*   Updated: 2024/09/24 17:30:33 by malia            ###   ########.fr       */
+/*   Updated: 2024/10/01 04:44:17 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/exec.h"
 
-int	open_close_redir(t_prompt *prompt)
+int	open_close_redir(t_prompt *prompt, t_exec *exec)
 {
 	t_prompt	*tmp_prompt;
 	t_file		*tmp_file;
@@ -27,6 +27,8 @@ int	open_close_redir(t_prompt *prompt)
 		while (tmp_file)
 		{
 			tmp_fd = open_file(tmp_prompt, tmp_file->file, tmp_file->mode);
+			if (g_signal == SIGINT && hd_sigint_skip(prompt, exec))
+				return (close(tmp_fd), 0);
 			if (tmp_fd < 0)
 			{
 				tmp_prompt->error = 1;
@@ -73,6 +75,7 @@ int	open_file(t_prompt *prompt, char *file, int mode)
 		fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (mode == 3)
 	{
+		init_sig(SIGINT, &handle_sigint_hd);
 		if (!isatty(prompt->here_doc_fd) && prompt->here_doc_fd > 2)
 			close(prompt->here_doc_fd);
 		if (pipe(pipe_fd) == -1)
@@ -109,18 +112,4 @@ void	assign_fds(t_prompt *prompt, t_exec *exec)
 	}
 	else if (prompt->here_doc_fd > 2)
 		close(prompt->here_doc_fd);
-}
-
-void	close_fds(t_exec *exec)
-{
-	if (!isatty(exec->fd_in) && exec->fd_in > 2)
-	{
-		close(exec->fd_in);
-		exec->fd_in = STDIN_FILENO;
-	}
-	if (!isatty(exec->fd_out) && exec->fd_out > 2)
-	{
-		close(exec->fd_out);
-		exec->fd_out = STDOUT_FILENO;
-	}
 }

@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:18:34 by malia             #+#    #+#             */
-/*   Updated: 2024/09/27 17:24:08 by marc             ###   ########.fr       */
+/*   Updated: 2024/10/01 04:11:18 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "minishell.h"
 # include "builtins.h"
+# include "minishell_signal.h"
 
 # define WRITE 1
 # define READ 0
@@ -22,6 +23,8 @@
 # define NO_SUCH_FILE_OR_DIR "kimonOS: %s: No such file or directory\n"
 # define PERMISSION_DENIED "kimonOS: %s: Permission denied\n"
 # define COMMAND_NOT_FOUND "kimonOS: %s: command not found\n"
+# define CLOSED_HD_BY_EOF "\nkimonOS: warning: here-document delimited \
+by end-of-file (wanted `%s')\n"
 
 // get_path of a command
 char		*get_path(char *cmd, char **env);
@@ -46,7 +49,7 @@ void		reset_exec(t_exec *exec);
 // void		promptadd_back(t_prompt **prompt, t_prompt *new);
 
 // Handle files functions
-int			open_close_redir(t_prompt *prompt);
+int			open_close_redir(t_prompt *prompt, t_exec *exec);
 int			open_file(t_prompt *prompt, char *file, int mode);
 void		handle_fd(int fd, t_exec *exec, t_file *file);
 void		assign_fds(t_prompt *prompt, t_exec *exec);
@@ -61,7 +64,7 @@ void		exec_cmd(t_prompt *prompt, t_exec *exec);
 // here_doc
 void		write_heredoc(char *delimiter, int *fd);
 void		use_here_doc(t_prompt *prompt);
-void		close_unused_next_hd(t_prompt *prompt);
+void		close_unused_next_hd(t_prompt *prompt, int next);
 
 // Error funtcions
 void		error_handler(char *file, char *word, int code);
