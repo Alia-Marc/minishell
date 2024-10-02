@@ -6,11 +6,12 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 15:45:21 by marc              #+#    #+#             */
-/*   Updated: 2024/10/01 04:43:01 by marc             ###   ########.fr       */
+/*   Updated: 2024/10/02 02:01:31 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/exec.h"
+#include "../../include/parsing.h"
 
 void	hd_manage_sigint(int dupped_stdin)
 {
@@ -19,7 +20,7 @@ void	hd_manage_sigint(int dupped_stdin)
 	close(dupped_stdin);
 }
 
-void	write_heredoc(char *delimiter, int *fd)
+void	write_heredoc(t_exec *exec, char *delimiter, int *fd)
 {
 	char	*line;
 	int		dupped_stdin;
@@ -35,6 +36,7 @@ void	write_heredoc(char *delimiter, int *fd)
 			ft_fdprintf(2, CLOSED_HD_BY_EOF, delimiter);
 			break ;
 		}
+		line = expand_var(exec, line);
 		if (!ft_strcmp(line, delimiter))
 			break ;
 		ft_putstr_fd(line, fd[WRITE]);

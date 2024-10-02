@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:18:34 by malia             #+#    #+#             */
-/*   Updated: 2024/10/01 04:11:18 by marc             ###   ########.fr       */
+/*   Updated: 2024/10/02 02:05:47 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void		reset_exec(t_exec *exec);
 
 // Handle files functions
 int			open_close_redir(t_prompt *prompt, t_exec *exec);
-int			open_file(t_prompt *prompt, char *file, int mode);
+int			open_file(t_prompt *prompt, t_exec *exec, t_file *file);
 void		handle_fd(int fd, t_exec *exec, t_file *file);
 void		assign_fds(t_prompt *prompt, t_exec *exec);
 void		close_fds(t_exec *exec);
@@ -62,7 +62,7 @@ void		do_child(int fd_in, t_exec *exec, int *pipe_fd, t_prompt *prompt);
 void		exec_cmd(t_prompt *prompt, t_exec *exec);
 
 // here_doc
-void		write_heredoc(char *delimiter, int *fd);
+void		write_heredoc(t_exec *exec, char *delimiter, int *fd);
 void		use_here_doc(t_prompt *prompt);
 void		close_unused_next_hd(t_prompt *prompt, int next);
 

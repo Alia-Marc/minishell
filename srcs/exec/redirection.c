@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 17:22:01 by alia              #+#    #+#             */
-/*   Updated: 2024/10/01 04:44:17 by marc             ###   ########.fr       */
+/*   Updated: 2024/10/02 02:06:06 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	open_close_redir(t_prompt *prompt, t_exec *exec)
 		tmp_file = tmp_prompt->file;
 		while (tmp_file)
 		{
-			tmp_fd = open_file(tmp_prompt, tmp_file->file, tmp_file->mode);
+			tmp_fd = open_file(tmp_prompt, exec, tmp_file);
 			if (g_signal == SIGINT && hd_sigint_skip(prompt, exec))
 				return (close(tmp_fd), 0);
 			if (tmp_fd < 0)
@@ -61,26 +61,26 @@ void	handle_fd(int fd, t_exec *exec, t_file *file)
 		exec->fd_out = fd;
 }
 
-int	open_file(t_prompt *prompt, char *file, int mode)
+int	open_file(t_prompt *prompt, t_exec *exec, t_file *file)
 {
 	int	fd;
 	int	pipe_fd[2];
 
 	fd = 0;
-	if (mode == 0)
-		fd = open(file, O_RDONLY, 0644);
-	if (mode == 1)
-		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (mode == 2)
-		fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	if (mode == 3)
+	if (file->mode == 0)
+		fd = open(file->file, O_RDONLY, 0644);
+	if (file->mode == 1)
+		fd = open(file->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (file->mode == 2)
+		fd = open(file->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (file->mode == 3)
 	{
 		init_sig(SIGINT, &handle_sigint_hd);
 		if (!isatty(prompt->here_doc_fd) && prompt->here_doc_fd > 2)
 			close(prompt->here_doc_fd);
 		if (pipe(pipe_fd) == -1)
 			exit(0);
-		write_heredoc(file, pipe_fd);
+		write_heredoc(exec, file->file, pipe_fd);
 		close(pipe_fd[WRITE]);
 		prompt->here_doc_fd = pipe_fd[READ];
 		return (pipe_fd[READ]);
@@ -99,7 +99,7 @@ void	assign_fds(t_prompt *prompt, t_exec *exec)
 	{
 		if (tmp_file->mode != 3)
 		{
-			tmp_fd = open_file(prompt, tmp_file->file, tmp_file->mode);
+			tmp_fd = open_file(prompt, exec, tmp_file);
 			handle_fd(tmp_fd, exec, tmp_file);
 		}
 		tmp_file = tmp_file->next;
