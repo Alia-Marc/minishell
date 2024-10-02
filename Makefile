@@ -21,11 +21,13 @@ PARSING = srcs/parsing/expand_var.c srcs/parsing/expand_var_len.c \
 		srcs/parsing/struct_filler/cmd_handler.c srcs/parsing/struct_filler/cmd_utils.c \
 		srcs/parsing/struct_filler/cmd_utils2.c srcs/error/error_msg.c srcs/error/error_msg2.c \
 
+SIGNAL = srcs/signal/signal.c srcs/signal/signal_cmd.c
+
 FLAGS = -Wall -Wextra -Werror -g3
 
-$(NAME):    $(EXEC) $(PARSING) srcs/main.c srcs/signal.c
+$(NAME):    $(EXEC) $(PARSING) $(SIGNAL) srcs/main.c
 			make --silent -C $(LIBFT)
-			cc  $(FLAGS)  $(EXEC) $(PARSING) srcs/main.c srcs/signal.c -I $(INCLUDE) -lreadline $(LIBFT)/libft.a -o $(NAME)
+			cc  $(FLAGS) $(EXEC) $(PARSING) $(SIGNAL) srcs/main.c -I $(INCLUDE) -lreadline $(LIBFT)/libft.a -o $(NAME)
 
 all:    $(NAME)
 

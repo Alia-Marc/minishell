@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 06:06:24 by marc              #+#    #+#             */
-/*   Updated: 2024/10/01 04:44:23 by marc             ###   ########.fr       */
+/*   Updated: 2024/10/03 00:16:01 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/exec.h"
-
-static void	handle_sigint_cmd(int signum)
-{
-	g_signal = signum;
-	ft_putchar_fd('\n', 1);
-}
 
 int	len_prompt(t_prompt *prompt)
 {
@@ -43,6 +37,12 @@ int	wait_children(t_exec *exec, int pid)
 			exec->exit = WEXITSTATUS(wait_status);
 	if (pid == -1)
 		return (127);
+	if (WIFSIGNALED(wait_status) && WTERMSIG(wait_status) == SIGQUIT)
+	{
+		exec->exit = 131;
+		ft_putstr_fd("Quit (core dumped)\n", 2);
+		g_signal = 0;
+	}
 	return (exec->exit);
 }
 

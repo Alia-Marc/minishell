@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 13:53:03 by malia             #+#    #+#             */
-/*   Updated: 2024/10/01 04:52:14 by marc             ###   ########.fr       */
+/*   Updated: 2024/10/03 01:05:04 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/exec.h"
+#include "../../include/exec.h"
 
 int	hd_sigint_skip(t_prompt *prompt, t_exec *exec)
 {
@@ -33,9 +33,6 @@ void	handle_sigint_hd(int signum)
 {
 	g_signal = signum;
 	close(STDIN_FILENO);
-	// rl_on_new_line();
-	// rl_replace_line("", 0);
-	// rl_redisplay();
 	write(1, "\n", 1);
 }
 
@@ -52,5 +49,5 @@ int	init_sig(int signum, void (*function)(int))
 void	set_signals_default(void)
 {
 	init_sig(SIGINT, &handle_sigint);
-	// init_sig(SIGQUIT, SIG_IGN);
+	init_sig(SIGQUIT, SIG_IGN);
 }

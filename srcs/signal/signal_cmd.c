@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_signal.h                                 :+:      :+:    :+:   */
+/*   signal_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/01 01:53:30 by marc              #+#    #+#             */
-/*   Updated: 2024/10/02 23:42:00 by alia             ###   ########.fr       */
+/*   Created: 2024/10/02 23:40:48 by alia              #+#    #+#             */
+/*   Updated: 2024/10/03 00:29:11 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_SIGNAL_H
-# define MINISHELL_SIGNAL_H
+#include "../../include/exec.h"
 
-# include "minishell.h"
+void	handle_sigint_cmd(int signum)
+{
+	g_signal = signum;
+	ft_putchar_fd('\n', 1);
+}
 
-void	set_signals_default(void);
-int		init_sig(int signum, void (*function)(int));
-void	handle_sigint_hd(int signum);
-int		hd_sigint_skip(t_prompt *prompt, t_exec *exec);
-
-void	handle_sigint_cmd(int signum);
-void	handle_sigquit_cmd(int signum);
-
-#endif
+// void	handle_sigquit_cmd(int signum)
+// {
+// 	g_signal = signum;
+// 	// ft_putstr_fd("Quit core dumped\n", 2);
+// }
