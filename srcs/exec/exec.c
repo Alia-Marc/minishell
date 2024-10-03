@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:08:15 by malia             #+#    #+#             */
-/*   Updated: 2024/10/01 04:11:23 by marc             ###   ########.fr       */
+/*   Updated: 2024/10/03 06:52:57 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	exec_prompt(t_prompt *prompt, t_exec *exec)
 			exec->exit = 1;
 		tmp_prompt = tmp_prompt->next;
 	}
+	close_unused_next_hd(prompt, 0);
 	if (!isatty(prev_pipe) && prev_pipe > 2)
 		close(prev_pipe);
 	if (is_builtin(prompt) && exec->n_cmd == 1)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 06:06:24 by marc              #+#    #+#             */
-/*   Updated: 2024/10/03 00:16:01 by alia             ###   ########.fr       */
+/*   Updated: 2024/10/03 07:00:09 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	wait_children(t_exec *exec, int pid)
 {
 	int	wait_status;
 
+	wait_status = -2;
 	init_sig(SIGINT, &handle_sigint_cmd);
 	while (errno != ECHILD)
 		if (wait(&wait_status) == pid && WIFEXITED(wait_status))
