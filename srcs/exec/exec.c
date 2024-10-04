@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:08:15 by malia             #+#    #+#             */
-/*   Updated: 2024/10/03 06:52:57 by marc             ###   ########.fr       */
+/*   Updated: 2024/10/04 02:54:15 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	exit_command(t_prompt *prompt, t_exec *exec, int fd, t_prompt *tmp)
 {
-	if (exec->pid == 0 || (!ft_strncmp(tmp->cmd[0], "exit", 4) && !tmp->next
+	if (exec->pid == 0 || (!ft_strcmp(tmp->cmd[0], "exit") && !tmp->next
 		&& (ft_strlen2(tmp->cmd) <= 2 || !exit_check_first_arg(tmp->cmd[1]))
 		&& exec->n_cmd == 1))
 	{
@@ -87,8 +87,9 @@ void	exec_cmd(t_prompt *prompt, t_exec *exec)
 	}
 	else if (execve(prompt->path, prompt->cmd, exec->env) == -1)
 	{
-		ft_fdprintf(2, "ERROR COMMAND POURQUOI\n");
-		exec->exit = 1;
+		ft_fdprintf(2, COMMAND_NOT_FOUND, prompt->cmd[0]);
+		//ft_fdprintf(2, "ERROR COMMAND POURQUOI\n");
+		exec->exit = 127;
 	}
 }
 
