@@ -6,7 +6,7 @@
 /*   By: emilefournier <emilefournier@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 15:27:28 by emfourni          #+#    #+#             */
-/*   Updated: 2024/10/02 01:19:52 by emilefourni      ###   ########.fr       */
+/*   Updated: 2024/10/02 17:29:02 by emilefourni      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ static void	free_tab(char **tab, size_t k, size_t max)
 	while (i != k)
 	{
 		free(tab[i]);
+		i++;
 	}
 	free(tab[max]);
 	free(tab);
@@ -115,7 +116,8 @@ static int	count_s(char *s, char c)
 	{
 		if (ft_is_redirect(s[i]) && !is_char_in_quotes(s, i))
 			i = redirect_skip(s, i, c);
-		else if (s[i] == c && ((!is_char_in_quotes(s, i) && !ft_is_redirect(s[i + 1]))
+		else if (s[i] == c && ((!is_char_in_quotes(s, i)
+				&& !ft_is_redirect(s[i + 1]))
 				|| (!is_char_in_quotes(s, i) && check_for_cmd(s, i, c))))
 		{
 			if (s[i + 1] != c && s[i + 1] != '\0')
@@ -259,10 +261,10 @@ int main(int argc, char *argv[])
 	(void) argc;
 	
 	index = 0;
-	split = split_cmd(argv[1], '|');
-	nb_words = count_s(argv[1], '|');
-	while (split[index])
+	split = split_cmd(argv[1], ' ');
+	nb_words = count_s(argv[1], ' ');
+	while (index < nb_words)
 		printf("word : %s\n %d\n", split[index++], nb_words);
-	free_cmd(split);
+	free_tab(split, nb_words, nb_words);
 	return 0;
 }
