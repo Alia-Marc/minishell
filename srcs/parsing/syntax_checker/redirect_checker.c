@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_checker.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emilefournier <emilefournier@student.42    +#+  +:+       +#+        */
+/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 17:51:53 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/28 16:08:05 by emilefourni      ###   ########.fr       */
+/*   Updated: 2024/10/08 16:04:23 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	check_parenthesis(char *str)
 	{
 		if (ft_is_redirect(str[index]) && !(is_char_in_quotes(str, index)))
 		{
-			while (str[index] != ' ')
+			while (str[index] && str[index] != ' ')
 			{
 				if (str[index] == '(' || str[index] == ')'
 					|| str[index] == 34 || str[index] == 39)

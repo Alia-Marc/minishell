@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:13:39 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/24 12:00:52 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/10/08 14:27:03 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	single_quote_closed(char *str)
 	index = 0;
 	while (str[index])
 	{
-		if (str[index] == 39)
+		if (str[index] == 39 && !is_char_in_double_quotes(str, index))
 		{
 			index++;
 			while (str[index] != 39 && str[index])
@@ -41,7 +41,7 @@ int	double_quote_closed(char *str)
 	index = 0;
 	while (str[index])
 	{
-		if (str[index] == 34)
+		if (str[index] == 34 && !is_char_in_single_quotes(str, index))
 		{
 			index++;
 			while (str[index] != 34 && str[index])

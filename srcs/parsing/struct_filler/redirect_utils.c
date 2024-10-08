@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emilefournier <emilefournier@student.42    +#+  +:+       +#+        */
+/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 17:23:59 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/27 13:23:07 by emilefourni      ###   ########.fr       */
+/*   Updated: 2024/10/08 14:02:10 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

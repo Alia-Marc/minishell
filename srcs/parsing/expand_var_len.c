@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_var_len.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:42:54 by marc              #+#    #+#             */
-/*   Updated: 2024/09/18 21:01:56 by marc             ###   ########.fr       */
+/*   Updated: 2024/10/08 14:33:44 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	expanded_len(t_exec *exec, char *line)
 	len = 0;
 	while (line[i])
 	{
-		if (line[i] == '$' && line[i + 1])
+		if (line[i] == '$' && line[i + 1] && (!is_char_in_single_quotes_expand(line, i) || !is_char_in_quotes(line, i)))
 		{
 			i++;
 			len_var = len_potential_var(line, i);

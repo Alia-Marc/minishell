@@ -3,33 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emilefournier <emilefournier@student.42    +#+  +:+       +#+        */
+/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 15:27:28 by emfourni          #+#    #+#             */
-/*   Updated: 2024/10/02 17:29:02 by emilefourni      ###   ########.fr       */
+/*   Updated: 2024/10/08 16:39:00 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/parsing.h"
-
-int	ft_strlen(const char *s)
-{
-	int	i;
-
-	if (!s)
-		return (0);
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
-int	ft_is_redirect(char c)
-{
-	if (c == '<' || c == '>')
-		return (1);
-	return (0);
-}
 
 int	redirect_skip(char *s, int j, char c)
 {
@@ -44,35 +25,6 @@ int	redirect_skip(char *s, int j, char c)
 		j++;
 	}
 	return (j);
-}
-
-int	is_in_redirect(char *s, int index, int max_index)
-{
-	while (index < max_index)
-	{
-		if (ft_is_redirect(s[index]) && !is_char_in_quotes(s, index))
-			return (1);
-		index++;
-	}
-	return (0);
-}
-
-int is_char_in_quotes(char *str, int index)
-{
-    int i;
-    bool quotesOpen;
-
-    i = 0;
-    quotesOpen = false;
-    while (i <= index)
-    {
-        if (str[i] == 34 || str[i] == 39)
-            quotesOpen = !quotesOpen;
-        i++;
-        if (quotesOpen && i == index)
-            return (1);
-    }
-    return (0);
 }
 
 static void	free_tab(char **tab, size_t k, size_t max)
@@ -129,9 +81,38 @@ static int	count_s(char *s, char c)
 	return (count);
 }
 
+// void	ft_bchar(void *s, size_t n, char c)
+// {
+// 	size_t	i;
+// 	char	*scast;
+
+// 	i = 0;
+// 	scast = (char *)s;
+// 	while (i < n)
+// 	{
+// 		scast[i] = c;
+// 		i++;
+// 	}
+// 	scast[i - 1] = '\0';
+// }
+
+// void	*ft_alloc_char(size_t nmemb, size_t size, char c)
+// {
+// 	void	*r;
+
+// 	if (nmemb * size > 2147483647 || (nmemb * size < nmemb
+// 			&& nmemb * size < size))
+// 		return (NULL);
+// 	r = malloc(nmemb * size);
+// 	if (!r)
+// 		return (NULL);
+// 	ft_bchar(r, nmemb * size, c);
+// 	return (r);
+// }
+
 char	*tab_alloc(char **tab, int index_string, int count, int index_char)
 {
-	tab[index_string] = malloc(sizeof(char) * (index_char + 1));
+	tab[index_string] = ft_calloc(sizeof(char), index_char + 1);
 	if (!tab[index_string])
 		return (free_tab(tab, index_string, count), NULL);
 	return (tab[index_string]);
@@ -186,8 +167,13 @@ static char	**create_tab(char *s, char c)
 
 int	quotes_removal(char *s, int j, int t, char *tab)
 {
-	if (((t == 0 && (s[j] == 34 || s[j] == 39)))
-		|| (t == ft_strlen(tab) && (s[j] == 34 || s[j] == 39)))
+	int len;
+
+	len = 0;
+	while (tab[len])
+		len++;
+	if (((t == 0 && ((s[j] == 34 || s[j] == 39) && !is_char_in_quotes(tab, j))))
+		|| (t == len && ((s[j] == 34 || s[j] == 39) && !is_char_in_quotes(tab, j))))
 		return (1);
 	return (0);
 }
@@ -198,7 +184,7 @@ char	**ft_strdupsplit(char **tab, int count_words, char *s, char c)
 	int		(i) = 0;
 	int		(j) = 0;
 	bool	(seen_redirect);
-	
+
 	while (i < count_words)
 	{
 		t = 0;
@@ -239,32 +225,32 @@ char	**split_cmd(char *s, char c)
 	return (tab);
 }
 
-void	free_cmd(char **str)
-{
-	int	index;
+// void	free_cmd(char **str)
+// {
+// 	int	index;
 
-	index = 0;
-	while (str[index])
-	{
-		free(str[index]);
-		index++;;
-	}
-	free(str);
-}
+// 	index = 0;
+// 	while (str[index])
+// 	{
+// 		free(str[index]);
+// 		index++;;
+// 	}
+// 	free(str);
+// }
 
-int main(int argc, char *argv[])
-{
-	char **split;
-	int	index;
-	int nb_words;
+// int main(int argc, char *argv[])
+// {
+// 	char **split;
+// 	int	index;
+// 	int nb_words;
 
-	(void) argc;
-	
-	index = 0;
-	split = split_cmd(argv[1], ' ');
-	nb_words = count_s(argv[1], ' ');
-	while (index < nb_words)
-		printf("word : %s\n %d\n", split[index++], nb_words);
-	free_tab(split, nb_words, nb_words);
-	return 0;
-}
+// 	(void) argc;
+
+// 	index = 0;
+// 	split = split_cmd(argv[1], ' ');
+// 	nb_words = count_s(argv[1], ' ');
+// 	while (index < nb_words)
+// 		printf("word : %s\n %d\n", split[index++], nb_words);
+// 	free_tab(split, nb_words, nb_words);
+// 	return 0;
+// }

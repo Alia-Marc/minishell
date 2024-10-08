@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emilefournier <emilefournier@student.42    +#+  +:+       +#+        */
+/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:16:09 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/26 22:06:07 by emilefourni      ###   ########.fr       */
+/*   Updated: 2024/10/08 14:32:12 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ int				single_quote_closed(char *str);
 //true_within_quotes.c
 
 int 			is_char_in_quotes(char *str, int index);
+int 			is_char_in_double_quotes(char *str, int index);
+int 			is_char_in_single_quotes(char *str, int index);
+int 			is_char_in_single_quotes_expand(char *str, int index);
 
 ///////////////////////////////////////////////////////SYNTAX CHECKER
 
@@ -83,6 +86,7 @@ t_file			*filelast(t_file *file);
 void			fileadd_back(t_file **file, t_file *new);
 void			free_file(t_file **file);
 char			*ft_strdupnospace(char *str, int index);
+int				is_in_redirect(char *s, int index, int max_index);
 
 ////////////////////////////////////////////////////////PARSING
 
