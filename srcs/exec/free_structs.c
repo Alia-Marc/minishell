@@ -6,7 +6,7 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 23:49:11 by marc              #+#    #+#             */
-/*   Updated: 2024/09/10 03:45:20 by marc             ###   ########.fr       */
+/*   Updated: 2024/10/02 01:55:26 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	free_file(t_file **file)
 	while (*file)
 	{
 		tmp = (*file)->next;
+		free((*file)->file);
 		free(*file);
 		*file = tmp;
 	}

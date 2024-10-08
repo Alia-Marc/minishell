@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 19:41:10 by marc              #+#    #+#             */
-/*   Updated: 2024/09/24 17:46:31 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/10/03 00:21:58 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/parsing.h"
 #include "../include/exec.h"
+
+int g_signal = 0;
 
 static void	parse_and_exec(t_prompt *prompt, t_exec *exec, char *line)
 {
@@ -21,10 +23,8 @@ static void	parse_and_exec(t_prompt *prompt, t_exec *exec, char *line)
 		prompt = ft_filler(line, prompt_init(), exec);
 		if (prompt)
 		{
-			if (open_close_redir(prompt))
+			if (open_close_redir(prompt, exec))
 				exec_prompt(prompt, exec);
-			else
-				exec->exit = 1;
 			free_prompt(&prompt);
 		}
 	}
@@ -32,6 +32,17 @@ static void	parse_and_exec(t_prompt *prompt, t_exec *exec, char *line)
 		exec->exit = 2;
 }
 
+static int	checks_before_parse(t_prompt *prompt, t_exec *exec, char *line)
+{
+	if (g_signal == SIGINT)
+		exec->exit = 130;
+	g_signal = 0;
+	if (!line && ft_fdprintf(2, "exit\n"))
+		exit_free_all(prompt, exec, exec->exit);
+	if (!line[0])
+		return (0);
+	return (1);
+}
 
 int	main(int ac, char **av, char **env)
 {
@@ -46,16 +57,11 @@ int	main(int ac, char **av, char **env)
 		return (1);
 	while (1)
 	{
+		set_signals_default();
 		line = readline("kimonOS > ");
-		if (ft_strcmp(line, "caca") == 0)
-		{
-			free(line);
-			break ;
-		}
-		if (!line[0])
-			continue ;
-	parse_and_exec(prompt, exec, line);
-	reset_exec(exec);
+		if (checks_before_parse(prompt, exec, line))
+			parse_and_exec(prompt, exec, line);
+		reset_exec(exec);
 	}
 	exit_free_all(prompt, exec, exec->exit);
 }

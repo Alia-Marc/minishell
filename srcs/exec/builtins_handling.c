@@ -6,23 +6,23 @@
 /*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 13:14:59 by marc              #+#    #+#             */
-/*   Updated: 2024/09/18 22:10:15 by marc             ###   ########.fr       */
+/*   Updated: 2024/10/04 02:55:03 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/exec.h"
 
-int	is_modifying_env_builtin(t_prompt *prompt, t_exec *exec)
-{
-	if (ft_strcmp(prompt->cmd[0], "cd") == 0 && exec->n_cmd == 1)
-		return (cd_builtin(prompt, exec));
-	else if (ft_strcmp(prompt->cmd[0], "export") == 0
-		&& ft_strlen2(prompt->cmd) > 1 && exec->n_cmd == 1)
-		return (export_builtin(prompt, exec));
-	else if (ft_strcmp(prompt->cmd[0], "unset") == 0 && exec->n_cmd == 1)
-		return (unset_builtin(prompt, exec));
-	return (0);
-}
+// int	is_modifying_env_builtin(t_prompt *prompt, t_exec *exec)
+// {
+// 	if (ft_strcmp(prompt->cmd[0], "cd") == 0 && exec->n_cmd == 1)
+// 		return (cd_builtin(prompt, exec));
+// 	else if (ft_strcmp(prompt->cmd[0], "export") == 0
+// 		&& ft_strlen2(prompt->cmd) > 1 && exec->n_cmd == 1)
+// 		return (export_builtin(prompt, exec));
+// 	else if (ft_strcmp(prompt->cmd[0], "unset") == 0 && exec->n_cmd == 1)
+// 		return (unset_builtin(prompt, exec));
+// 	return (0);
+// }
 
 int	is_builtin(t_prompt *prompt)
 {

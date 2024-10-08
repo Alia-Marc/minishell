@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_handling.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 15:52:36 by malia             #+#    #+#             */
-/*   Updated: 2024/09/18 20:56:16 by marc             ###   ########.fr       */
+/*   Updated: 2024/10/03 00:29:33 by alia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ int	handle_pipe(t_prompt *prompt, t_exec *exec, int fd_infile)
 		exit(0);
 	if (exec->pid == 0 && prompt->cmd[0])
 	{
+		signal(SIGQUIT, SIG_DFL);
 		if (is_builtin(prompt))
 			exec->exit = exec_builtin(prompt, exec, pipe_fd);
 		else
 		{
 			do_child(fd_infile, exec, pipe_fd, prompt);	
 			//ft_fdprintf(2, "true cmd\n");
-			exec_cmd(prompt, exec);
 		}
 		return (exec->pid);
 	}
@@ -65,6 +65,7 @@ void	do_child(int fd_in, t_exec *exec, int *pipe_fd, t_prompt *prompt)
 	else if (prompt->next)
 		dup2(pipe_fd[WRITE], STDOUT_FILENO);
 	close(pipe_fd[WRITE]);
+	exec_cmd(prompt, exec);
 }
 
 int	last_pipe(t_prompt *prompt, t_exec *exec, int fd_infile)

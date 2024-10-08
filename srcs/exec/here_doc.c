@@ -3,35 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 15:45:21 by marc              #+#    #+#             */
-/*   Updated: 2024/09/24 17:08:35 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/10/02 02:01:31 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/exec.h"
+#include "../../include/parsing.h"
 
-void	write_heredoc(char *delimiter, int *fd)
+void	hd_manage_sigint(int dupped_stdin)
+{
+	if (g_signal == SIGINT)
+		dup2(dupped_stdin, STDIN_FILENO);
+	close(dupped_stdin);
+}
+
+void	write_heredoc(t_exec *exec, char *delimiter, int *fd)
 {
 	char	*line;
-	size_t	del_len;
+	int		dupped_stdin;
 
-	del_len = ft_strlen(delimiter);
+	dupped_stdin = dup(STDIN_FILENO);
 	while (1)
 	{
-		ft_printf("> ");
-		line = get_next_line(STDIN_FILENO);
+		line = readline("> ");
+		if (!line && g_signal == SIGINT)
+			return (hd_manage_sigint(dupped_stdin));
 		if (!line)
 		{
-			perror("");
+			ft_fdprintf(2, CLOSED_HD_BY_EOF, delimiter);
 			break ;
 		}
-		if (!ft_strncmp(line, delimiter, del_len) && line[del_len] == '\n')
+		line = expand_var(exec, line);
+		if (!ft_strcmp(line, delimiter))
 			break ;
 		ft_putstr_fd(line, fd[WRITE]);
+		ft_putstr_fd("\n", fd[WRITE]);
 		free(line);
 	}
+	close(dupped_stdin);
 	free(line);
 }
 
@@ -53,6 +65,22 @@ void	use_here_doc(t_prompt *prompt)
 	prompt->use_here_doc = 0;
 	if (mode == 3)
 		prompt->use_here_doc = 1;
+}
+
+void	close_unused_next_hd(t_prompt *prompt, int next)
+{
+	t_prompt	*tmp_prompt;
+
+	if (next)
+		tmp_prompt = prompt->next;
+	else
+		tmp_prompt = prompt;
+	while (tmp_prompt)
+	{
+		if (!isatty(tmp_prompt->here_doc_fd) && tmp_prompt->here_doc_fd > 2)
+			close (tmp_prompt->here_doc_fd);
+		tmp_prompt = tmp_prompt->next;
+	}
 }
 
 // int	here_doc(char **av, char **env)
