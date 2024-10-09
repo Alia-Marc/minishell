@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:06:45 by malia             #+#    #+#             */
-/*   Updated: 2024/10/08 14:33:53 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/10/09 13:25:03 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ char	*expanded_var(t_exec *exec, char *name, int len_var)
 	int	j;
 
 	i = 0;
-	//ft_fdprintf(2, "%s %d\n", name, len_var);
 	while (exec->env && exec->env[i])
 	{
 		j = 0;
@@ -26,7 +25,6 @@ char	*expanded_var(t_exec *exec, char *name, int len_var)
 			j++;
 		if (ft_strncmp(name, exec->env[i], len_var) == 0)
 		{
-			//ft_fdprintf(2, "%s\n", &exec->env[i][j + 1]);
 			return (&exec->env[i][j + 1]);
 		}
 		i++;
@@ -57,7 +55,9 @@ void	copy_expand(t_exec *exec, char *line, char *result, int *j)
 	i = 0;
 	while (line[i])
 	{
-		if (line[i] == '$' && line[i + 1] && (!is_char_in_single_quotes_expand(line, i) || !is_char_in_quotes(line, i)))
+		if (line[i] == '$' && line[i + 1]
+			&& (!is_char_in_single_quotes_expand(line, i)
+				|| !is_char_in_quotes(line, i)))
 		{
 			i++;
 			if (line[i] == '?')
@@ -85,7 +85,6 @@ char	*expand_var(t_exec *exec, char *line)
 
 	if (!line)
 		return (NULL);
-	// ft_fdprintf(2, "Expanded len : %d ", expanded_len(exec, line));
 	result = (char *)malloc(sizeof(char) * expanded_len(exec, line) + 1);
 	if (!result)
 		return (line);
@@ -93,6 +92,5 @@ char	*expand_var(t_exec *exec, char *line)
 	copy_expand(exec, line, result, &j);
 	free(line);
 	result[j] = '\0';
-	// ft_fdprintf(2, "result's len : %d\nexpanded line : %s\n", ft_strlen(result), result);
 	return (result);
 }

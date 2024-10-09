@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:13:39 by emfourni          #+#    #+#             */
-/*   Updated: 2024/10/08 14:27:03 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/10/09 16:09:35 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,22 +58,22 @@ int	double_quote_closed(char *str)
 
 int	even_nb_outside_quote(char *str)
 {
-	size_t	i;
-	size_t	outside_single_quote;
-	size_t	outside_double_quote;
+	int		i;
+	bool	single_quotes_open;
+	bool	double_quotes_open;
 
 	i = 0;
-	outside_single_quote = 0;
-	outside_double_quote = 0;
+	single_quotes_open = false;
+	double_quotes_open = false;
 	while (str[i])
 	{
-		if (str[i] == 39)
-			outside_single_quote++;
-		else if (str[i] == 34)
-			outside_double_quote++;
+		if (str[i] == 34  && !is_char_in_single_quotes(str, i))
+			double_quotes_open = !double_quotes_open;
+		if (str[i] == 39 && !is_char_in_double_quotes(str, i))
+			single_quotes_open = !single_quotes_open;
 		i++;
 	}
-	if (outside_single_quote % 2 != 0 || outside_double_quote % 2 != 0)
+	if (single_quotes_open || double_quotes_open)
 		return (0);
 	return (1);
 }
@@ -81,7 +81,7 @@ int	even_nb_outside_quote(char *str)
 int	quotes_handler(char *cmd_line)
 {
 	if (!double_quote_closed(cmd_line) || !single_quote_closed(cmd_line)
-		/*|| !even_nb_outside_quote(cmd_line)*/)
+		|| !even_nb_outside_quote(cmd_line))
 		return (ft_quote_error(), 0);
 	return (1);
 }

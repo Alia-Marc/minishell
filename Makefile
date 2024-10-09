@@ -18,8 +18,10 @@ PARSING = srcs/parsing/expand_var.c srcs/parsing/expand_var_len.c \
 		srcs/parsing/syntax_checker/check_syntax.c srcs/parsing/syntax_checker/pipe_checker.c \
 		srcs/parsing/syntax_checker/redirect_checker.c srcs/parsing/syntax_checker/redirect_checker2.c \
 		srcs/parsing/struct_filler/redirect_handler.c srcs/parsing/struct_filler/redirect_utils.c \
-		srcs/parsing/struct_filler/cmd_handler.c srcs/parsing/struct_filler/cmd_utils.c \
-		srcs/parsing/struct_filler/cmd_utils2.c srcs/error/error_msg.c srcs/error/error_msg2.c \
+		srcs/parsing/struct_filler/cmd_handler.c srcs/parsing/struct_filler/split_cmd.c \
+		srcs/parsing/struct_filler/split_pipes.c srcs/error/error_msg.c srcs/error/error_msg2.c \
+		srcs/parsing/struct_filler/split_cmd_utils.c \
+
 
 SIGNAL = srcs/signal/signal.c srcs/signal/signal_cmd.c
 

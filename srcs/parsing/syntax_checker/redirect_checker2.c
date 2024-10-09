@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:17:57 by emfourni          #+#    #+#             */
-/*   Updated: 2024/10/08 14:00:59 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/10/09 18:50:05 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_isspace_or_redirect(char c)
 
 int	ft_dollarsign_redirect(char *cmd_line)
 {
-	int index;
+	int	index;
 
 	index = 0;
 	while (cmd_line[index])
@@ -29,7 +29,7 @@ int	ft_dollarsign_redirect(char *cmd_line)
 		if (ft_is_redirect(cmd_line[index]))
 		{
 			if (cmd_line[index + 1] == '$' && (cmd_line[index + 2] != '$'
-				|| ft_isspace(cmd_line[index + 2])))
+					|| ft_isspace(cmd_line[index + 2])))
 				return (ft_redirect_name_empty(), 0);
 		}
 		index++;
@@ -46,12 +46,10 @@ int	space_between_cmd_redirect(char *cmd_line)
 	{
 		if (ft_is_redirect(cmd_line[index]))
 		{
-			if (index > 0 && (!ft_isspace_or_redirect(cmd_line[index - 1])
-				&& !is_char_in_quotes(cmd_line, index)))
-				return (0);
+			if (index > 0 && (!ft_isspace_or_redirect(cmd_line[index - 1])))
+				return (printf("ICI\n"), 0);
 		}
 		index++;
 	}
 	return (1);
 }
-

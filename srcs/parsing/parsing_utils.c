@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:01:56 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/24 17:06:08 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/10/09 13:25:54 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 
 t_prompt	*prompt_init(void)
 {
-	t_prompt *new_prompt;
+	t_prompt	*new_prompt;
 
 	new_prompt = malloc(sizeof(t_prompt));
 	if (!new_prompt)
 		return (NULL);
-    new_prompt->file = NULL;
+	new_prompt->file = NULL;
 	new_prompt->cmd = NULL;
 	new_prompt->use_here_doc = 0;
 	new_prompt->here_doc_fd = -2;
 	new_prompt->error = 0;
 	new_prompt->path = NULL;
-    new_prompt->next = NULL;
+	new_prompt->next = NULL;
 	return (new_prompt);
 }
 

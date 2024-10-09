@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_utils2.c                                       :+:      :+:    :+:   */
+/*   split_pipes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:59:41 by emfourni          #+#    #+#             */
-/*   Updated: 2024/10/08 13:58:36 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/10/09 13:41:14 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_countword(char *str, char c)
 		{
 			count++;
 			while ((str[index] && str[index] != c)
-					|| (str[index] == c && is_char_in_quotes(str, index)))
+				|| (str[index] == c && is_char_in_quotes(str, index)))
 				index++;
 		}
 	}
@@ -44,7 +44,7 @@ void	free_cmd(char **str)
 	while (str[index])
 	{
 		free(str[index]);
-		index++;;
+		index++;
 	}
 	free(str);
 }
@@ -56,7 +56,7 @@ static	char	*ft_worddup(char *str, int i, char c)
 
 	index = 0;
 	while ((str[i] && str[i] != c)
-			|| (str[i] == c && is_char_in_quotes(str, i)))
+		|| (str[i] == c && is_char_in_quotes(str, i)))
 	{
 		i++;
 		index++;
@@ -67,7 +67,7 @@ static	char	*ft_worddup(char *str, int i, char c)
 	i -= index;
 	index = 0;
 	while ((str[i] && str[i] != c)
-			|| (str[i] == c && is_char_in_quotes(str, i)))
+		|| (str[i] == c && is_char_in_quotes(str, i)))
 	{
 		dst[index] = str[i];
 		index++;
@@ -79,10 +79,10 @@ static	char	*ft_worddup(char *str, int i, char c)
 
 char	**split_cmd_pipe(char *s, char c)
 {
-	int		(word) = 0;
-	int		(i) = 0;
 	char	**split;
 
+	int (word) = 0;
+	int (i) = 0;
 	if (!s)
 		return (NULL);
 	split = malloc(sizeof(char *) * (ft_countword(s, c) + 1));
@@ -98,7 +98,8 @@ char	**split_cmd_pipe(char *s, char c)
 			if (!split[word])
 				return (free_cmd(split), NULL);
 			word++;
-			while (s[i] && (s[i] != c || (s[i] == c && is_char_in_quotes(s, i))))
+			while (s[i] && (s[i] != c
+					|| (s[i] == c && is_char_in_quotes(s, i))))
 				i++;
 		}
 	}
