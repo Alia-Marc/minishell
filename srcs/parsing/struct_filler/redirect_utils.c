@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 17:23:59 by emfourni          #+#    #+#             */
-/*   Updated: 2024/10/09 19:07:17 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/10/09 19:42:30 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,22 +50,6 @@ void	fileadd_back(t_file **file, t_file *new)
 		else
 			*file = new;
 	}
-}
-
-int	count_quotes(char *s)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (s[i])
-	{
-		if (s[i] == 34 || s[i] == 39)
-			count++;
-		i++;
-	}
-	return (count);
 }
 
 int	is_in_redirect(char *s, int index, int max_index)

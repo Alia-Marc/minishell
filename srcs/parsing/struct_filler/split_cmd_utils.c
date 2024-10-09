@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 13:11:19 by emfourni          #+#    #+#             */
-/*   Updated: 2024/10/09 18:16:07 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/10/09 19:28:18 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,5 @@ char	*tab_alloc(char **tab, int index_string, int index_char)
 	tab[index_string] = ft_calloc(sizeof(char), index_char + 1000);
 	if (!tab[index_string])
 		return (ft_free_tab(tab), NULL);
-	ft_fdprintf(2, "tab[%d] = %d\n", index_string, index_char);
 	return (tab[index_string]);
 }

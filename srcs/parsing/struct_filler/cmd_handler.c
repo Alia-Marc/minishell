@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:28:02 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/19 12:52:39 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/10/09 20:01:51 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	cmd_handler(char *cmd_line, t_prompt *prompt, t_exec *exec)
 
 	index = 0;
 	nb_pipes = ft_countpipes(cmd_line);
-	cmd_split = split_cmd_pipe(cmd_line, '|');
+	cmd_split = split_cmd_pipe(cmd_line, '|', 0);
 	while (index < nb_pipes)
 	{
 		prompt->cmd = split_cmd(cmd_split[index], ' ');

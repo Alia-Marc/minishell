@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:13:39 by emfourni          #+#    #+#             */
-/*   Updated: 2024/10/09 16:09:35 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/10/09 19:41:45 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	even_nb_outside_quote(char *str)
 	double_quotes_open = false;
 	while (str[i])
 	{
-		if (str[i] == 34  && !is_char_in_single_quotes(str, i))
+		if (str[i] == 34 && !is_char_in_single_quotes(str, i))
 			double_quotes_open = !double_quotes_open;
 		if (str[i] == 39 && !is_char_in_double_quotes(str, i))
 			single_quotes_open = !single_quotes_open;

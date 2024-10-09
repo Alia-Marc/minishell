@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 17:51:53 by emfourni          #+#    #+#             */
-/*   Updated: 2024/10/09 18:50:27 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/10/09 19:44:33 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,31 +43,6 @@ int	nb_redirect(char *str)
 	return (1);
 }
 
-// int	check_parenthesis(char *str)
-// {
-// 	int	index;
-
-// 	index = 0;
-// 	if (!str)
-// 		return (0);
-// 	while (str[index] != '\0')
-// 	{
-// 		if (ft_is_redirect(str[index]) && !(is_char_in_quotes(str, index)))
-// 		{
-// 			while (str[index] && str[index] != ' ')
-// 			{
-// 				if (str[index] == '(' || str[index] == ')'
-// 					|| str[index] == 34 || str[index] == 39)
-// 					return (ft_metachar_near_token(), 0);
-// 				index++;
-// 			}
-// 		}
-// 		if (str[index])
-// 			index++;
-// 	}
-// 	return (1);
-// }
-
 int	check_empty_name(char *str)
 {
 	int	index;
@@ -97,8 +72,6 @@ int	redirect_checker(char *cmd_line)
 		return (0);
 	if (!check_empty_name(cmd_line))
 		return (0);
-	// if (!space_between_cmd_redirect(cmd_line))
-	// 	return (0);
 	if (!ft_dollarsign_redirect(cmd_line))
 		return (0);
 	else

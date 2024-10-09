@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:59:41 by emfourni          #+#    #+#             */
-/*   Updated: 2024/10/09 13:41:14 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/10/09 20:02:01 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,15 @@ void	free_cmd(char **str)
 	free(str);
 }
 
+void	end_tab(char **tab, int *i, bool seen_redirect, int t)
+{
+	if (tab[*i] && !seen_redirect)
+	{
+		tab[*i][t] = '\0';
+		(*i)++;
+	}
+}
+
 static	char	*ft_worddup(char *str, int i, char c)
 {
 	char	*dst;
@@ -77,12 +86,11 @@ static	char	*ft_worddup(char *str, int i, char c)
 	return (dst);
 }
 
-char	**split_cmd_pipe(char *s, char c)
+char	**split_cmd_pipe(char *s, char c, int i)
 {
 	char	**split;
 
 	int (word) = 0;
-	int (i) = 0;
 	if (!s)
 		return (NULL);
 	split = malloc(sizeof(char *) * (ft_countword(s, c) + 1));

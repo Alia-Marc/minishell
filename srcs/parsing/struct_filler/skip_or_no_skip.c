@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handling.c                                   :+:      :+:    :+:   */
+/*   skip_or_no_skip.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/26 00:39:25 by alia              #+#    #+#             */
-/*   Updated: 2024/10/08 13:08:22 by malia            ###   ########.fr       */
+/*   Created: 2024/10/09 19:53:09 by emfourni          #+#    #+#             */
+/*   Updated: 2024/10/09 19:53:34 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/exec.h"
+#include "../../../include/parsing.h"
 
-void	error_handler(char *file, char *word, int code)
+void	skip_or_no_skip(char *s, int *j, int *t, char c)
 {
-	ft_printf("%s%s", file, word);
-	if (code == 0)
-		perror("");
+	if (ft_is_redirect(s[*j]))
+	{
+		*j = redirect_skip(s, *j, c);
+		*t = redirect_skip(s, *t, c);
+	}
+	else
+	{
+		(*t)++;
+		(*j)++;
+	}
 }
-
-// MDR c'est quoi ce fichier qui sert à rien

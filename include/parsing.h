@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:16:09 by emfourni          #+#    #+#             */
-/*   Updated: 2024/10/09 19:24:28 by malia            ###   ########.fr       */
+/*   Updated: 2024/10/09 20:02:17 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ char		*tab_alloc(char **tab, int index_string, int index_char);
 
 //split_pipes.c
 
-char		**split_cmd_pipe(char *s, char c);
+char		**split_cmd_pipe(char *s, char c, int i);
+void		end_tab(char **tab, int *i, bool seen_redirect, int t);
 
 //redirection_handlers.c
 
@@ -93,6 +94,10 @@ void		fileadd_back(t_file **file, t_file *new);
 void		free_file(t_file **file);
 char		*ft_strdupnospace(char *str, int index);
 int			is_in_redirect(char *s, int index, int max_index);
+
+//skip_or_no_skip.c
+
+void		skip_or_no_skip(char *s, int *j, int *t, char c);
 
 ////////////////////////////////////////////////////////PARSING
 

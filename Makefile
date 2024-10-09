@@ -5,7 +5,7 @@ LIBFT = ./libft
 INCLUDE = /include/minishell.h
 
 EXEC = srcs/exec/exec.c srcs/exec/path.c srcs/exec/redirection.c \
-		srcs/exec/error_handling.c srcs/exec/pipe_handling.c srcs/exec/utils.c srcs/exec/free_structs.c \
+		srcs/exec/pipe_handling.c srcs/exec/utils.c srcs/exec/free_structs.c \
 		srcs/exec/here_doc.c srcs/exec/builtins_handling.c srcs/exec/builtins/pwd.c \
 		srcs/exec/builtins/echo.c srcs/exec/builtins/env.c srcs/exec/builtins/cd.c \
 		srcs/exec/builtins/init_local_env.c srcs/exec/builtins/export.c srcs/exec/builtins/export_utils.c \
@@ -20,7 +20,7 @@ PARSING = srcs/parsing/expand_var.c srcs/parsing/expand_var_len.c \
 		srcs/parsing/struct_filler/redirect_handler.c srcs/parsing/struct_filler/redirect_utils.c \
 		srcs/parsing/struct_filler/cmd_handler.c srcs/parsing/struct_filler/split_cmd.c \
 		srcs/parsing/struct_filler/split_pipes.c srcs/error/error_msg.c srcs/error/error_msg2.c \
-		srcs/parsing/struct_filler/split_cmd_utils.c \
+		srcs/parsing/struct_filler/split_cmd_utils.c srcs/parsing/struct_filler/skip_or_no_skip.c \
 
 
 SIGNAL = srcs/signal/signal.c srcs/signal/signal_cmd.c

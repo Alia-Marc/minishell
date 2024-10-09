@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 15:27:28 by emfourni          #+#    #+#             */
-/*   Updated: 2024/10/09 19:03:35 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/10/09 19:53:31 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,7 @@ static int	fill_tab(char **tab, char	*s, char c, int count)
 		while (s[j] == c)
 			j++;
 		while (s[j] != c && s[j])
-		{
-			if (ft_is_redirect(s[j]))
-			{
-				j = redirect_skip(s, j, c);
-				t = redirect_skip(s, t, c);
-			}
-			else
-			{
-				t++;
-				j++;
-			}
-		}
+			skip_or_no_skip(s, &j, &t, c);
 		if (!is_in_redirect(s, j - t, j))
 			tab[i] = tab_alloc(tab, i, t);
 		if (!is_in_redirect(s, j - t, j))
@@ -81,15 +70,6 @@ static char	**create_tab(char *s, char c)
 		return (NULL);
 	tab[count] = 0;
 	return (tab);
-}
-
-void	end_tab(char **tab, int *i, bool seen_redirect, int t)
-{
-	if (tab[*i] && !seen_redirect)
-	{
-		tab[*i][t] = '\0';
-		(*i)++;
-	}
 }
 
 static char	**ft_strdupsplit(char **tab, int count_words, char *s, char c)
