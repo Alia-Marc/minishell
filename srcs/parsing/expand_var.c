@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_var.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:06:45 by malia             #+#    #+#             */
-/*   Updated: 2024/10/09 13:25:03 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/10/09 21:59:55 by marc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,68 @@ static void	copy_expanded_var(char *result, char *value, int *j)
 	}
 }
 
+static void	copy_skip_single_quotes(char *str, int *i, char *result, int *j)
+{
+	while (str[*i])
+	{
+		result[*j] = str[*i];
+		(*i)++;
+		(*j)++;
+		if (str[*i] == 39)
+		{
+			result[*j] = str[*i];
+			(*i)++;
+			(*j)++;
+			break ;
+		}
+	}
+}
+
+// static int	copy_skip_single_quotes(char *str, int *i, char *result, int *j)
+// {
+// 	bool	double_quotes;
+
+// 	double_quotes = false;
+// 	if (str[*i] == '\'' && !double_quotes)
+// 	{
+// 		while (str[*i])
+// 		{
+// 			result[*j] = str[*i];
+// 			(*i)++;
+// 			(*j)++;
+// 			if (str[*i] == 39)
+// 			{
+// 				result[*j] = str[*i];
+// 				(*i)++;
+// 				(*j)++;
+// 				break ;
+// 			}
+// 		return (1);
+// 	}
+// 	if (str[*i] == '\"')
+// 		double_quotes = !double_quotes;
+// 	}
+// 	return (0);
+// }
+
 void	copy_expand(t_exec *exec, char *line, char *result, int *j)
 {
 	char	*val;
 	int		i;
+	bool	double_quotes;
 
 	i = 0;
+	double_quotes = false;
 	while (line[i])
 	{
-		if (line[i] == '$' && line[i + 1]
-			&& (!is_char_in_single_quotes_expand(line, i)
-				|| !is_char_in_quotes(line, i)))
+		if (line[i] == '\'' && !double_quotes)
+		{
+			copy_skip_single_quotes(line, &i, result, j);
+			continue ;
+		}
+		if (line[i] == '\"')
+			double_quotes = !double_quotes;
+		if (line[i] == '$' && line[i + 1])
 		{
 			i++;
 			if (line[i] == '?')
