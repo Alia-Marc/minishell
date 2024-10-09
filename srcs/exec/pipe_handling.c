@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_handling.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 15:52:36 by malia             #+#    #+#             */
-/*   Updated: 2024/10/09 07:13:10 by marc             ###   ########.fr       */
+/*   Updated: 2024/10/08 12:52:10 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ int	handle_pipe(t_prompt *prompt, t_exec *exec, int fd_infile)
 	int		pipe_fd[2];
 
 	if (pipe(pipe_fd) == -1)
-		exit(0);
+		return (ft_fdprintf(2, "kimonOS: pipe error\n"), -2);
 	exec->pid = fork();
 	if (exec->pid == -1)
-		exit(0);
+		ft_fdprintf(2, "kimonOS: fork error\n");
 	if (exec->pid == 0 && prompt->cmd[0])
 	{
 		signal(SIGQUIT, SIG_DFL);

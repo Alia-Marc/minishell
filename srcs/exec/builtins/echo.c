@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 17:37:04 by marc              #+#    #+#             */
-/*   Updated: 2024/08/31 02:55:20 by alia             ###   ########.fr       */
+/*   Updated: 2024/10/08 13:05:09 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int	echo_builtin(t_prompt *prompt, t_exec *exec)
 	return (0);
 }
 
-
 // int	use_n(t_prompt *prompt)
 // {
 // 	char	**cmd;
@@ -94,7 +93,8 @@ int	echo_builtin(t_prompt *prompt, t_exec *exec)
 // 	len_cmd = ft_strlen2(prompt->cmd);
 // 	ft_printf("%d", len_cmd);
 // 	if (use_n_option)
-// 		write(STDOUT_FILENO, prompt->cmd[len_cmd - 1], ft_strlen(prompt->cmd[len_cmd - 1]));
+// 		write(STDOUT_FILENO, prompt->cmd[len_cmd - 1], 
+//			ft_strlen(prompt->cmd[len_cmd - 1]));
 // 	else
 // 	{
 // 		write(STDOUT_FILENO, prompt->cmd[len_cmd - 1]);

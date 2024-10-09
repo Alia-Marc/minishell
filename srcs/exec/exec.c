@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:08:15 by malia             #+#    #+#             */
-/*   Updated: 2024/10/04 02:54:15 by marc             ###   ########.fr       */
+/*   Updated: 2024/10/08 13:12:24 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static void	exit_command(t_prompt *prompt, t_exec *exec, int fd, t_prompt *tmp)
 {
 	if (exec->pid == 0 || (!ft_strcmp(tmp->cmd[0], "exit") && !tmp->next
-		&& (ft_strlen2(tmp->cmd) <= 2 || !exit_check_first_arg(tmp->cmd[1]))
-		&& exec->n_cmd == 1))
+			&& (ft_strlen2(tmp->cmd) <= 2 || !exit_check_first_arg(tmp->cmd[1]))
+			&& exec->n_cmd == 1))
 	{
 		if (!isatty(fd) && fd > 2)
 			close(fd);
@@ -36,7 +36,7 @@ void	exec_prompt(t_prompt *prompt, t_exec *exec)
 		if (tmp_prompt->cmd && tmp_prompt->error == 0)
 		{
 			assign_fds(tmp_prompt, exec);
-			if (is_builtin(tmp_prompt) && exec->n_cmd == 1) //|| !tmp_prompt->next
+			if (is_builtin(tmp_prompt) && exec->n_cmd == 1)
 				exec->exit = exec_solo_builtin(tmp_prompt, exec);
 			else
 			{
@@ -88,7 +88,6 @@ void	exec_cmd(t_prompt *prompt, t_exec *exec)
 	else if (execve(prompt->path, prompt->cmd, exec->env) == -1)
 	{
 		ft_fdprintf(2, COMMAND_NOT_FOUND, prompt->cmd[0]);
-		//ft_fdprintf(2, "ERROR COMMAND POURQUOI\n");
 		exec->exit = 127;
 	}
 }
@@ -97,9 +96,9 @@ void	exec_cmd(t_prompt *prompt, t_exec *exec)
 // {
 // 	t_prompt	*prompt;
 // 	t_exec		*exec;
-
+//
 // 	prompt = (t_prompt *)malloc(sizeof(t_prompt));
-
+//
 // 	fake_init(env, prompt);
 // 	//prompt->file = new_file("/dev/full", 1);
 // 	//prompt->file = new_file("bah", 1);
@@ -109,16 +108,14 @@ void	exec_cmd(t_prompt *prompt, t_exec *exec)
 // 	//fileadd_back(&prompt->file, new_file("k", 1));
 // 	//fileadd_back(&prompt->file, new_file("oui", 1));
 // 	//fileadd_back(&prompt->file, new_file("gay", 2));
-
-// 	//promptadd_back(&prompt, new_prompt("export 7oui=da non=da", "o", "outfile", env, 0));
 // 	//promptadd_back(&prompt, new_prompt("grep o", "o", "outfile", env, 1));
 // 	//promptadd_back(&prompt, new_prompt("exit 32d", "j", "outfile", env, 1));
 // 	//promptadd_back(&prompt, new_prompt("ls", "j", "outfile", env, 1));
-
+//
 // 	//promptadd_back(&prompt, new_prompt("env", "a", "outfile", env, 0));
 // 	//promptadd_back(&prompt, new_prompt("cd", "o", "outfile", env, 0));
 // 	//promptadd_back(&prompt, new_prompt("", "o", "outfile", env, 0));
-
+//
 // 	exec = init_exec(env, prompt);
 // 	if (open_close_redir(prompt)) // un-comment to use redirections files
 // 		exec_prompt(prompt, exec);
@@ -130,14 +127,14 @@ void	exec_cmd(t_prompt *prompt, t_exec *exec)
 // 	if (!isatty(exec->fd_out) && exec->fd_out > 2)
 // 		close(exec->fd_out);
 // 	free_prompt(&prompt);
-
+//
 // 	// int i = 0;
 // 	// while (exec->env[i])
 // 	// {
 // 	// 	ft_printf("%s\n", exec->env[i]);
 // 	// 	i++;
 // 	// }
-
+//
 // 	char	*cmd;
 // 	while (1)
 // 	{
@@ -165,12 +162,12 @@ void	exec_cmd(t_prompt *prompt, t_exec *exec)
 // 	ft_free_tab(exec->env);
 // 	free(exec);
 // 	rl_clear_history();
-
+//
 // /*
 // 	char	**tcmd;
 // 	char	*path;
 // 	int		i = 0;
-
+//
 // 	tcmd = ft_split(av[1], ' ');
 // 	path = get_path(tcmd[0], env);
 // 	ft_printf("%d\n", ft_strlen2(tcmd));
@@ -181,8 +178,8 @@ void	exec_cmd(t_prompt *prompt, t_exec *exec)
 // 	}
 // 	execve(path, tcmd, env);
 // 	*/
-
-
+//
+//
 // 	(void) ac, (void) av;
 // 	return (0);
 // }

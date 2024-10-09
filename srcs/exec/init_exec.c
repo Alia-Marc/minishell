@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 23:32:13 by marc              #+#    #+#             */
-/*   Updated: 2024/09/18 20:21:21 by marc             ###   ########.fr       */
+/*   Updated: 2024/10/08 13:07:35 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ t_exec	*init_exec(char **env)
 	exec->exit = 0;
 	exec->pid = -2;
 	exec->n_cmd = 0;
-	// exec->n_cmd = len_prompt(prompt); // devra l'enlever puisque ce sera call avant tout
 	return (exec);
 }
 
@@ -38,5 +37,4 @@ void	reset_exec(t_exec *exec)
 	exec->fd_in = STDIN_FILENO;
 	exec->fd_out = STDOUT_FILENO;
 	exec->pid = -2;
-	//exec->n_cmd = len_prompt(prompt); // devra peut-être l'enlever s'il est call avant la creation d'un nouveau prompt
 }
