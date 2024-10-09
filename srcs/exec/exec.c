@@ -6,7 +6,7 @@
 /*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:08:15 by malia             #+#    #+#             */
-/*   Updated: 2024/10/08 13:12:24 by malia            ###   ########.fr       */
+/*   Updated: 2024/10/09 13:55:59 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,22 @@ static void	exit_command(t_prompt *prompt, t_exec *exec, int fd, t_prompt *tmp)
 	}
 }
 
+void	exec_pipe(t_prompt *prompt, t_exec *exec, t_prompt *tmp_prompt, int *pp)
+{
+	assign_fds(tmp_prompt, exec);
+	if (is_builtin(tmp_prompt) && exec->n_cmd == 1)
+		exec->exit = exec_solo_builtin(tmp_prompt, exec);
+	else
+	{
+		if (exec->fd_in <= 2 && *pp > 2)
+			exec->fd_in = *pp;
+		else if (!isatty(*pp) && *pp > 2)
+			close(*pp);
+		*pp = handle_pipe(tmp_prompt, exec, exec->fd_in);
+	}
+	exit_command(prompt, exec, *pp, tmp_prompt);
+}
+
 void	exec_prompt(t_prompt *prompt, t_exec *exec)
 {
 	t_prompt	*tmp_prompt;
@@ -34,31 +50,7 @@ void	exec_prompt(t_prompt *prompt, t_exec *exec)
 	while (tmp_prompt)
 	{
 		if (tmp_prompt->cmd && tmp_prompt->error == 0)
-		{
-			assign_fds(tmp_prompt, exec);
-			if (is_builtin(tmp_prompt) && exec->n_cmd == 1)
-				exec->exit = exec_solo_builtin(tmp_prompt, exec);
-			else
-			{
-				if (exec->fd_in <= 2 && prev_pipe > 2)
-					exec->fd_in = prev_pipe;
-				else if (!isatty(prev_pipe) && prev_pipe > 2)
-					close(prev_pipe);
-				prev_pipe = handle_pipe(tmp_prompt, exec, exec->fd_in);
-			}
-			// else
-			// {
-			// 	if (exec->fd_in > 0 || prev_pipe == -2)
-			// 	{
-			// 		if (!isatty(prev_pipe) && prev_pipe > 2)
-			// 			close(prev_pipe);
-			// 		prev_pipe = handle_pipe(tmp_prompt, exec, exec->fd_in);
-			// 	}
-			// 	else
-			// 		prev_pipe = handle_pipe(tmp_prompt, exec, prev_pipe);
-			// }
-			exit_command(prompt, exec, prev_pipe, tmp_prompt);
-		}
+			exec_pipe(prompt, exec, tmp_prompt, &prev_pipe);
 		else if (tmp_prompt->error)
 			exec->exit = 1;
 		tmp_prompt = tmp_prompt->next;

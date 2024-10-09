@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:18:34 by malia             #+#    #+#             */
-/*   Updated: 2024/10/02 02:05:47 by marc             ###   ########.fr       */
+/*   Updated: 2024/10/09 13:49:54 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,6 @@ void		exit_free_all(t_prompt *prompt, t_exec *exec, int code);
 t_exec		*init_exec(char **env);
 void		reset_exec(t_exec *exec);
 
-// Fake inits of t_files and t_prompts + small init of exec
-// void		fake_init(char **env, t_prompt *prompt);
-// t_file		*new_file(char *file, int mode);
-// t_file		*filelast(t_file *file);
-// void		fileadd_back(t_file **file, t_file *new);
-// t_prompt	*new_prompt(char *cmd, char *file0, char *file1, char **env, int file);
-// t_prompt	*promptlast(t_prompt *prompt);
-// void		promptadd_back(t_prompt **prompt, t_prompt *new);
-
 // Handle files functions
 int			open_close_redir(t_prompt *prompt, t_exec *exec);
 int			open_file(t_prompt *prompt, t_exec *exec, t_file *file);
@@ -74,10 +65,5 @@ int			wait_children(t_exec *exec, int pid);
 int			len_prompt(t_prompt *prompt);
 
 void		exec_prompt(t_prompt *prompt, t_exec *exec);
-
-// char		*expand_var(t_exec *exec, char *line);
-// int			expanded_len(t_exec *exec, char *line);
-// int			len_potential_var(char *line, int i);
-// char		*expanded_var(t_exec *exec, char *name, int len_var);
 
 #endif

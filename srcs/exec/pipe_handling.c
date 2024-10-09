@@ -6,7 +6,7 @@
 /*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 15:52:36 by malia             #+#    #+#             */
-/*   Updated: 2024/10/08 12:52:10 by malia            ###   ########.fr       */
+/*   Updated: 2024/10/09 13:43:07 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,7 @@ int	handle_pipe(t_prompt *prompt, t_exec *exec, int fd_infile)
 		if (is_builtin(prompt))
 			exec->exit = exec_builtin(prompt, exec, pipe_fd);
 		else
-		{
-			do_child(fd_infile, exec, pipe_fd, prompt);	
-			//ft_fdprintf(2, "true cmd\n");
-		}
+			do_child(fd_infile, exec, pipe_fd, prompt);
 		return (exec->pid);
 	}
 	else
@@ -39,19 +36,12 @@ int	handle_pipe(t_prompt *prompt, t_exec *exec, int fd_infile)
 		close(pipe_fd[WRITE]);
 		if (!isatty(fd_infile) && fd_infile > 2)
 			close(fd_infile);
-		//exec->exit = is_modifying_env_builtin(prompt, exec);
 		return (pipe_fd[READ]);
 	}
 }
 
 void	do_child(int fd_in, t_exec *exec, int *pipe_fd, t_prompt *prompt)
 {
-	// if (fd_in < 0 && mid == 0)
-	// {
-	// 	close(pipe_fd[READ]);
-	// 	close(pipe_fd[WRITE]);
-	// 	exit_handler(0);
-	// }
 	close(pipe_fd[READ]);
 	if (!isatty(fd_in) && fd_in > 2)
 	{
@@ -96,7 +86,6 @@ int	last_pipe(t_prompt *prompt, t_exec *exec, int fd_infile)
 		return (pid);
 	}
 }
-
 
 // int	handle_pipe(t_prompt *prompt, t_exec *exec, int fd_infile, int i)
 // {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:16:09 by emfourni          #+#    #+#             */
-/*   Updated: 2024/10/09 18:55:32 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/10/09 19:24:28 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ int			single_quote_closed(char *str);
 
 //true_within_quotes.c
 
-int 		is_char_in_quotes(char *str, int index);
-int 		is_char_in_double_quotes(char *str, int index);
-int 		is_char_in_single_quotes(char *str, int index);
-int 		is_char_in_single_quotes_expand(char *str, int index);
+int			is_char_in_quotes(char *str, int index);
+int			is_char_in_double_quotes(char *str, int index);
+int			is_char_in_single_quotes(char *str, int index);
+int			is_char_in_single_quotes_expand(char *str, int index);
 
 ///////////////////////////////////////////////////////SYNTAX CHECKER
 
