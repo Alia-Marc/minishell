@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_handling.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 13:14:59 by marc              #+#    #+#             */
-/*   Updated: 2024/10/04 02:55:03 by marc             ###   ########.fr       */
+/*   Updated: 2024/10/08 13:06:28 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,6 @@ int	exec_builtin(t_prompt *prompt, t_exec *exec, int *pipe_fd)
 
 int	exec_solo_builtin(t_prompt *prompt, t_exec *exec)
 {
-	// if (!isatty(exec->fd_in) && exec->fd_in > 2)
-	// {
-	// 	dup2(exec->fd_in, STDIN_FILENO);
-	// 	close(exec->fd_in);
-	// }
-	// if (!isatty(exec->fd_out) && exec->fd_out > 2)
-	// {
-	// 	dup2(exec->fd_out, STDOUT_FILENO);
-	// 	close(exec->fd_out);
-	// }
 	if (ft_strcmp(prompt->cmd[0], "pwd") == 0)
 		return (pwd_builtin(exec));
 	else if (ft_strcmp(prompt->cmd[0], "echo") == 0)
