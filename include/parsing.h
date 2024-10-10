@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:16:09 by emfourni          #+#    #+#             */
-/*   Updated: 2024/10/10 14:13:25 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/10/10 15:09:21 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ char		*expand_var(t_exec *exec, char *line);
 int			expanded_len(t_exec *exec, char *line);
 int			len_potential_var(char *line, int i);
 char		*expanded_var(t_exec *exec, char *name, int len_var);
+void		copy_expand_end_tab(char *line, char *result, int *i, int *j);
 
 //skipped_quotes.c
 int			skipped_quotes(char *str, int *i);

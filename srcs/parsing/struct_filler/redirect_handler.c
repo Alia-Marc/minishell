@@ -6,7 +6,7 @@
 /*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 12:22:35 by emilefourni       #+#    #+#             */
-/*   Updated: 2024/10/10 12:22:09 by malia            ###   ########.fr       */
+/*   Updated: 2024/10/10 14:48:48 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,10 @@ void	redirect_handler(char *cmd_line, t_prompt *prompt)
 		else if (i > 0 && cmd_line[i] == '>' && cmd_line[i - 1] != '>')
 			redirect_filler(cmd_line, i, prompt, 1);
 		else if (i > 0 && cmd_line[i] == '<' && cmd_line[i - 1] != '<')
+			redirect_filler(cmd_line, i, prompt, 0);
+		else if (i == 0 && cmd_line[i] == '>')
+			redirect_filler(cmd_line, i, prompt, 1);
+		else if (i == 0 && cmd_line[i] == '<')
 			redirect_filler(cmd_line, i, prompt, 0);
 		if (cmd_line[i])
 			i++;

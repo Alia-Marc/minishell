@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_var.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:06:45 by malia             #+#    #+#             */
-/*   Updated: 2024/10/09 21:59:55 by marc             ###   ########.fr       */
+/*   Updated: 2024/10/10 15:08:36 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	copy_expanded_var(char *result, char *value, int *j)
 	}
 }
 
-static void	copy_skip_single_quotes(char *str, int *i, char *result, int *j)
+static int	copy_skip_single_quotes(char *str, int *i, char *result, int *j)
 {
 	while (str[*i])
 	{
@@ -62,50 +62,19 @@ static void	copy_skip_single_quotes(char *str, int *i, char *result, int *j)
 			break ;
 		}
 	}
+	return (1);
 }
-
-// static int	copy_skip_single_quotes(char *str, int *i, char *result, int *j)
-// {
-// 	bool	double_quotes;
-
-// 	double_quotes = false;
-// 	if (str[*i] == '\'' && !double_quotes)
-// 	{
-// 		while (str[*i])
-// 		{
-// 			result[*j] = str[*i];
-// 			(*i)++;
-// 			(*j)++;
-// 			if (str[*i] == 39)
-// 			{
-// 				result[*j] = str[*i];
-// 				(*i)++;
-// 				(*j)++;
-// 				break ;
-// 			}
-// 		return (1);
-// 	}
-// 	if (str[*i] == '\"')
-// 		double_quotes = !double_quotes;
-// 	}
-// 	return (0);
-// }
 
 void	copy_expand(t_exec *exec, char *line, char *result, int *j)
 {
-	char	*val;
-	int		i;
-	bool	double_quotes;
-
-	i = 0;
-	double_quotes = false;
+	char *(val) = NULL;
+	int (i) = 0;
+	bool (double_quotes) = false;
 	while (line[i])
 	{
-		if (line[i] == '\'' && !double_quotes)
-		{
-			copy_skip_single_quotes(line, &i, result, j);
+		if (line[i] == '\'' && !double_quotes
+			&& copy_skip_single_quotes(line, &i, result, j))
 			continue ;
-		}
 		if (line[i] == '\"')
 			double_quotes = !double_quotes;
 		if (line[i] == '$' && line[i + 1])
@@ -121,11 +90,7 @@ void	copy_expand(t_exec *exec, char *line, char *result, int *j)
 			i += len_potential_var(line, i);
 		}
 		else
-		{
-			result[*j] = line[i];
-			i++;
-			(*j)++;
-		}
+			copy_expand_end_tab(line, result, &i, j);
 	}
 }
 

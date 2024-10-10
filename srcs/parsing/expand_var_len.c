@@ -6,7 +6,7 @@
 /*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:42:54 by marc              #+#    #+#             */
-/*   Updated: 2024/10/10 11:39:55 by malia            ###   ########.fr       */
+/*   Updated: 2024/10/10 14:57:58 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ static int	len_expanded_errno(t_exec *exec)
 	return (1);
 }
 
-static int	len_skip_single_quotes(char *str, int *i, int *len, bool double_quotes)
+static int	len_skip_single_quotes(char *str, int *i, int *len, bool double_qt)
 {
 	int	skipped;
 
 	skipped = 0;
-	if (str[*i] == 39 && !double_quotes)
+	if (str[*i] == 39 && !double_qt)
 	{
 		skipped = 1;
 		while (str[*i])
@@ -64,14 +64,10 @@ static int	len_skip_single_quotes(char *str, int *i, int *len, bool double_quote
 
 int	expanded_len(t_exec *exec, char *line)
 {
-	int	i;
-	int	len;
-	int	len_var;
-	bool	double_quotes;
-
-	i = 0;
-	len = 0;
-	double_quotes = false;
+	int (len_var) = 0;
+	int (i) = 0;
+	int (len) = 0;
+	bool (double_quotes) = false;
 	while (line[i])
 	{
 		if (len_skip_single_quotes(line, &i, &len, double_quotes))
@@ -92,6 +88,5 @@ int	expanded_len(t_exec *exec, char *line)
 			i++;
 		len++;
 	}
-	//ft_fdprintf(2, "len = %d\n", len);
 	return (len);
 }

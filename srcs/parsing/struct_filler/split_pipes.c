@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_pipes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:59:41 by emfourni          #+#    #+#             */
-/*   Updated: 2024/10/10 14:17:57 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/10/10 14:51:13 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int	skipped_quotes_worddup(char *str, int *i, int *j)
 	skipped_single_quotes_word(str, i, j, &skipped);
 	return (skipped);
 }
-
 
 int	ft_countword(char *str, char c)
 {

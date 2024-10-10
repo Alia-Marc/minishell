@@ -6,7 +6,7 @@
 /*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:28:02 by emfourni          #+#    #+#             */
-/*   Updated: 2024/10/10 13:21:33 by malia            ###   ########.fr       */
+/*   Updated: 2024/10/10 14:51:21 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	cmd_handler(char *cmd_line, t_prompt *prompt, t_exec *exec)
 
 	index = 0;
 	nb_pipes = ft_countpipes(cmd_line);
-	//ft_fdprintf(2, "nb pipe = %d\n", nb_pipes);
 	cmd_split = split_cmd_pipe(cmd_line, '|', 0);
 	while (index < nb_pipes)
 	{
