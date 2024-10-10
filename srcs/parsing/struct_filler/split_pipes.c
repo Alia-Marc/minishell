@@ -6,7 +6,7 @@
 /*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:59:41 by emfourni          #+#    #+#             */
-/*   Updated: 2024/10/10 14:51:13 by malia            ###   ########.fr       */
+/*   Updated: 2024/10/10 15:27:23 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ int	ft_countword(char *str, char c)
 {
 	int (index) = 0;
 	int (count) = 0;
-	if (!str)
-		return (0);
 	while (str[index])
 	{
 		if (skipped_quotes(str, &index))
@@ -79,7 +77,11 @@ int	ft_countword(char *str, char c)
 		{
 			count++;
 			while (str[index] && str[index] != c)
+			{
+				if (skipped_quotes(str, &index))
+					continue ;
 				index++;
+			}
 		}
 	}
 	return (count);

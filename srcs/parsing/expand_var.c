@@ -6,7 +6,7 @@
 /*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:06:45 by malia             #+#    #+#             */
-/*   Updated: 2024/10/10 15:08:36 by malia            ###   ########.fr       */
+/*   Updated: 2024/10/10 15:44:29 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,9 @@ char	*expanded_var(t_exec *exec, char *name, int len_var)
 		j = 0;
 		while (exec->env[i][j] && exec->env[i][j] != '=')
 			j++;
-		if (ft_strncmp(name, exec->env[i], len_var) == 0)
-		{
+		if (ft_strncmp(name, exec->env[i], len_var) == 0
+			&& exec->env[i][j] == '=')
 			return (&exec->env[i][j + 1]);
-		}
 		i++;
 	}
 	return (NULL);

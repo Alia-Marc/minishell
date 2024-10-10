@@ -6,7 +6,7 @@
 /*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:42:54 by marc              #+#    #+#             */
-/*   Updated: 2024/10/10 14:57:58 by malia            ###   ########.fr       */
+/*   Updated: 2024/10/10 15:45:06 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,7 @@ int	expanded_len(t_exec *exec, char *line)
 			if (line[i] == '?')
 				len += len_expanded_errno(exec) - len_var - 1;
 			else
-				len += ft_strlen(expanded_var(exec, &line[i], len_var))
-					- len_var - 1;
+				len += ft_strlen(expanded_var(exec, &line[i], len_var));
 		}
 		else
 			i++;
