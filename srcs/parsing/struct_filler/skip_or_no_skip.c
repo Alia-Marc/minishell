@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   skip_or_no_skip.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 19:53:09 by emfourni          #+#    #+#             */
-/*   Updated: 2024/10/09 19:53:34 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/10/10 13:20:53 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,14 @@ void	skip_or_no_skip(char *s, int *j, int *t, char c)
 	{
 		(*t)++;
 		(*j)++;
+	}
+}
+
+void	end_tab(char **tab, int *i, bool seen_redirect, int t)
+{
+	if (tab[*i] && !seen_redirect)
+	{
+		tab[*i][t] = '\0';
+		(*i)++;
 	}
 }

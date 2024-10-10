@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_cmd_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 13:11:19 by emfourni          #+#    #+#             */
-/*   Updated: 2024/10/09 19:28:18 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/10/10 12:22:38 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,41 +39,6 @@ int	check_for_cmd(char *s, int index, char c)
 			index++;
 	}
 	return (0);
-}
-
-void	copy_double(char *s, char *tab, int *j, int *t)
-{
-	if (s[*j] == 34)
-	{
-		(*j)++;
-		while (s[*j])
-		{
-			if (s[*j] == 34)
-			{
-				(*j)++;
-				break ;
-			}
-			tab[(*t)++] = s[(*j)++];
-		}
-	}
-}
-
-void	copy_everything(char *s, char *tab, int *j, int *t)
-{
-	copy_double(s, tab, j, t);
-	if (s[*j] == 39)
-	{
-		(*j)++;
-		while (s[*j])
-		{
-			if (s[*j] == 39)
-			{
-				(*j)++;
-				break ;
-			}
-			tab[(*t)++] = s[(*j)++];
-		}
-	}
 }
 
 char	*tab_alloc(char **tab, int index_string, int index_char)

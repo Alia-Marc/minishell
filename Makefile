@@ -21,6 +21,7 @@ PARSING = srcs/parsing/expand_var.c srcs/parsing/expand_var_len.c \
 		srcs/parsing/struct_filler/cmd_handler.c srcs/parsing/struct_filler/split_cmd.c \
 		srcs/parsing/struct_filler/split_pipes.c srcs/error/error_msg.c srcs/error/error_msg2.c \
 		srcs/parsing/struct_filler/split_cmd_utils.c srcs/parsing/struct_filler/skip_or_no_skip.c \
+		srcs/parsing/skipped_quotes.c srcs/parsing/copy_skipped_quotes.c \
 
 
 SIGNAL = srcs/signal/signal.c srcs/signal/signal_cmd.c

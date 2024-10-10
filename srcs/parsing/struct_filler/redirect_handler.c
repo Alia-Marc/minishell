@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_handler.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 12:22:35 by emilefourni       #+#    #+#             */
-/*   Updated: 2024/10/09 19:56:44 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/10/10 12:22:09 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,41 +31,6 @@ void	redirect_filler(char *cmd_line, int index, t_prompt *prompt, int mode)
 		else
 			index++;
 	}
-}
-
-void	skip_single_quotes(char *str, int *i)
-{
-	if (str[*i] == 39)
-	{
-		(*i)++;
-		while (str[*i])
-		{
-			if (str[*i] == 39)
-			{
-				(*i)++;
-				break ;
-			}
-			(*i)++;
-		}
-	}
-}
-
-void	skip_in_quotes(char *str, int *i)
-{
-	if (str[*i] == 34)
-	{
-		(*i)++;
-		while (str[*i])
-		{
-			if (str[*i] == 34)
-			{
-				(*i)++;
-				break ;
-			}
-			(*i)++;
-		}
-	}
-	skip_single_quotes(str, i);
 }
 
 void	redirect_handler(char *cmd_line, t_prompt *prompt)

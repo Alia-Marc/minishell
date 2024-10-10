@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_var_len.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:42:54 by marc              #+#    #+#             */
-/*   Updated: 2024/10/09 21:44:18 by marc             ###   ########.fr       */
+/*   Updated: 2024/10/10 11:39:55 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,6 @@ int	expanded_len(t_exec *exec, char *line)
 			i++;
 		len++;
 	}
-	ft_fdprintf(2, "len = %d\n", len);
+	//ft_fdprintf(2, "len = %d\n", len);
 	return (len);
 }

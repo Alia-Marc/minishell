@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:16:09 by emfourni          #+#    #+#             */
-/*   Updated: 2024/10/09 20:02:17 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/10/10 12:46:48 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ char		**split_cmd(char *cmd_line, char c);
 
 int			redirect_skip(char *s, int j, char c);
 int			check_for_cmd(char *s, int index, char c);
-void		copy_everything(char *s, char *tab, int *j, int *t);
 char		*tab_alloc(char **tab, int index_string, int index_char);
 
 //split_pipes.c
@@ -105,6 +104,14 @@ char		*expand_var(t_exec *exec, char *line);
 int			expanded_len(t_exec *exec, char *line);
 int			len_potential_var(char *line, int i);
 char		*expanded_var(t_exec *exec, char *name, int len_var);
+
+//skipped_quotes.c
+int			skipped_quotes(char *str, int *i);
+int			skipped_quotes_worddup(char *str, int *i, int *j);
+
+//copy_skipped_quotes.c
+void		copy_everything(char *s, char *tab, int *j, int *t);
+int			skipped_copy_quotes(char *s, char *tab, int *j, int *t);
 
 //parsing.c
 
