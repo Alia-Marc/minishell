@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 15:27:28 by emfourni          #+#    #+#             */
-/*   Updated: 2024/10/09 19:53:31 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/10/10 14:15:21 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ static char	**ft_strdupsplit(char **tab, int count_words, char *s, char c)
 			j++;
 		while ((s[j] != c && s[j]))
 		{
-			copy_everything(s, tab[i], &j, &t);
+			if (copy_everything(s, tab[i], &j, &t))
+				continue ;
 			if (ft_is_redirect(s[j]))
 			{
 				j = redirect_skip(s, j, c);

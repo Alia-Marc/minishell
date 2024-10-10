@@ -3,19 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   copy_skipped_quotes.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 12:21:46 by malia             #+#    #+#             */
-/*   Updated: 2024/10/10 13:02:32 by malia            ###   ########.fr       */
+/*   Updated: 2024/10/10 14:16:19 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/parsing.h"
 
-void	copy_double(char *s, char *tab, int *j, int *t)
+int	copy_double(char *s, char *tab, int *j, int *t)
 {
+	int	skipped;
+
+	skipped = 0;
 	if (s[*j] == 34)
 	{
+		skipped = 1;
 		(*j)++;
 		while (s[*j])
 		{
@@ -27,13 +31,17 @@ void	copy_double(char *s, char *tab, int *j, int *t)
 			tab[(*t)++] = s[(*j)++];
 		}
 	}
+	return (skipped);
 }
 
-void	copy_everything(char *s, char *tab, int *j, int *t)
+int	copy_everything(char *s, char *tab, int *j, int *t)
 {
-	copy_double(s, tab, j, t);
+	int	skipped;
+
+	skipped = copy_double(s, tab, j, t);
 	if (s[*j] == 39)
 	{
+		skipped = 1;
 		(*j)++;
 		while (s[*j])
 		{
@@ -45,6 +53,7 @@ void	copy_everything(char *s, char *tab, int *j, int *t)
 			tab[(*t)++] = s[(*j)++];
 		}
 	}
+	return (skipped);
 }
 
 int	skipped_copy_double(char *s, char *tab, int *j, int *t)

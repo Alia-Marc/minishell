@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_pipes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:59:41 by emfourni          #+#    #+#             */
-/*   Updated: 2024/10/10 13:22:10 by malia            ###   ########.fr       */
+/*   Updated: 2024/10/10 14:17:57 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	skipped_single_quotes_word(char *str, int *i, int *j, int *skipped)
 			if (str[*i] == 39)
 			{
 				(*i)++;
+				(*j)++;
 				break ;
 			}
 			(*i)++;
@@ -47,6 +48,7 @@ int	skipped_quotes_worddup(char *str, int *i, int *j)
 			if (str[*i] == 34)
 			{
 				(*i)++;
+				(*j)++;
 				break ;
 			}
 			(*i)++;
@@ -91,11 +93,8 @@ static	char	*ft_worddup(char *str, int i, char c)
 	int (index) = 0;
 	while (str[i] && str[i] != c)
 	{
-		if (skipped_quotes(str, &i))
-		{
-			index = i;
+		if (skipped_quotes_worddup(str, &i, &index))
 			continue ;
-		}
 		i++;
 		index++;
 	}

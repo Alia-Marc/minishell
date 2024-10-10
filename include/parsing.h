@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:16:09 by emfourni          #+#    #+#             */
-/*   Updated: 2024/10/10 12:46:48 by malia            ###   ########.fr       */
+/*   Updated: 2024/10/10 14:13:25 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int			skipped_quotes(char *str, int *i);
 int			skipped_quotes_worddup(char *str, int *i, int *j);
 
 //copy_skipped_quotes.c
-void		copy_everything(char *s, char *tab, int *j, int *t);
+int			copy_everything(char *s, char *tab, int *j, int *t);
 int			skipped_copy_quotes(char *s, char *tab, int *j, int *t);
 
 //parsing.c
