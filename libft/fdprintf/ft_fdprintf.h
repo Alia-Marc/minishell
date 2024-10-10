@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fdprintf.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 20:37:36 by marc              #+#    #+#             */
-/*   Updated: 2024/08/22 20:47:45 by marc             ###   ########.fr       */
+/*   Updated: 2024/10/09 19:41:07 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,5 @@ void		fd_pf_putnbr(int fd, int n);
 void		fd_pf_putunsigned(int fd, unsigned long long n,
 				unsigned long long len, char *base);
 void		fd_pf_putnbr_base(int fd, long long n, char *base);
-
 
 #endif

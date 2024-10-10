@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 06:06:24 by marc              #+#    #+#             */
-/*   Updated: 2024/10/03 07:00:09 by marc             ###   ########.fr       */
+/*   Updated: 2024/10/09 13:44:04 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	wait_children(t_exec *exec, int pid)
 	int	wait_status;
 
 	wait_status = -2;
-	init_sig(SIGINT, &handle_sigint_cmd);
+	signal(SIGINT, SIG_IGN);
 	while (errno != ECHILD)
 		if (wait(&wait_status) == pid && WIFEXITED(wait_status))
 			exec->exit = WEXITSTATUS(wait_status);
@@ -42,6 +42,12 @@ int	wait_children(t_exec *exec, int pid)
 	{
 		exec->exit = 131;
 		ft_putstr_fd("Quit (core dumped)\n", 2);
+		g_signal = 0;
+	}
+	else if (WIFSIGNALED(wait_status) && WTERMSIG(wait_status) == SIGINT)
+	{
+		ft_putstr_fd("\n", 1);
+		exec->exit = 130;
 		g_signal = 0;
 	}
 	return (exec->exit);

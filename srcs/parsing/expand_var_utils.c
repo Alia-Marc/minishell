@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handling.c                                   :+:      :+:    :+:   */
+/*   expand_var_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/26 00:39:25 by alia              #+#    #+#             */
-/*   Updated: 2024/10/08 13:08:22 by malia            ###   ########.fr       */
+/*   Created: 2024/10/10 15:08:53 by malia             #+#    #+#             */
+/*   Updated: 2024/10/10 15:09:07 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/exec.h"
+#include "../../include/parsing.h"
 
-void	error_handler(char *file, char *word, int code)
+void	copy_expand_end_tab(char *line, char *result, int *i, int *j)
 {
-	ft_printf("%s%s", file, word);
-	if (code == 0)
-		perror("");
+	result[*j] = line[*i];
+	(*i)++;
+	(*j)++;
 }
-
-// MDR c'est quoi ce fichier qui sert à rien

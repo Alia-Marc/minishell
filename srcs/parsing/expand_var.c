@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_var.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:06:45 by malia             #+#    #+#             */
-/*   Updated: 2024/09/18 21:39:10 by marc             ###   ########.fr       */
+/*   Updated: 2024/10/10 15:44:29 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,14 @@ char	*expanded_var(t_exec *exec, char *name, int len_var)
 	int	j;
 
 	i = 0;
-	//ft_fdprintf(2, "%s %d\n", name, len_var);
 	while (exec->env && exec->env[i])
 	{
 		j = 0;
 		while (exec->env[i][j] && exec->env[i][j] != '=')
 			j++;
-		if (ft_strncmp(name, exec->env[i], len_var) == 0)
-		{
-			//ft_fdprintf(2, "%s\n", &exec->env[i][j + 1]);
+		if (ft_strncmp(name, exec->env[i], len_var) == 0
+			&& exec->env[i][j] == '=')
 			return (&exec->env[i][j + 1]);
-		}
 		i++;
 	}
 	return (NULL);
@@ -49,14 +46,36 @@ static void	copy_expanded_var(char *result, char *value, int *j)
 	}
 }
 
+static int	copy_skip_single_quotes(char *str, int *i, char *result, int *j)
+{
+	while (str[*i])
+	{
+		result[*j] = str[*i];
+		(*i)++;
+		(*j)++;
+		if (str[*i] == 39)
+		{
+			result[*j] = str[*i];
+			(*i)++;
+			(*j)++;
+			break ;
+		}
+	}
+	return (1);
+}
+
 void	copy_expand(t_exec *exec, char *line, char *result, int *j)
 {
-	char	*val;
-	int		i;
-
-	i = 0;
+	char *(val) = NULL;
+	int (i) = 0;
+	bool (double_quotes) = false;
 	while (line[i])
 	{
+		if (line[i] == '\'' && !double_quotes
+			&& copy_skip_single_quotes(line, &i, result, j))
+			continue ;
+		if (line[i] == '\"')
+			double_quotes = !double_quotes;
 		if (line[i] == '$' && line[i + 1])
 		{
 			i++;
@@ -70,11 +89,7 @@ void	copy_expand(t_exec *exec, char *line, char *result, int *j)
 			i += len_potential_var(line, i);
 		}
 		else
-		{
-			result[*j] = line[i];
-			i++;
-			(*j)++;
-		}
+			copy_expand_end_tab(line, result, &i, j);
 	}
 }
 
@@ -85,7 +100,6 @@ char	*expand_var(t_exec *exec, char *line)
 
 	if (!line)
 		return (NULL);
-	// ft_fdprintf(2, "Expanded len : %d ", expanded_len(exec, line));
 	result = (char *)malloc(sizeof(char) * expanded_len(exec, line) + 1);
 	if (!result)
 		return (line);
@@ -93,6 +107,5 @@ char	*expand_var(t_exec *exec, char *line)
 	copy_expand(exec, line, result, &j);
 	free(line);
 	result[j] = '\0';
-	// ft_fdprintf(2, "result's len : %d\nexpanded line : %s\n", ft_strlen(result), result);
 	return (result);
 }

@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 17:51:53 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/19 16:46:58 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/10/09 19:44:33 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,36 +31,14 @@ int	nb_redirect(char *str)
 		if (ft_is_redirect(str[index]))
 			pos_redirect = index;
 		if (((str[index] == '>' && str[index + 1] == '<')
-			|| (str[index] == '<' && str[index + 1] == '>')) && !(is_char_in_quotes(str, index)))
+				|| (str[index] == '<' && str[index + 1] == '>'))
+			&& !(is_char_in_quotes(str, index)))
 			return (too_many_redirect(), 0);
 		if ((str[pos_redirect + 1] && ft_is_redirect(str[index])
-			&& ft_is_redirect(str[pos_redirect + 2])) && !(is_char_in_quotes(str, index)))
+				&& ft_is_redirect(str[pos_redirect + 2]))
+			&& !(is_char_in_quotes(str, index)))
 			return (too_many_redirect(), 0);
 		index++;
-	}
-	return (1);
-}
-
-int	check_parenthesis(char *str)
-{
-	int	index;
-
-	index = 0;
-	if (!str)
-		return (0);
-	while (str[index] != '\0')
-	{
-		if (ft_is_redirect(str[index]) && !(is_char_in_quotes(str, index)))
-		{
-			while (str[index])
-			{
-				if (str[index] == '(' || str[index] == ')')
-					return (ft_metachar_near_token(), 0);
-				index++;
-			}
-		}
-		if (str[index])
-			index++;
 	}
 	return (1);
 }
@@ -91,8 +69,6 @@ int	check_empty_name(char *str)
 int	redirect_checker(char *cmd_line)
 {
 	if (!nb_redirect(cmd_line))
-		return (0);
-	if (!check_parenthesis(cmd_line))
 		return (0);
 	if (!check_empty_name(cmd_line))
 		return (0);

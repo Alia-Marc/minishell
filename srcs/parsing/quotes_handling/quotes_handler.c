@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:13:39 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/19 15:18:45 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/10/09 19:41:45 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	single_quote_closed(char *str)
 	index = 0;
 	while (str[index])
 	{
-		if (str[index] == 39)
+		if (str[index] == 39 && !is_char_in_double_quotes(str, index))
 		{
 			index++;
 			while (str[index] != 39 && str[index])
@@ -41,7 +41,7 @@ int	double_quote_closed(char *str)
 	index = 0;
 	while (str[index])
 	{
-		if (str[index] == 34)
+		if (str[index] == 34 && !is_char_in_single_quotes(str, index))
 		{
 			index++;
 			while (str[index] != 34 && str[index])
@@ -58,22 +58,22 @@ int	double_quote_closed(char *str)
 
 int	even_nb_outside_quote(char *str)
 {
-	size_t	i;
-	size_t	outside_single_quote;
-	size_t	outside_double_quote;
+	int		i;
+	bool	single_quotes_open;
+	bool	double_quotes_open;
 
 	i = 0;
-	outside_single_quote = 0;
-	outside_double_quote = 0;
+	single_quotes_open = false;
+	double_quotes_open = false;
 	while (str[i])
 	{
-		if (str[i] == 39)
-			outside_single_quote++;
-		else if (str[i] == 34)
-			outside_double_quote++;
+		if (str[i] == 34 && !is_char_in_single_quotes(str, i))
+			double_quotes_open = !double_quotes_open;
+		if (str[i] == 39 && !is_char_in_double_quotes(str, i))
+			single_quotes_open = !single_quotes_open;
 		i++;
 	}
-	if (outside_single_quote % 2 != 0 || outside_double_quote % 2 != 0)
+	if (single_quotes_open || double_quotes_open)
 		return (0);
 	return (1);
 }

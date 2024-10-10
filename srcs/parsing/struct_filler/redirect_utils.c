@@ -6,7 +6,7 @@
 /*   By: emfourni <emfourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 17:23:59 by emfourni          #+#    #+#             */
-/*   Updated: 2024/09/19 16:11:42 by emfourni         ###   ########.fr       */
+/*   Updated: 2024/10/09 19:42:30 by emfourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,18 @@ void	fileadd_back(t_file **file, t_file *new)
 	}
 }
 
-// void	free_file(t_file **file)
-// {
-// 	t_file	*tmp;
-
-// 	if (!file)
-// 		return ;
-// 	while (*file)
-// 	{
-// 		tmp = (*file)->next;
-// 		free((*file)->file);
-// 		free(*file);
-// 		*file = tmp;
-// 	}
-// }
+int	is_in_redirect(char *s, int index, int max_index)
+{
+	while (s[index] && index < max_index)
+	{
+		skip_in_quotes(s, &index);
+		if (ft_is_redirect(s[index]))
+			return (1);
+		if (s[index])
+			index++;
+	}
+	return (0);
+}
 
 char	*ft_strdupnospace(char *str, int index)
 {
@@ -82,7 +80,7 @@ char	*ft_strdupnospace(char *str, int index)
 		index++;
 		len++;
 	}
-	dup = ft_calloc(sizeof(char), (len + 2));
+	dup = ft_calloc(sizeof(char), (len + 1));
 	if (dup == 0 || len == 0)
 		return (NULL);
 	while (!ft_isspace(str[temp]) && str[temp] && !ft_is_metachar(str[temp]))

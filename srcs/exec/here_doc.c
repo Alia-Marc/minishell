@@ -87,7 +87,7 @@ void	close_unused_next_hd(t_prompt *prompt, int next)
 // {
 // 	int		pipe_fd1[2];
 // 	int		pipe_fd2[2];
-// 	pid_t	pid;	
+// 	pid_t	pid;
 
 // 	if (pipe(pipe_fd1) == -1)
 // 		exit(0);

@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 17:22:01 by alia              #+#    #+#             */
-/*   Updated: 2024/10/02 02:06:06 by marc             ###   ########.fr       */
+/*   Updated: 2024/10/09 13:47:04 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/exec.h"
+
+static int	invalid_redir(t_prompt *tmp_prompt, t_file *tmp_file, int tmp_fd)
+{
+	if (tmp_fd < 0)
+	{
+		tmp_prompt->error = 1;
+		if (access(tmp_file->file, F_OK) == 0)
+			ft_fdprintf(2, PERMISSION_DENIED, tmp_file->file);
+		else
+			ft_fdprintf(2, NO_SUCH_FILE_OR_DIR, tmp_file->file);
+		return (1);
+	}
+	return (0);
+}
 
 int	open_close_redir(t_prompt *prompt, t_exec *exec)
 {
@@ -29,16 +43,8 @@ int	open_close_redir(t_prompt *prompt, t_exec *exec)
 			tmp_fd = open_file(tmp_prompt, exec, tmp_file);
 			if (g_signal == SIGINT && hd_sigint_skip(prompt, exec))
 				return (close(tmp_fd), 0);
-			if (tmp_fd < 0)
-			{
-				tmp_prompt->error = 1;
-				if (access(tmp_file->file, F_OK) == 0)
-					ft_fdprintf(2, PERMISSION_DENIED, tmp_file->file);
-				else
-					ft_fdprintf(2, NO_SUCH_FILE_OR_DIR, tmp_file->file);
+			if (invalid_redir(tmp_prompt, tmp_file, tmp_fd))
 				break ;
-			}
-			//return (ft_fdprintf(2, NO_SUCH_FILE_OR_DIR, tmp_file->file), 0);//shoud be exiting and asking for a new prompt instead of continuing like now
 			if (tmp_file->mode != 3)
 				close(tmp_fd);
 			tmp_file = tmp_file->next;

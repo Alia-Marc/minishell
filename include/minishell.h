@@ -20,7 +20,6 @@
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <signal.h>
 
 extern int			g_signal;
 

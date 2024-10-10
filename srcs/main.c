@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alia <alia@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 19:41:10 by marc              #+#    #+#             */
-/*   Updated: 2024/10/03 00:21:58 by alia             ###   ########.fr       */
+/*   Updated: 2024/10/09 19:23:51 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/parsing.h"
 #include "../include/exec.h"
 
-int g_signal = 0;
+int	g_signal = 0;
 
 static void	parse_and_exec(t_prompt *prompt, t_exec *exec, char *line)
 {
@@ -65,21 +65,3 @@ int	main(int ac, char **av, char **env)
 	}
 	exit_free_all(prompt, exec, exec->exit);
 }
-
-// int main(int argc, char **argv, char **env)
-// {
-// 	t_exec		*exec;
-// 	t_prompt	*prompt;
-
-// 	(void) argc;
-// 	exec = init_exec(env);
-// 	prompt = NULL;
-// 	if (!exec)
-// 		return (1);
-// 	parse_and_exec(prompt, exec, argv[1]);
-// 	reset_exec(exec);
-// 	exit_free_all(prompt, exec, exec->exit);
-// 	return argc;
-// }
-
-

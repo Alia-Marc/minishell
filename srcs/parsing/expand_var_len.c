@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_var_len.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marc <marc@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malia <malia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:42:54 by marc              #+#    #+#             */
-/*   Updated: 2024/09/18 21:01:56 by marc             ###   ########.fr       */
+/*   Updated: 2024/10/10 15:45:06 by malia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,41 @@ static int	len_expanded_errno(t_exec *exec)
 	return (1);
 }
 
+static int	len_skip_single_quotes(char *str, int *i, int *len, bool double_qt)
+{
+	int	skipped;
+
+	skipped = 0;
+	if (str[*i] == 39 && !double_qt)
+	{
+		skipped = 1;
+		while (str[*i])
+		{
+			(*i)++;
+			(*len)++;
+			if (str[*i] == 39)
+			{
+				(*i)++;
+				(*len)++;
+				break ;
+			}
+		}
+	}
+	return (skipped);
+}
+
 int	expanded_len(t_exec *exec, char *line)
 {
-	int	i;
-	int	len;
-	int	len_var;
-
-	i = 0;
-	len = 0;
+	int (len_var) = 0;
+	int (i) = 0;
+	int (len) = 0;
+	bool (double_quotes) = false;
 	while (line[i])
 	{
+		if (len_skip_single_quotes(line, &i, &len, double_quotes))
+			continue ;
+		if (line[i] == '\"')
+			double_quotes = !double_quotes;
 		if (line[i] == '$' && line[i + 1])
 		{
 			i++;
@@ -56,8 +81,7 @@ int	expanded_len(t_exec *exec, char *line)
 			if (line[i] == '?')
 				len += len_expanded_errno(exec) - len_var - 1;
 			else
-				len += ft_strlen(expanded_var(exec, &line[i], len_var))
-					- len_var - 1;
+				len += ft_strlen(expanded_var(exec, &line[i], len_var));
 		}
 		else
 			i++;
